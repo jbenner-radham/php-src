@@ -141,8 +141,8 @@ END_EXTERN_C()
 #define ZEND_RETURN_BY_REF                   111
 #define ZEND_INIT_METHOD_CALL                112
 #define ZEND_INIT_STATIC_METHOD_CALL         113
-#define ZEND_ISSET_ISEMPTY_VAR               114
-#define ZEND_ISSET_ISEMPTY_DIM_OBJ           115
+#define ZEND_IS_SET_ISEMPTY_VAR               114
+#define ZEND_IS_SET_ISEMPTY_DIM_OBJ           115
 #define ZEND_PRE_INC_OBJ                     132
 #define ZEND_PRE_DEC_OBJ                     133
 #define ZEND_POST_INC_OBJ                    134
@@ -158,7 +158,7 @@ END_EXTERN_C()
 #define ZEND_DECLARE_INHERITED_CLASS_DELAYED 145
 #define ZEND_VERIFY_ABSTRACT_CLASS           146
 #define ZEND_ASSIGN_DIM                      147
-#define ZEND_ISSET_ISEMPTY_PROP_OBJ          148
+#define ZEND_IS_SET_ISEMPTY_PROP_OBJ         148
 #define ZEND_HANDLE_EXCEPTION                149
 #define ZEND_USER_OPCODE                     150
 #define ZEND_JMP_SET                         152

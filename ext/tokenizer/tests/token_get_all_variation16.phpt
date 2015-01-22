@@ -12,11 +12,11 @@ Test token_get_all() function : usage variations - with function constructs
 /*
  * Testing token_get_all() with different function keywords
  *   function - T_FUNCTION(333), return - T_RETURN(335)
- *   different functions: 
- *     include() - T_INCLUDE(262), print() - T_PRINT(266), 
- *     isset() - T_ISSET(349), list() - T_LIST(358), 
- *     require() - T_REQUIRE(259), empty() - T_EMPTY(350), 
- *     declare() - T_DECLARE(324), array() - T_ARRAY(359), 
+ *   different functions:
+ *     include() - T_INCLUDE(262), print() - T_PRINT(266),
+ *     is_set() - T_IS_SET(349), list() - T_LIST(358),
+ *     require() - T_REQUIRE(259), empty() - T_EMPTY(350),
+ *     declare() - T_DECLARE(324), array() - T_ARRAY(359),
  *      __halt_compiler() - T_HALT_COMPILER(351)
 */
 
@@ -46,7 +46,7 @@ else
   print($b);
 
 list($value1,$value2) = $c;
-if(empty($value1) && !isset($value1)) {
+if(empty($value1) && !is_set($value1)) {
   myFunction();
 }
 ?>';
@@ -913,7 +913,7 @@ array(142) {
     [0]=>
     int(%d)
     [1]=>
-    string(5) "isset"
+    string(5) "is_set"
     [2]=>
     int(25)
   }

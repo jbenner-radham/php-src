@@ -1617,7 +1617,7 @@ void zend_do_begin_function_declaration(znode *function_token, znode *function_n
 				if (fn_flags & ((ZEND_ACC_PPP_MASK | ZEND_ACC_STATIC) ^ ZEND_ACC_PUBLIC)) {
 					zend_error(E_WARNING, "The magic method __unset() must have public visibility and cannot be static");
 				}
-			} else if ((name_len == sizeof(ZEND_ISSET_FUNC_NAME)-1) && (!memcmp(lcname, ZEND_ISSET_FUNC_NAME, sizeof(ZEND_ISSET_FUNC_NAME)-1))) {
+			} else if ((name_len == sizeof(ZEND_IS_SET_FUNC_NAME)-1) && (!memcmp(lcname, ZEND_IS_SET_FUNC_NAME, sizeof(ZEND_IS_SET_FUNC_NAME)-1))) {
 				if (fn_flags & ((ZEND_ACC_PPP_MASK | ZEND_ACC_STATIC) ^ ZEND_ACC_PUBLIC)) {
 					zend_error(E_WARNING, "The magic method __isset() must have public visibility and cannot be static");
 				}
@@ -1680,7 +1680,7 @@ void zend_do_begin_function_declaration(znode *function_token, znode *function_n
 					zend_error(E_WARNING, "The magic method __unset() must have public visibility and cannot be static");
 				}
 				CG(active_class_entry)->__unset = (zend_function *) CG(active_op_array);
-			} else if ((name_len == sizeof(ZEND_ISSET_FUNC_NAME)-1) && (!memcmp(lcname, ZEND_ISSET_FUNC_NAME, sizeof(ZEND_ISSET_FUNC_NAME)-1))) {
+			} else if ((name_len == sizeof(ZEND_IS_SET_FUNC_NAME)-1) && (!memcmp(lcname, ZEND_IS_SET_FUNC_NAME, sizeof(ZEND_IS_SET_FUNC_NAME)-1))) {
 				if (fn_flags & ((ZEND_ACC_PPP_MASK | ZEND_ACC_STATIC) ^ ZEND_ACC_PUBLIC)) {
 					zend_error(E_WARNING, "The magic method __isset() must have public visibility and cannot be static");
 				}
@@ -3993,7 +3993,7 @@ static void zend_add_magic_methods(zend_class_entry* ce, const char* mname, uint
 		ce->__call = fe;
 	} else if (!strncmp(mname, ZEND_UNSET_FUNC_NAME, mname_len)) {
 		ce->__unset = fe;
-	} else if (!strncmp(mname, ZEND_ISSET_FUNC_NAME, mname_len)) {
+	} else if (!strncmp(mname, ZEND_IS_SET_FUNC_NAME, mname_len)) {
 		ce->__isset = fe;
 	} else if (!strncmp(mname, ZEND_CALLSTATIC_FUNC_NAME, mname_len)) {
 		ce->__callstatic = fe;
@@ -6263,7 +6263,7 @@ void zend_do_unset(const znode *variable TSRMLS_DC) /* {{{ */
 }
 /* }}} */
 
-void zend_do_isset_or_isempty(int type, znode *result, znode *variable TSRMLS_DC) /* {{{ */
+void zend_do_is_set_or_isempty(int type, znode *result, znode *variable TSRMLS_DC) /* {{{ */
 {
 	zend_op *last_op;
 
@@ -6274,7 +6274,7 @@ void zend_do_isset_or_isempty(int type, znode *result, znode *variable TSRMLS_DC
 			/* empty(func()) can be transformed to !func() */
 			zend_do_unary_op(ZEND_BOOL_NOT, result, variable TSRMLS_CC);
 		} else {
-			zend_error_noreturn(E_COMPILE_ERROR, "Cannot use isset() on the result of a function call (you can use \"null !== func()\" instead)");
+			zend_error_noreturn(E_COMPILE_ERROR, "Cannot use is_set() on the result of a function call (you can use \"null !== func()\" instead)");
 		}
 
 		return;
@@ -6282,7 +6282,7 @@ void zend_do_isset_or_isempty(int type, znode *result, znode *variable TSRMLS_DC
 
 	if (variable->op_type == IS_CV) {
 		last_op = get_next_op(CG(active_op_array) TSRMLS_CC);
-		last_op->opcode = ZEND_ISSET_ISEMPTY_VAR;
+		last_op->opcode = ZEND_IS_SET_ISEMPTY_VAR;
 		SET_NODE(last_op->op1, variable);
 		SET_UNUSED(last_op->op2);
 		last_op->result.var = get_temporary_variable(CG(active_op_array));
@@ -6292,13 +6292,13 @@ void zend_do_isset_or_isempty(int type, znode *result, znode *variable TSRMLS_DC
 
 		switch (last_op->opcode) {
 			case ZEND_FETCH_IS:
-				last_op->opcode = ZEND_ISSET_ISEMPTY_VAR;
+				last_op->opcode = ZEND_IS_SET_ISEMPTY_VAR;
 				break;
 			case ZEND_FETCH_DIM_IS:
-				last_op->opcode = ZEND_ISSET_ISEMPTY_DIM_OBJ;
+				last_op->opcode = ZEND_IS_SET_ISEMPTY_DIM_OBJ;
 				break;
 			case ZEND_FETCH_OBJ_IS:
-				last_op->opcode = ZEND_ISSET_ISEMPTY_PROP_OBJ;
+				last_op->opcode = ZEND_IS_SET_ISEMPTY_PROP_OBJ;
 				break;
 		}
 	}

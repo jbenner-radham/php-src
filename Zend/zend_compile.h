@@ -614,7 +614,7 @@ void zend_do_cast(znode *result, const znode *expr, int type TSRMLS_DC);
 void zend_do_include_or_eval(int type, znode *result, const znode *op1 TSRMLS_DC);
 
 void zend_do_unset(const znode *variable TSRMLS_DC);
-void zend_do_isset_or_isempty(int type, znode *result, znode *variable TSRMLS_DC);
+void zend_do_is_set_or_isempty(int type, znode *result, znode *variable TSRMLS_DC);
 
 void zend_do_instanceof(znode *result, const znode *expr, const znode *class_znode, int type TSRMLS_DC);
 
@@ -814,9 +814,9 @@ int zend_add_literal(zend_op_array *op_array, const zval *zv TSRMLS_DC);
 #define ZEND_FETCH_ADD_LOCK		    0x08000000
 #define ZEND_FETCH_MAKE_REF		    0x04000000
 
-#define ZEND_ISSET				    0x02000000
+#define ZEND_IS_SET				    0x02000000
 #define ZEND_ISEMPTY			    0x01000000
-#define ZEND_ISSET_ISEMPTY_MASK	    (ZEND_ISSET | ZEND_ISEMPTY)
+#define ZEND_IS_SET_ISEMPTY_MASK	(ZEND_IS_SET | ZEND_ISEMPTY)
 #define ZEND_QUICK_SET			    0x00800000
 
 #define ZEND_FETCH_ARG_MASK         0x000fffff
@@ -877,7 +877,7 @@ END_EXTERN_C()
 #define ZEND_GET_FUNC_NAME          "__get"
 #define ZEND_SET_FUNC_NAME          "__set"
 #define ZEND_UNSET_FUNC_NAME        "__unset"
-#define ZEND_ISSET_FUNC_NAME        "__isset"
+#define ZEND_IS_SET_FUNC_NAME       "__isset"
 #define ZEND_CALL_FUNC_NAME         "__call"
 #define ZEND_CALLSTATIC_FUNC_NAME   "__callstatic"
 #define ZEND_TOSTRING_FUNC_NAME     "__tostring"

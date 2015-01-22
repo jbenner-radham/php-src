@@ -87,7 +87,7 @@ static YYSIZE_T zend_yytnamerr(char*, const char*);
 %left '?' ':'
 %left T_BOOLEAN_OR
 %token T_BOOLEAN_OR   "|| (T_BOOLEAN_OR)"
-%left T_BOOLEAN_AND 
+%left T_BOOLEAN_AND
 %token T_BOOLEAN_AND  "&& (T_BOOLEAN_AND)"
 %left '|'
 %left '^'
@@ -127,9 +127,9 @@ static YYSIZE_T zend_yytnamerr(char*, const char*);
 %token T_IF        "if (T_IF)"
 %left T_ELSEIF
 %token T_ELSEIF    "elseif (T_ELSEIF)"
-%left T_ELSE 
+%left T_ELSE
 %token T_ELSE      "else (T_ELSE)"
-%left T_ENDIF 
+%left T_ENDIF
 %token T_ENDIF     "endif (T_ENDIF)"
 %token T_LNUMBER   "integer number (T_LNUMBER)"
 %token T_DNUMBER   "floating-point number (T_DNUMBER)"
@@ -179,7 +179,7 @@ static YYSIZE_T zend_yytnamerr(char*, const char*);
 %token T_PUBLIC     "public (T_PUBLIC)"
 %token T_VAR        "var (T_VAR)"
 %token T_UNSET      "unset (T_UNSET)"
-%token T_ISSET      "isset (T_ISSET)"
+%token T_IS_SET      "is_set (T_IS_SET)"
 %token T_EMPTY      "empty (T_EMPTY)"
 %token T_HALT_COMPILER "__halt_compiler (T_HALT_COMPILER)"
 %token T_CLASS      "class (T_CLASS)"
@@ -358,7 +358,7 @@ unticked_statement:
 
 catch_statement:
 				/* empty */ { $$.op_type = IS_UNUSED; }
-	|	T_CATCH '(' { zend_initialize_try_catch_element(&$1 TSRMLS_CC); } 
+	|	T_CATCH '(' { zend_initialize_try_catch_element(&$1 TSRMLS_CC); }
 		fully_qualified_class_name { zend_do_first_catch(&$2 TSRMLS_CC); }
 		T_VARIABLE ')' { zend_do_begin_catch(&$1, &$4, &$6, &$2 TSRMLS_CC); }
 		'{' inner_statement_list '}' { zend_do_end_catch(&$1 TSRMLS_CC); }
@@ -1263,8 +1263,8 @@ encaps_var_offset:
 
 
 internal_functions_in_yacc:
-		T_ISSET '(' isset_variables ')' { $$ = $3; }
-	|	T_EMPTY '(' variable ')'	{ zend_do_isset_or_isempty(ZEND_ISEMPTY, &$$, &$3 TSRMLS_CC); }
+		T_IS_SET '(' is_set_variables ')' { $$ = $3; }
+	|	T_EMPTY '(' variable ')'	{ zend_do_is_set_or_isempty(ZEND_ISEMPTY, &$$, &$3 TSRMLS_CC); }
 	|	T_EMPTY '(' expr_without_variable ')' { zend_do_unary_op(ZEND_BOOL_NOT, &$$, &$3 TSRMLS_CC); }
 	|	T_INCLUDE expr 			{ zend_do_include_or_eval(ZEND_INCLUDE, &$$, &$2 TSRMLS_CC); }
 	|	T_INCLUDE_ONCE expr 	{ zend_do_include_or_eval(ZEND_INCLUDE_ONCE, &$$, &$2 TSRMLS_CC); }
@@ -1273,14 +1273,14 @@ internal_functions_in_yacc:
 	|	T_REQUIRE_ONCE expr		{ zend_do_include_or_eval(ZEND_REQUIRE_ONCE, &$$, &$2 TSRMLS_CC); }
 ;
 
-isset_variables:
-		isset_variable			{ $$ = $1; }
-	|	isset_variables ',' { zend_do_boolean_and_begin(&$1, &$2 TSRMLS_CC); } isset_variable { zend_do_boolean_and_end(&$$, &$1, &$4, &$2 TSRMLS_CC); }
+is_set_variables:
+		is_set_variable			{ $$ = $1; }
+	|	is_set_variables ',' { zend_do_boolean_and_begin(&$1, &$2 TSRMLS_CC); } is_set_variable { zend_do_boolean_and_end(&$$, &$1, &$4, &$2 TSRMLS_CC); }
 ;
 
-isset_variable:
-		variable				{ zend_do_isset_or_isempty(ZEND_ISSET, &$$, &$1 TSRMLS_CC); }
-	|	expr_without_variable	{ zend_error_noreturn(E_COMPILE_ERROR, "Cannot use isset() on the result of an expression (you can use \"null !== expression\" instead)"); }
+is_set_variable:
+		variable				{ zend_do_is_set_or_isempty(ZEND_IS_SET, &$$, &$1 TSRMLS_CC); }
+	|	expr_without_variable	{ zend_error_noreturn(E_COMPILE_ERROR, "Cannot use is_set() on the result of an expression (you can use \"null !== expression\" instead)"); }
 ;
 
 class_constant:
@@ -1316,7 +1316,7 @@ static YYSIZE_T zend_yytnamerr(char *yyres, const char *yystr)
 			char buffer[120];
 			const unsigned char *end, *str, *tok1 = NULL, *tok2 = NULL;
 			unsigned int len = 0, toklen = 0, yystr_len;
-			
+
 			CG(parse_error) = 1;
 
 			if (LANG_SCNG(yy_text)[0] == 0 &&
@@ -1325,11 +1325,11 @@ static YYSIZE_T zend_yytnamerr(char *yyres, const char *yystr)
 				yystpcpy(yyres, "end of file");
 				return sizeof("end of file")-1;
 			}
-			
+
 			str = LANG_SCNG(yy_text);
 			end = memchr(str, '\n', LANG_SCNG(yy_leng));
 			yystr_len = yystrlen(yystr);
-			
+
 			if ((tok1 = memchr(yystr, '(', yystr_len)) != NULL
 				&& (tok2 = zend_memrchr(yystr, ')', yystr_len)) != NULL) {
 				toklen = (tok2 - tok1) + 1;
@@ -1337,7 +1337,7 @@ static YYSIZE_T zend_yytnamerr(char *yyres, const char *yystr)
 				tok1 = tok2 = NULL;
 				toklen = 0;
 			}
-			
+
 			if (end == NULL) {
 				len = LANG_SCNG(yy_leng) > 30 ? 30 : LANG_SCNG(yy_leng);
 			} else {
@@ -1350,8 +1350,8 @@ static YYSIZE_T zend_yytnamerr(char *yyres, const char *yystr)
 			}
 			yystpcpy(yyres, buffer);
 			return len + (toklen ? toklen + 1 : 0) + 2;
-		}		
-	}	
+		}
+	}
 	if (*yystr == '"') {
 		YYSIZE_T yyn = 0;
 		const char *yyp = yystr;

@@ -1283,8 +1283,8 @@ NEWLINE ("\r"|"\n"|"\r\n")
 	return T_GLOBAL;
 }
 
-<ST_IN_SCRIPTING>"isset" {
-	return T_ISSET;
+<ST_IN_SCRIPTING>"is_set" {
+	return T_IS_SET;
 }
 
 <ST_IN_SCRIPTING>"empty" {

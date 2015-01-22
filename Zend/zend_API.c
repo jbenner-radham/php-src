@@ -1074,7 +1074,7 @@ static int zval_update_class_constant(zval **pp, int is_static, int offset TSRML
 						*scope = old_scope;
 						return ret;
 					}
-				}				
+				}
 				ce = ce->parent;
 			} while (ce);
 
@@ -1836,7 +1836,7 @@ ZEND_API void zend_collect_module_handlers(TSRMLS_D) /* {{{ */
 	module_post_deactivate_handlers = module_request_shutdown_handlers + shutdown_count + 1;
 	module_post_deactivate_handlers[post_deactivate_count] = NULL;
 	startup_count = 0;
-	
+
 	for (zend_hash_internal_pointer_reset_ex(&module_registry, &pos);
 	     zend_hash_get_current_data_ex(&module_registry, (void *) &module, &pos) == SUCCESS;
 	     zend_hash_move_forward_ex(&module_registry, &pos)) {
@@ -1994,11 +1994,11 @@ ZEND_API void zend_check_magic_method_implementation(const zend_class_entry *ce,
 		} else if (ARG_SHOULD_BE_SENT_BY_REF(fptr, 1)) {
 			zend_error(error_type, "Method %s::%s() cannot take arguments by reference", ce->name, ZEND_UNSET_FUNC_NAME);
 		}
-	} else if (name_len == sizeof(ZEND_ISSET_FUNC_NAME) - 1 && !memcmp(lcname, ZEND_ISSET_FUNC_NAME, sizeof(ZEND_ISSET_FUNC_NAME) - 1)) {
+	} else if (name_len == sizeof(ZEND_IS_SET_FUNC_NAME) - 1 && !memcmp(lcname, ZEND_IS_SET_FUNC_NAME, sizeof(ZEND_IS_SET_FUNC_NAME) - 1)) {
 		if (fptr->common.num_args != 1) {
-			zend_error(error_type, "Method %s::%s() must take exactly 1 argument", ce->name, ZEND_ISSET_FUNC_NAME);
+			zend_error(error_type, "Method %s::%s() must take exactly 1 argument", ce->name, ZEND_IS_SET_FUNC_NAME);
 		} else if (ARG_SHOULD_BE_SENT_BY_REF(fptr, 1)) {
-			zend_error(error_type, "Method %s::%s() cannot take arguments by reference", ce->name, ZEND_ISSET_FUNC_NAME);
+			zend_error(error_type, "Method %s::%s() cannot take arguments by reference", ce->name, ZEND_IS_SET_FUNC_NAME);
 		}
 	} else if (name_len == sizeof(ZEND_CALL_FUNC_NAME) - 1 && !memcmp(lcname, ZEND_CALL_FUNC_NAME, sizeof(ZEND_CALL_FUNC_NAME) - 1)) {
 		if (fptr->common.num_args != 2) {
@@ -2083,7 +2083,7 @@ ZEND_API int zend_register_functions(zend_class_entry *scope, const zend_functio
 		}
 		if (ptr->arg_info) {
 			zend_internal_function_info *info = (zend_internal_function_info*)ptr->arg_info;
-			
+
 			internal_function->arg_info = (zend_arg_info*)ptr->arg_info+1;
 			internal_function->num_args = ptr->num_args;
 			/* Currently you cannot denote that the function can accept less arguments than num_args */
@@ -2181,7 +2181,7 @@ ZEND_API int zend_register_functions(zend_class_entry *scope, const zend_functio
 				__set = reg_function;
 			} else if ((fname_len == sizeof(ZEND_UNSET_FUNC_NAME)-1) && !memcmp(lowercase_name, ZEND_UNSET_FUNC_NAME, sizeof(ZEND_UNSET_FUNC_NAME) - 1)) {
 				__unset = reg_function;
-			} else if ((fname_len == sizeof(ZEND_ISSET_FUNC_NAME)-1) && !memcmp(lowercase_name, ZEND_ISSET_FUNC_NAME, sizeof(ZEND_ISSET_FUNC_NAME) - 1)) {
+			} else if ((fname_len == sizeof(ZEND_IS_SET_FUNC_NAME)-1) && !memcmp(lowercase_name, ZEND_IS_SET_FUNC_NAME, sizeof(ZEND_IS_SET_FUNC_NAME) - 1)) {
 				__isset = reg_function;
 			} else if ((fname_len == sizeof(ZEND_DEBUGINFO_FUNC_NAME)-1) && !memcmp(lowercase_name, ZEND_DEBUGINFO_FUNC_NAME, sizeof(ZEND_DEBUGINFO_FUNC_NAME) - 1)) {
 				__debugInfo = reg_function;
@@ -2701,7 +2701,7 @@ static int zend_is_callable_check_class(const char *name, int name_len, zend_fca
 			}
 			ret = 1;
 		}
-	} else if (name_len == sizeof("parent") - 1 && 
+	} else if (name_len == sizeof("parent") - 1 &&
 		       !memcmp(lcname, "parent", sizeof("parent") - 1)) {
 		if (!EG(scope)) {
 			if (error) *error = estrdup("cannot access parent:: when no class scope is active");
@@ -3030,7 +3030,7 @@ ZEND_API zend_bool zend_is_callable_ex(zval *callable, zval *object_ptr, uint ch
 	if (error) {
 		*error = NULL;
 	}
-	
+
 	fcc->initialized = 0;
 	fcc->calling_scope = NULL;
 	fcc->called_scope = NULL;
@@ -3042,7 +3042,7 @@ ZEND_API zend_bool zend_is_callable_ex(zval *callable, zval *object_ptr, uint ch
 		object_ptr = NULL;
 	}
 	if (object_ptr &&
-	    (!EG(objects_store).object_buckets || 
+	    (!EG(objects_store).object_buckets ||
 	     !EG(objects_store).object_buckets[Z_OBJ_HANDLE_P(object_ptr)].valid)) {
 		return 0;
 	}
@@ -3123,7 +3123,7 @@ ZEND_API zend_bool zend_is_callable_ex(zval *callable, zval *object_ptr, uint ch
 						}
 
 					} else {
-						if (!EG(objects_store).object_buckets || 
+						if (!EG(objects_store).object_buckets ||
 						    !EG(objects_store).object_buckets[Z_OBJ_HANDLE_PP(obj)].valid) {
 							return 0;
 						}
@@ -3192,7 +3192,7 @@ ZEND_API zend_bool zend_is_callable_ex(zval *callable, zval *object_ptr, uint ch
 					*callable_name = emalloc(*callable_name_len + 1);
 					memcpy(*callable_name, ce->name, ce->name_length);
 					memcpy((*callable_name) + ce->name_length, "::__invoke", sizeof("::__invoke"));
-				}									
+				}
 				return 1;
 			}
 			/* break missing intentionally */

@@ -84,7 +84,7 @@ echo token_name(T_GLOBAL), "\n";
 echo token_name(T_STATIC), "\n";
 echo token_name(T_VAR), "\n";
 echo token_name(T_UNSET), "\n";
-echo token_name(T_ISSET), "\n";
+echo token_name(T_IS_SET), "\n";
 echo token_name(T_EMPTY), "\n";
 echo token_name(T_CLASS), "\n";
 echo token_name(T_EXTENDS), "\n";
@@ -130,7 +130,7 @@ echo token_name(array()), "\n";
 
 echo "Done\n";
 ?>
---EXPECTF--	
+--EXPECTF--
 T_INCLUDE
 T_INCLUDE_ONCE
 T_EVAL
@@ -210,7 +210,7 @@ T_GLOBAL
 T_STATIC
 T_VAR
 T_UNSET
-T_ISSET
+T_IS_SET
 T_EMPTY
 T_CLASS
 T_EXTENDS

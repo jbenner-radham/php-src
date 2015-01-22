@@ -1158,8 +1158,8 @@ static void zend_optimize_block(zend_code_block *block, zend_op_array *op_array,
 					VAR_SOURCE(opline->op1)->opcode == ZEND_BOOL ||
 					VAR_SOURCE(opline->op1)->opcode == ZEND_IS_IDENTICAL ||
 					VAR_SOURCE(opline->op1)->opcode == ZEND_IS_NOT_IDENTICAL ||
-					VAR_SOURCE(opline->op1)->opcode == ZEND_ISSET_ISEMPTY_VAR ||
-					VAR_SOURCE(opline->op1)->opcode == ZEND_ISSET_ISEMPTY_DIM_OBJ) &&
+					VAR_SOURCE(opline->op1)->opcode == ZEND_IS_SET_ISEMPTY_VAR ||
+					VAR_SOURCE(opline->op1)->opcode == ZEND_IS_SET_ISEMPTY_DIM_OBJ) &&
 					!used_ext[VAR_NUM(ZEND_OP1(opline).var)]) {
 			/* T = IS_SMALLER(X, Y), T1 = BOOL(T) => T = IS_SMALLER(X, Y), T1 = QM_ASSIGN(T) */
 			zend_op *src = VAR_SOURCE(opline->op1);

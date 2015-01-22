@@ -174,7 +174,7 @@ static void optimizer_compact_literals(zend_op_array *op_array TSRMLS_DC)
 				case ZEND_FETCH_UNSET:
 				case ZEND_FETCH_FUNC_ARG:
 				case ZEND_UNSET_VAR:
-				case ZEND_ISSET_ISEMPTY_VAR:
+				case ZEND_IS_SET_ISEMPTY_VAR:
 					if (ZEND_OP2_TYPE(opline) == IS_UNUSED) {
 						if (ZEND_OP1_TYPE(opline) == IS_CONST) {
 							LITERAL_INFO(opline->op1.constant, LITERAL_VALUE, 1, 0, 1);
@@ -213,7 +213,7 @@ static void optimizer_compact_literals(zend_op_array *op_array TSRMLS_DC)
 				case ZEND_PRE_DEC_OBJ:
 				case ZEND_POST_INC_OBJ:
 				case ZEND_POST_DEC_OBJ:
-				case ZEND_ISSET_ISEMPTY_PROP_OBJ:
+				case ZEND_IS_SET_ISEMPTY_PROP_OBJ:
 					if (ZEND_OP2_TYPE(opline) == IS_CONST) {
 						optimizer_literal_obj_info(
 							info,
