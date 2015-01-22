@@ -141,8 +141,8 @@ END_EXTERN_C()
 #define ZEND_RETURN_BY_REF                   111
 #define ZEND_INIT_METHOD_CALL                112
 #define ZEND_INIT_STATIC_METHOD_CALL         113
-#define ZEND_IS_SET_ISEMPTY_VAR               114
-#define ZEND_IS_SET_ISEMPTY_DIM_OBJ           115
+#define ZEND_IS_SET_ISEMPTY_VAR              114
+#define ZEND_IS_SET_ISEMPTY_DIM_OBJ          115
 #define ZEND_PRE_INC_OBJ                     132
 #define ZEND_PRE_DEC_OBJ                     133
 #define ZEND_POST_INC_OBJ                    134
@@ -177,5 +177,6 @@ END_EXTERN_C()
 #define ZEND_SEND_UNPACK                     165
 #define ZEND_POW                             166
 #define ZEND_ASSIGN_POW                      167
+#define ZEND_IN                              168
 
 #endif

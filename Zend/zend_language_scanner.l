@@ -1019,6 +1019,10 @@ NEWLINE ("\r"|"\n"|"\r\n")
 	return T_EXIT;
 }
 
+<ST_IN_SCRIPTING>"in" {
+    return T_IN;
+}
+
 <ST_IN_SCRIPTING>"function" {
 	return T_FUNCTION;
 }

@@ -97,7 +97,8 @@ static YYSIZE_T zend_yytnamerr(char*, const char*);
 %token T_IS_NOT_EQUAL "!= (T_IS_NOT_EQUAL)"
 %token T_IS_IDENTICAL "=== (T_IS_IDENTICAL)"
 %token T_IS_NOT_IDENTICAL "!== (T_IS_NOT_IDENTICAL)"
-%nonassoc '<' T_IS_SMALLER_OR_EQUAL '>' T_IS_GREATER_OR_EQUAL
+%nonassoc '<' T_IS_SMALLER_OR_EQUAL '>' T_IS_GREATER_OR_EQUAL T_IN
+%token T_IN "in (T_IN)"
 %token T_IS_SMALLER_OR_EQUAL "<= (T_IS_SMALLER_OR_EQUAL)"
 %token T_IS_GREATER_OR_EQUAL ">= (T_IS_GREATER_OR_EQUAL)"
 %left T_SL T_SR
@@ -179,7 +180,7 @@ static YYSIZE_T zend_yytnamerr(char*, const char*);
 %token T_PUBLIC     "public (T_PUBLIC)"
 %token T_VAR        "var (T_VAR)"
 %token T_UNSET      "unset (T_UNSET)"
-%token T_IS_SET      "is_set (T_IS_SET)"
+%token T_IS_SET     "is_set (T_IS_SET)"
 %token T_EMPTY      "empty (T_EMPTY)"
 %token T_HALT_COMPILER "__halt_compiler (T_HALT_COMPILER)"
 %token T_CLASS      "class (T_CLASS)"
@@ -855,6 +856,7 @@ expr_without_variable:
 	|	T_STATIC function is_reference { zend_do_begin_lambda_function_declaration(&$$, &$2, $3.op_type, 1 TSRMLS_CC); }
 		'(' parameter_list ')' lexical_vars
 		'{' inner_statement_list '}' { zend_do_end_function_declaration(&$2 TSRMLS_CC); $$ = $4; }
+    |   expr T_IN expr { zend_do_binary_op(ZEND_IN, &$$, &$1, &$3 TSRMLS_CC); }
 ;
 
 yield_expr:
