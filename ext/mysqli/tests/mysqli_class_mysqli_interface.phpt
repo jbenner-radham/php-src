@@ -79,7 +79,7 @@ require_once('skipifconnectfailure.inc');
 		$expected_methods['ssl_set']		= true;
 
 	foreach ($methods as $k => $method) {
-		if (isset($expected_methods[$method])) {
+		if (is_set($expected_methods[$method])) {
 			unset($methods[$k]);
 			unset($expected_methods[$method]);
 		}
@@ -125,7 +125,7 @@ require_once('skipifconnectfailure.inc');
 
 	$variables = get_class_vars(get_class($mysqli));
 	foreach ($variables as $var => $v) {
-		if (isset($expected_class_variables[$var])) {
+		if (is_set($expected_class_variables[$var])) {
 			unset($expected_class_variables[$var]);
 			unset($variables[$var]);
 		}
@@ -144,7 +144,7 @@ require_once('skipifconnectfailure.inc');
 	printf("\nObject variables:\n");
 	$variables = get_object_vars($mysqli);
 	foreach ($variables as $var => $v) {
-		if (isset($expected_object_variables[$var])) {
+		if (is_set($expected_object_variables[$var])) {
 			unset($expected_object_variables[$var]);
 			unset($variables[$var]);
 		}

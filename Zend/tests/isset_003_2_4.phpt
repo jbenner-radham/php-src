@@ -1,5 +1,5 @@
 --TEST--
-Testing isset accessing undefined array itens and properties
+Testing is_set accessing undefined array itens and properties
 --SKIPIF--
 <?php if (version_compare(zend_version(), '2.4.0', '<')) die('skip ZendEngine 2.4 needed'); ?>
 --FILE--
@@ -8,21 +8,21 @@ Testing isset accessing undefined array itens and properties
 $a = 'foo';
 $b =& $a;
 
-var_dump(isset($b));
+var_dump(is_set($b));
 
-var_dump(isset($a[0], $b[1]));
+var_dump(is_set($a[0], $b[1]));
 
-var_dump(isset($a[0]->a));
+var_dump(is_set($a[0]->a));
 
-var_dump(isset($c[0][1][2]->a->b->c->d));
+var_dump(is_set($c[0][1][2]->a->b->c->d));
 
-var_dump(isset(${$a}->{$b->$c[$d]}));
+var_dump(is_set(${$a}->{$b->$c[$d]}));
 
-var_dump(isset($GLOBALS));
+var_dump(is_set($GLOBALS));
 
-var_dump(isset($GLOBALS[1]));
+var_dump(is_set($GLOBALS[1]));
 
-var_dump(isset($GLOBALS[1]->$GLOBALS));
+var_dump(is_set($GLOBALS[1]->$GLOBALS));
 
 ?>
 --EXPECTF--

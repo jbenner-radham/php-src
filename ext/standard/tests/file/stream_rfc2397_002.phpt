@@ -26,7 +26,7 @@ foreach($streams as $stream)
 	$stream = fopen($stream, 'r');
 	$meta = @stream_get_meta_data($stream);
 	var_dump($meta);
-	var_dump(isset($meta['foo']) ? $meta['foo'] : null);
+	var_dump(is_set($meta['foo']) ? $meta['foo'] : null);
 }
 
 ?>

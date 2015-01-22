@@ -17,7 +17,7 @@ $phar = new Phar($fname);
 var_dump($phar->isFileFormat(Phar::TAR));
 
 $phar->addEmptyDir('test');
-var_dump(isset($phar['.phar/stub.php']));
+var_dump(is_set($phar['.phar/stub.php']));
 var_dump($phar['test']->isDir());
 var_dump($phar['test/']->isDir());
 copy($fname, $fname2);

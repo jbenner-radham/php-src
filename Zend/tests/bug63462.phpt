@@ -5,32 +5,32 @@ Marco Pivetta <ocramius@gmail.com>
 --FILE--
 <?php
 class Test {
-	public    $publicProperty;
-	protected $protectedProperty;
-	private   $privateProperty;
+    public    $publicProperty;
+    protected $protectedProperty;
+    private   $privateProperty;
 
-	public function __construct() {
-		unset(
-			$this->publicProperty, 
-			$this->protectedProperty, 
-			$this->privateProperty
-		);
-	}
+    public function __construct() {
+        unset(
+            $this->publicProperty,
+            $this->protectedProperty,
+            $this->privateProperty
+        );
+    }
 
-	function __get($name) {
-		echo '__get ' . $name . "\n";
-		return $this->$name;
-	}
+    function __get($name) {
+        echo '__get ' . $name . "\n";
+        return $this->$name;
+    }
 
-	function __set($name, $value) {
-		echo '__set ' . $name . "\n";
-		$this->$name = $value;
-	}
+    function __set($name, $value) {
+        echo '__set ' . $name . "\n";
+        $this->$name = $value;
+    }
 
-	function __isset($name) {
-		echo '__isset ' . $name . "\n";
-		return isset($this->$name);
-	}
+    function __is_set($name) {
+        echo '__is_set ' . $name . "\n";
+        return is_set($this->$name);
+    }
 }
 
 $test = new Test();
@@ -39,12 +39,12 @@ $test->nonExisting;
 $test->publicProperty;
 $test->protectedProperty;
 $test->privateProperty;
-isset($test->nonExisting);
-isset($test->publicProperty);
-isset($test->protectedProperty);
-isset($test->privateProperty);
+is_set($test->nonExisting);
+is_set($test->publicProperty);
+is_set($test->protectedProperty);
+is_set($test->privateProperty);
 $test->nonExisting       = 'value';
-$test->publicProperty	 = 'value';
+$test->publicProperty    = 'value';
 $test->protectedProperty = 'value';
 $test->privateProperty   = 'value';
 
@@ -63,10 +63,10 @@ Notice: Undefined property: Test::$protectedProperty in %s on line %d
 __get privateProperty
 
 Notice: Undefined property: Test::$privateProperty in %s on line %d
-__isset nonExisting
-__isset publicProperty
-__isset protectedProperty
-__isset privateProperty
+__is_set nonExisting
+__is_set publicProperty
+__is_set protectedProperty
+__is_set privateProperty
 __set nonExisting
 __set publicProperty
 __set protectedProperty

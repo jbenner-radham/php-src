@@ -370,7 +370,7 @@ require_once('skipifconnectfailure.inc');
 			printf("[2013] [%d] %s\n", mysqli_errno($link), mysqli_error($link));
 		if (!$row = mysqli_fetch_assoc($res))
 			printf("[2014] Cannot find row id = %d\n", $values['id']);
-		else if (isset($row['label']) && ($values['label'] != $row['label']))
+		else if (is_set($row['label']) && ($values['label'] != $row['label']))
 			printf("[2015] Expecting label = %s, got label = %s\n", $values['label'], $row['label']);
 
 		mysqli_free_result($res);

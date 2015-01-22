@@ -6,12 +6,12 @@ Closure 043: Scope/bounding combination invariants; static closures
  * a bound instance. It should also not be automatically converted
  * to a non-static instance when attempting to bind one */
 
-$staticUnscoped = static function () { var_dump(isset(A::$priv)); var_dump(isset($this)); };
+$staticUnscoped = static function () { var_dump(is_set(A::$priv)); var_dump(is_set($this)); };
 
 class A {
 	private static $priv = 7;
 	static function getStaticClosure() {
-		return static function() { var_dump(isset(A::$priv)); var_dump(isset($this)); };
+		return static function() { var_dump(is_set(A::$priv)); var_dump(is_set($this)); };
 	}
 }
 

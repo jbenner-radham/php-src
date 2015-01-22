@@ -1,5 +1,5 @@
 --TEST--
-Bug #63982 (isset() inconsistently produces a fatal error on protected property)
+Bug #63982 (is_set() inconsistently produces a fatal error on protected property)
 --FILE--
 <?php
 class Test {
@@ -8,8 +8,8 @@ class Test {
 
 $test = new Test();
 
-var_dump(isset($test->protectedProperty));
-var_dump(isset($test->protectedProperty->foo));
+var_dump(is_set($test->protectedProperty));
+var_dump(is_set($test->protectedProperty->foo));
 --EXPECTF--
 bool(false)
 bool(false)

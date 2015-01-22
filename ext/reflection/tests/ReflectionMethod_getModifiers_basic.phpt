@@ -44,7 +44,7 @@ class TestClass
 
     public function __unset($a) {}
 
-    public function __isset($a) {}
+    public function __is_set($a) {}
 
     public function __tostring() {}
 
@@ -130,7 +130,7 @@ Modifiers for method TestClass::__unset():
 0x08000100
 
 
-Modifiers for method TestClass::__isset():
+Modifiers for method TestClass::__is_set():
 0x08000100
 
 
@@ -198,7 +198,7 @@ Modifiers for method TestClass::__unset():
 0x08000100
 
 
-Modifiers for method TestClass::__isset():
+Modifiers for method TestClass::__is_set():
 0x08000100
 
 

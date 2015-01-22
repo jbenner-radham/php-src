@@ -27,7 +27,7 @@ require_once('skipifconnectfailure.inc');
 	while (count($connections)) {
 		do {
 			$index = mt_rand(0, $num);
-		} while (!isset($connections[$index]));
+		} while (!is_set($connections[$index]));
 		mysqli_close($connections[$index]);
 		unset($connections[$index]);
 	}
@@ -45,7 +45,7 @@ require_once('skipifconnectfailure.inc');
 	while (count($connections) && $left > 0) {
 		do {
 			$index = mt_rand(0, $num);
-		} while (!isset($connections[$index]) && $left > 0);
+		} while (!is_set($connections[$index]) && $left > 0);
 		if (mt_rand(0, 1) > 0) {
 			$left--;
 			mysqli_close($connections[$index]);
@@ -61,7 +61,7 @@ require_once('skipifconnectfailure.inc');
 	while (count($connections)) {
 		do {
 			$index = mt_rand(0, $num);
-		} while (!isset($connections[$index]));
+		} while (!is_set($connections[$index]));
 		mysqli_close($connections[$index]);
 		unset($connections[$index]);
 	}

@@ -56,7 +56,7 @@ function ut_main()
 				$str_res .= "Bad formatter!\n";
 				continue;
 			}
-            $str_res .= dump( isset($integer[$style])?ut_nfmt_format( $fmt, $number, NumberFormatter::TYPE_INT32):ut_nfmt_format( $fmt, $number ) ) . "\n";
+            $str_res .= dump( is_set($integer[$style])?ut_nfmt_format( $fmt, $number, NumberFormatter::TYPE_INT32):ut_nfmt_format( $fmt, $number ) ) . "\n";
         }
     }
     return $str_res;

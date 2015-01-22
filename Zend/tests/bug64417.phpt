@@ -12,14 +12,14 @@ trait aa {
         }
     }
     public function offsetExists($offset) {
-        return isset($this->container[$offset]);
+        return is_set($this->container[$offset]);
     }
     public function offsetUnset($offset) {
         unset($this->container[$offset]);
     }
     public function &offsetGet($offset) {
 	$result = null;
-        if (isset($this->container[$offset])) {
+        if (is_set($this->container[$offset])) {
             $result = &$this->container[$offset];
         }
         return $result;

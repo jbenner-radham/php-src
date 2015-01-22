@@ -1,10 +1,10 @@
 --TEST--
-Bug #62680 (Function isset() throws fatal error on set array if non-existent key depth >= 3)
+Bug #62680 (Function is_set() throws fatal error on set array if non-existent key depth >= 3)
 --FILE--
 <?php
 $array = array("");
-var_dump(isset($array[0]["a"]["b"]));
-var_dump(isset($array[0]["a"]["b"]["c"]));
+var_dump(is_set($array[0]["a"]["b"]));
+var_dump(is_set($array[0]["a"]["b"]["c"]));
 ?>
 --EXPECT--
 bool(false)

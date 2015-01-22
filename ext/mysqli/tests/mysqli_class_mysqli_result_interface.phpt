@@ -43,7 +43,7 @@ require_once('skipifconnectfailure.inc');
 		$expected_methods['fetch_all'] = true;
 
 	foreach ($methods as $k => $method) {
-		if (isset($expected_methods[$method])) {
+		if (is_set($expected_methods[$method])) {
 			unset($expected_methods[$method]);
 			unset($methods[$k]);
 		}

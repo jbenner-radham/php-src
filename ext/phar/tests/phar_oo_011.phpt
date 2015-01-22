@@ -17,15 +17,15 @@ $phar = new Phar($fname);
 $phar->setInfoClass('SplFileObject');
 
 $phar['hi/f.php'] = 'hi';
-var_dump(isset($phar['hi']));
-var_dump(isset($phar['hi/f.php']));
+var_dump(is_set($phar['hi']));
+var_dump(is_set($phar['hi/f.php']));
 echo $phar['hi/f.php'];
 echo "\n";
 
 ?>
 ===DONE===
 --CLEAN--
-<?php 
+<?php
 unlink(dirname(__FILE__) . '/files/phar_oo_011.phar.php');
 __halt_compiler();
 ?>

@@ -43,7 +43,7 @@ $db = MySQLPDOTest::factory();
 
 		$tmp = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		if (!MySQLPDOTest::isPDOMySQLnd()) {
-			if (isset($tmp[0]['id'])) {
+			if (is_set($tmp[0]['id'])) {
 				// libmysql should return a string here whereas mysqlnd returns a native int
 				if (gettype($tmp[0]['id']) == 'string')
 					// convert to int for the test output...

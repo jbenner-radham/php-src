@@ -10,7 +10,7 @@ abstract class Singleton
 	static final public function getInstance()
 	{
 		$caller = get_called_class();
-		if (!isset(self::$instances[$caller])) {
+		if (!is_set(self::$instances[$caller])) {
 			self::$instances[$caller] = new $caller;
 			self::$instances[$caller]->instanceId = self::$nextInstanceId++;
 		}

@@ -14,7 +14,7 @@ foreach ($a as $b) {
 		echo file_get_contents($b->getPathName()), "\n";
 	}
 }
-if (isset($a['notempty/hi.txt'])) {
+if (is_set($a['notempty/hi.txt'])) {
 	echo $a['notempty/hi.txt']->getPathName() . "\n";
 }
 ?>

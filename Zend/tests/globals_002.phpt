@@ -5,7 +5,7 @@ variables_order="egpcs"
 --FILE--
 <?php
 function test() {
-	var_dump(isset($_SERVER));
+	var_dump(is_set($_SERVER));
 	var_dump(empty($_SERVER));
 	var_dump(gettype($_SERVER));
 	var_dump(count($_SERVER));
@@ -22,7 +22,7 @@ test();
 
 echo "Done\n";
 ?>
---EXPECTF--	
+--EXPECTF--
 bool(true)
 bool(false)
 string(5) "array"

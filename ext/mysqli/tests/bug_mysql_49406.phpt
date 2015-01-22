@@ -73,7 +73,7 @@ require_once('skipifconnectfailure.inc');
 		printf("Length       : %d\n", $field->length);
 		printf("Charsetnr    : %d\n", $field->charsetnr);
 		printf("Flags        : %d\n", $field->flags);
-		printf("Type         : %d (%s)\n", $field->type, (isset($datatypes[$field->type])) ? $datatypes[$field->type] : 'unknown');
+		printf("Type         : %d (%s)\n", $field->type, (is_set($datatypes[$field->type])) ? $datatypes[$field->type] : 'unknown');
 		printf("Decimals     : %d\n", $field->decimals);
 	}
 

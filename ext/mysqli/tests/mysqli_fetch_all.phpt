@@ -313,7 +313,7 @@ if (!function_exists('mysqli_fetch_all'))
 			gettype($res), $res, mysqli_errno($link), mysqli_error($link));
 
 	$rows = mysqli_fetch_all($res, MYSQLI_ASSOC);
-	if (!is_array($rows) || (count($rows) > 1) || !isset($rows[0]['_one']) || ($rows[0]['_one'] != 1)) {
+	if (!is_array($rows) || (count($rows) > 1) || !is_set($rows[0]['_one']) || ($rows[0]['_one'] != 1)) {
 		printf("[019] Results seem wrong, dumping\n");
 		var_dump($rows);
 	}

@@ -1,5 +1,5 @@
 --TEST--
-ziparchive::properties isset()/empty() checks
+ziparchive::properties is_set()/empty() checks
 --SKIPIF--
 <?php
 /* $Id$ */
@@ -15,46 +15,46 @@ copy($dirname . 'test_with_comment.zip', $file);
 
 $zip = new ZipArchive;
 if (!$zip->open($file)) {
-	exit('failed');
+    exit('failed');
 }
 
-printf("zip->status (%d):\n\tempty(): %d\n\tisset(): %d\n", $zip->status, empty($zip->status), isset($zip->status));
-printf("zip->numFiles (%d):\n\tempty(): %d\n\tisset(): %d\n", $zip->numFiles, empty($zip->numFiles), isset($zip->numFiles));
-printf("zip->bogus (%d):\n\tempty(): %d\n\tisset(): %d\n", $zip->bogus, empty($zip->bogus), isset($zip->bogus));
+printf("zip->status (%d):\n\tempty(): %d\n\tis_set(): %d\n", $zip->status, empty($zip->status), is_set($zip->status));
+printf("zip->numFiles (%d):\n\tempty(): %d\n\tis_set(): %d\n", $zip->numFiles, empty($zip->numFiles), is_set($zip->numFiles));
+printf("zip->bogus (%d):\n\tempty(): %d\n\tis_set(): %d\n", $zip->bogus, empty($zip->bogus), is_set($zip->bogus));
 
 
 $zip->addEmptyDir('emptydir');
 
-printf("zip->status (%d):\n\tempty(): %d\n\tisset(): %d\n", $zip->status, empty($zip->status), isset($zip->status));
-printf("zip->numFiles (%d):\n\tempty(): %d\n\tisset(): %d\n", $zip->numFiles, empty($zip->numFiles), isset($zip->numFiles));
-printf("zip->filename (%d):\n\tempty(): %d\n\tisset(): %d\n", strlen($zip->filename), empty($zip->filename), isset($zip->filename));
-printf("zip->comment (%d):\n\tempty(): %d\n\tisset(): %d\n", strlen($zip->comment), empty($zip->comment), isset($zip->comment));
+printf("zip->status (%d):\n\tempty(): %d\n\tis_set(): %d\n", $zip->status, empty($zip->status), is_set($zip->status));
+printf("zip->numFiles (%d):\n\tempty(): %d\n\tis_set(): %d\n", $zip->numFiles, empty($zip->numFiles), is_set($zip->numFiles));
+printf("zip->filename (%d):\n\tempty(): %d\n\tis_set(): %d\n", strlen($zip->filename), empty($zip->filename), is_set($zip->filename));
+printf("zip->comment (%d):\n\tempty(): %d\n\tis_set(): %d\n", strlen($zip->comment), empty($zip->comment), is_set($zip->comment));
 
 unset($zip); //close the file before unlinking
 @unlink($file);
 ?>
 --EXPECTF--
 zip->status (0):
-	empty(): 1
-	isset(): 1
+    empty(): 1
+    is_set(): 1
 zip->numFiles (4):
-	empty(): 0
-	isset(): 1
+    empty(): 0
+    is_set(): 1
 
 Notice: Undefined property: ZipArchive::$bogus in %s on line %d
 zip->bogus (0):
-	empty(): 1
-	isset(): 0
+    empty(): 1
+    is_set(): 0
 zip->status (0):
-	empty(): 1
-	isset(): 1
+    empty(): 1
+    is_set(): 1
 zip->numFiles (5):
-	empty(): 0
-	isset(): 1
+    empty(): 0
+    is_set(): 1
 zip->filename (%d):
-	empty(): 0
-	isset(): 1
+    empty(): 0
+    is_set(): 1
 zip->comment (19):
-	empty(): 0
-	isset(): 1
+    empty(): 0
+    is_set(): 1
 

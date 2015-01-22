@@ -35,7 +35,7 @@ unset($_SESSION);
 session_id($newid);
 session_start();
 
-var_dump(isset($_SESSION['init']) && $data == $_SESSION['init']);
+var_dump(is_set($_SESSION['init']) && $data == $_SESSION['init']);
 --EXPECT--
 bool(true)
 bool(true)

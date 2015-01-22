@@ -3,7 +3,7 @@ SimpleXML: adding/removing attributes (second)
 --SKIPIF--
 <?php if (!extension_loaded("simplexml")) print "skip"; ?>
 --FILE--
-<?php 
+<?php
 $xml =<<<EOF
 <people>
    <person name="Joe"></person>
@@ -23,7 +23,7 @@ echo "---Unset:---\n";
 unset($people->person[1]['age']);
 echo "---Unset?---\n";
 var_dump($people->person[1]['age']);
-var_dump(isset($people->person[1]['age']));
+var_dump(is_set($people->person[1]['age']));
 echo "---Unsupported---\n";
 $people->person[1]['age'] += 5;
 var_dump($people->person[1]['age']);

@@ -1,14 +1,14 @@
 --TEST--
-errmsg: __isset() must take exactly 1 argument
+errmsg: __is_set() must take exactly 1 argument
 --FILE--
 <?php
 
 class test {
-	function __isset() {
+	function __is_set() {
 	}
 }
 
 echo "Done\n";
 ?>
---EXPECTF--	
-Fatal error: Method test::__isset() must take exactly 1 argument in %s on line %d
+--EXPECTF--
+Fatal error: Method test::__is_set() must take exactly 1 argument in %s on line %d

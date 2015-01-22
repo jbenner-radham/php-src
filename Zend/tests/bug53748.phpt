@@ -7,7 +7,7 @@ trait Singleton {
   protected static $instances=array();
   abstract protected function __construct($config);
   public static function getInstance($config) {
-    if (!isset(self::$instances[$serialize = serialize($config)])) {
+    if (!is_set(self::$instances[$serialize = serialize($config)])) {
       self::$instances[$serialize] = new self($config);
     }
     return self::$instances[$serialize];

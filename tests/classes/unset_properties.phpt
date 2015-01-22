@@ -6,78 +6,78 @@ methods themselves.
 
 class Test
 {
-	public    $publicProperty        = 'publicProperty set';
+    public    $publicProperty        = 'publicProperty set';
 
-	protected $protectedProperty     = 'protectedProperty set';
+    protected $protectedProperty     = 'protectedProperty set';
 
-	private   $privateProperty       = 'privateProperty set';
-	
-	public function __get($name)
-	{
-		return '__get "' . $name . '"';
-	}
-	
-	public function __set($name, $value)
-	{
-		$this->$name = $value;
-		echo '__set "' . $name . '" to "' . $value . '"';
-	}
-	
-	public function __isset($name)
-	{
-		echo '__isset "' . $name . '"';
-		return isset($this->$name);
-	}
-	
-	public function getPublicProperty()
-	{
-		return $this->publicProperty;
-	}
-	
-	public function setPublicProperty($publicProperty)
-	{
-		$this->publicProperty = $publicProperty;
-	}
+    private   $privateProperty       = 'privateProperty set';
 
-	public function unsetProtectedProperty()
-	{
-		unset($this->protectedProperty);
-	}
+    public function __get($name)
+    {
+        return '__get "' . $name . '"';
+    }
 
-	public function getProtectedProperty()
-	{
-		return $this->protectedProperty;
-	}
+    public function __set($name, $value)
+    {
+        $this->$name = $value;
+        echo '__set "' . $name . '" to "' . $value . '"';
+    }
 
-	public function setProtectedProperty($protectedProperty)
-	{
-		$this->protectedProperty = $protectedProperty;
-	}
+    public function __is_set($name)
+    {
+        echo '__is_set "' . $name . '"';
+        return is_set($this->$name);
+    }
 
-	public function unsetPrivateProperty()
-	{
-		unset($this->privateProperty);
-	}
+    public function getPublicProperty()
+    {
+        return $this->publicProperty;
+    }
 
-	public function getPrivateProperty()
-	{
-		return $this->privateProperty;
-	}
+    public function setPublicProperty($publicProperty)
+    {
+        $this->publicProperty = $publicProperty;
+    }
 
-	public function setPrivateProperty($privateProperty)
-	{
-		$this->privateProperty = $privateProperty;
-	}
+    public function unsetProtectedProperty()
+    {
+        unset($this->protectedProperty);
+    }
+
+    public function getProtectedProperty()
+    {
+        return $this->protectedProperty;
+    }
+
+    public function setProtectedProperty($protectedProperty)
+    {
+        $this->protectedProperty = $protectedProperty;
+    }
+
+    public function unsetPrivateProperty()
+    {
+        unset($this->privateProperty);
+    }
+
+    public function getPrivateProperty()
+    {
+        return $this->privateProperty;
+    }
+
+    public function setPrivateProperty($privateProperty)
+    {
+        $this->privateProperty = $privateProperty;
+    }
 }
 
 // verifying public property
 $o = new Test;
 echo $o->publicProperty;
 echo "\n";
-var_export(isset($o->publicProperty));
+var_export(is_set($o->publicProperty));
 echo "\n";
 unset($o->publicProperty);
-isset($o->publicProperty);
+is_set($o->publicProperty);
 echo "\n";
 echo $o->publicProperty;
 echo "\n";
@@ -90,7 +90,7 @@ echo "\n";
 unset($o->publicProperty);
 $o->publicProperty = 'new publicProperty value via public access';
 echo "\n";
-var_export(isset($o->publicProperty));
+var_export(is_set($o->publicProperty));
 echo "\n";
 echo $o->publicProperty;
 echo "\n\n";
@@ -99,13 +99,13 @@ echo "\n\n";
 echo $o->getProtectedProperty();
 echo "\n";
 $o->unsetProtectedProperty();
-var_export(isset($o->protectedProperty));
+var_export(is_set($o->protectedProperty));
 echo "\n";
 echo $o->getProtectedProperty();
 echo "\n";
 echo $o->setProtectedProperty('new protectedProperty value via setter');
 echo "\n";
-var_export(isset($o->protectedProperty));
+var_export(is_set($o->protectedProperty));
 echo "\n";
 echo $o->getProtectedProperty();
 echo "\n\n";
@@ -114,13 +114,13 @@ echo "\n\n";
 echo $o->getPrivateProperty();
 echo "\n";
 $o->unsetPrivateProperty();
-var_export(isset($o->privateProperty));
+var_export(is_set($o->privateProperty));
 echo "\n";
 echo $o->getPrivateProperty();
 echo "\n";
 echo $o->setPrivateProperty('new privateProperty value via setter');
 echo "\n";
-var_export(isset($o->privateProperty));
+var_export(is_set($o->privateProperty));
 echo "\n";
 echo $o->getPrivateProperty();
 echo "\n\n";
@@ -130,7 +130,7 @@ echo "\n\n";
 --EXPECTF--
 publicProperty set
 true
-__isset "publicProperty"
+__is_set "publicProperty"
 __get "publicProperty"
 __get "publicProperty"
 __set "publicProperty" to "new publicProperty value via setter"
@@ -140,15 +140,15 @@ true
 new publicProperty value via public access
 
 protectedProperty set
-__isset "protectedProperty"false
+__is_set "protectedProperty"false
 __get "protectedProperty"
 __set "protectedProperty" to "new protectedProperty value via setter"
-__isset "protectedProperty"true
+__is_set "protectedProperty"true
 new protectedProperty value via setter
 
 privateProperty set
-__isset "privateProperty"false
+__is_set "privateProperty"false
 __get "privateProperty"
 __set "privateProperty" to "new privateProperty value via setter"
-__isset "privateProperty"true
+__is_set "privateProperty"true
 new privateProperty value via setter

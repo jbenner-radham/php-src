@@ -1,10 +1,10 @@
 --TEST--
-Bug #29883 (isset gives invalid values on strings)
+Bug #29883 (is_set gives invalid values on strings)
 --FILE--
 <?php
 $x = "bug";
-var_dump(isset($x[-1]));
-var_dump(isset($x["1"]));
+var_dump(is_set($x[-1]));
+var_dump(is_set($x["1"]));
 echo $x["1"]."\n";
 ?>
 --EXPECT--

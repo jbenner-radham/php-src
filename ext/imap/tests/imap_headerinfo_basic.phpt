@@ -1,5 +1,5 @@
 --TEST--
-imap_headerinfo() function : basic functionality 
+imap_headerinfo() function : basic functionality
 --CREDITS--
 Olivier Doucet
 --SKIPIF--
@@ -16,14 +16,14 @@ $z = imap_headerinfo($stream_id, 1);
 
 $fields = array ('toaddress','to','fromaddress','from',
 'reply_toaddress','reply_to',
-	'senderaddress', 'sender', 
+	'senderaddress', 'sender',
 'subject','Subject',
 	'Recent','Unseen','Flagged','Answered','Deleted','Draft',
 	'Msgno','MailDate','Size','udate');
 
 echo "Check general fields\n";
 foreach ($fields as $key) {
-	var_dump(isset($z->$key));
+	var_dump(is_set($z->$key));
 }
 
 echo "Check type\n";
@@ -84,7 +84,7 @@ imap_close($stream_id);
 
 ?>
 --CLEAN--
-<?php 
+<?php
 require_once('clean.inc');
 ?>
 --EXPECTF--

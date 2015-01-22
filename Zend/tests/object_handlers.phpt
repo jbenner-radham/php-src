@@ -3,34 +3,34 @@ Magic object handlers segfaults and memory errors
 --FILE--
 <?php
 function f($x) {
-	return $x;
+    return $x;
 }
 
 class foo implements ArrayAccess {
-	function __get($property) {
-		$GLOBALS["y"] = $property;
-	}
-	function __set($property, $value) {
-		$GLOBALS["y"] = $property;
-	}
-	function __call($func, $args) {
-		$GLOBALS["y"] = $func;
-	}
-	static function __callStatic($func, $args) {
-		$GLOBALS["y"] = $func;
-	}
-	function offsetGet($index) {
-		$GLOBALS["y"] = $index;
-	}
-	function offsetSet($index, $newval) {
-		$GLOBALS["y"] = $index;
-	}
-	function offsetExists($index) {
-		$GLOBALS["y"] = $index;
-	}
-	function offsetUnset($index) {
-		$GLOBALS["y"] = $index;
-	}
+    function __get($property) {
+        $GLOBALS["y"] = $property;
+    }
+    function __set($property, $value) {
+        $GLOBALS["y"] = $property;
+    }
+    function __call($func, $args) {
+        $GLOBALS["y"] = $func;
+    }
+    static function __callStatic($func, $args) {
+        $GLOBALS["y"] = $func;
+    }
+    function offsetGet($index) {
+        $GLOBALS["y"] = $index;
+    }
+    function offsetSet($index, $newval) {
+        $GLOBALS["y"] = $index;
+    }
+    function offsetExists($index) {
+        $GLOBALS["y"] = $index;
+    }
+    function offsetUnset($index) {
+        $GLOBALS["y"] = $index;
+    }
 }
 
 $x = new foo();
@@ -49,7 +49,7 @@ $z = $x["const_dim_get"];
 echo $y,"\n";
 $x["const_dim_set"] = 1;
 echo $y,"\n";
-isset($x["const_dim_isset"]);
+is_set($x["const_dim_is_set"]);
 echo $y,"\n";
 unset($x["const_dim_unset"]);
 echo $y,"\n";
@@ -72,7 +72,7 @@ $z = $x[$c."_dim_get"];
 echo $y,"\n";
 $x[$c."_dim_set"] = 1;
 echo $y,"\n";
-isset($x[$c."_dim_isset"]);
+is_set($x[$c."_dim_is_set"]);
 echo $y,"\n";
 unset($x[$c."_dim_unset"]);
 echo $y,"\n";
@@ -100,8 +100,8 @@ echo $y,"\n";
 $c = "cv_dim_set";
 $x[$c] = 1;
 echo $y,"\n";
-$c = "cv_dim_isset";
-isset($x[$c]);
+$c = "cv_dim_is_set";
+is_set($x[$c]);
 echo $y,"\n";
 $c = "cv_dim_unset";
 unset($x[$c]);
@@ -126,7 +126,7 @@ $z = $x[f("var_dim_get")];
 echo $y,"\n";
 $x[f("var_dim_set")] = 1;
 echo $y,"\n";
-isset($x[f("var_dim_isset")]);
+is_set($x[f("var_dim_is_set")]);
 echo $y,"\n";
 unset($x[f("var_dim_unset")]);
 echo $y,"\n";
@@ -144,7 +144,7 @@ const_call
 const_callstatic
 const_dim_get
 const_dim_set
-const_dim_isset
+const_dim_is_set
 const_dim_unset
 1
 2
@@ -153,7 +153,7 @@ tmp_set
 tmp_call
 tmp_dim_get
 tmp_dim_set
-tmp_dim_isset
+tmp_dim_is_set
 tmp_dim_unset
 3
 4
@@ -162,7 +162,7 @@ cv_set
 cv_call
 cv_dim_get
 cv_dim_set
-cv_dim_isset
+cv_dim_is_set
 cv_dim_unset
 5
 6
@@ -171,7 +171,7 @@ var_set
 var_call
 var_dim_get
 var_dim_set
-var_dim_isset
+var_dim_is_set
 var_dim_unset
 7
 8

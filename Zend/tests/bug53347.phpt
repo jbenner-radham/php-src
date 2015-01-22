@@ -7,7 +7,7 @@ Bug #53347 Segfault accessing static method
 
     public static function isValidFormatCode( $type, $key )
     {
-        return isset( self::${$type}[$key] );
+        return is_set( self::${$type}[$key] );
     }
 }
 

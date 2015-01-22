@@ -1,18 +1,18 @@
 --TEST--
 Static variables in functions
 --FILE--
-<?php 
+<?php
 function blah()
 {
   static $hey=0,$yo=0;
 
   echo "hey=".$hey++.", ",$yo--."\n";
 }
-    
+
 blah();
 blah();
 blah();
-if (isset($hey) || isset($yo)) {
+if (is_set($hey) || is_set($yo)) {
   echo "Local variables became global :(\n";
 }
 --EXPECT--

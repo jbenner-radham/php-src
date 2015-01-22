@@ -1,8 +1,8 @@
 --TEST--
-Error message for isset(func())
+Error message for is_set(func())
 --FILE--
 <?php
-isset(1 + 1);
+is_set(1 + 1);
 ?>
 --EXPECTF--
-Fatal error: Cannot use isset() on the result of an expression (you can use "null !== expression" instead) in %s on line %d
+Fatal error: Cannot use is_set() on the result of an expression (you can use "null !== expression" instead) in %s on line %d

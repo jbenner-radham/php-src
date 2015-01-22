@@ -1,7 +1,7 @@
 --TEST--
 ZE2 ArrayAccess and ArrayAccessReferenceProxy with references to main array
 --FILE--
-<?php 
+<?php
 
 // NOTE: This will become part of SPL
 
@@ -10,7 +10,7 @@ class ArrayAccessReferenceProxy implements ArrayAccess
 	private $object;
 	private $oarray;
 	private $element;
-	
+
 	function __construct(ArrayAccess $object, array &$array, $element)
 	{
 		echo __METHOD__ . "($element)\n";
@@ -26,7 +26,7 @@ class ArrayAccessReferenceProxy implements ArrayAccess
 
 	function offsetGet($index) {
 		echo __METHOD__ . "($this->element, $index)\n";
-		return isset($this->oarray[$this->element][$index]) ? $this->oarray[$this->element][$index] : NULL;
+		return is_set($this->oarray[$this->element][$index]) ? $this->oarray[$this->element][$index] : NULL;
 	}
 
 	function offsetSet($index, $value) {
@@ -43,7 +43,7 @@ class ArrayAccessReferenceProxy implements ArrayAccess
 class Peoples implements ArrayAccess
 {
 	public $person;
-	
+
 	function __construct()
 	{
 		$this->person = array(array('name'=>'Foo'));

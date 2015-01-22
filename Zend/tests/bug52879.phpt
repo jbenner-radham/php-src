@@ -1,5 +1,5 @@
 --TEST--
-Bug #52879 (Objects unreferenced in __get, __set, __isset or __unset can be freed too early)
+Bug #52879 (Objects unreferenced in __get, __set, __is_set or __unset can be freed too early)
 --FILE--
 <?php
 class MyClass {

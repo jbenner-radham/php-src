@@ -7,12 +7,12 @@ Closure 046: Rebinding: preservation of previous scope when "static" given as sc
  * the invariants that, for non-static closures, having a scope is equivalent
  * to having a bound instance. */
 
-$nonstaticUnscoped = function () { var_dump(isset(A::$priv)); var_dump(isset($this)); };
+$nonstaticUnscoped = function () { var_dump(is_set(A::$priv)); var_dump(is_set($this)); };
 
 class A {
 	private static $priv = 7;
 	function getClosure() {
-		return function() { var_dump(isset(A::$priv)); var_dump(isset($this)); };
+		return function() { var_dump(is_set(A::$priv)); var_dump(is_set($this)); };
 	}
 }
 class B extends A {}

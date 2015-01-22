@@ -1,16 +1,16 @@
 --TEST--
 SimpleXML: Element check
 --SKIPIF--
-<?php if (!extension_loaded("simplexml")) print "skip"; ?> 
+<?php if (!extension_loaded("simplexml")) print "skip"; ?>
 --FILE--
 <?php
 
 $ok = 1;
 $doc = simplexml_load_string('<root><exists>foo</exists></root>');
-if(!isset($doc->exists)) {
+if(!is_set($doc->exists)) {
 	$ok *= 0;
 }
-if(isset($doc->doesnotexist)) {
+if(is_set($doc->doesnotexist)) {
 	$ok *= 0;
 }
 if ($ok) {

@@ -1,5 +1,5 @@
 --TEST--
-Bug #44899 (__isset usage changes behavior of empty())
+Bug #44899 (__is_set usage changes behavior of empty())
 --FILE--
 <?php
 
@@ -12,9 +12,9 @@ class myclass
 		$this->_data = $data;
 	}
 
-	function __isset($field_name)
+	function __is_set($field_name)
 	{
-		return isset($this->_data[$field_name]);
+		return is_set($this->_data[$field_name]);
 	}
 }
 
@@ -22,7 +22,7 @@ $arr = array('foo' => '');
 
 $myclass = new myclass($arr) ;
 
-echo (isset($myclass->foo)) ? 'isset' : 'not isset';
+echo (is_set($myclass->foo)) ? 'is_set' : 'not is_set';
 echo "\n";
 echo (empty($myclass->foo)) ? 'empty' : 'not empty';
 echo "\n";
@@ -31,7 +31,7 @@ echo "\n";
 
 ?>
 --EXPECTF--
-isset
+is_set
 empty
 
 Notice: Undefined property: myclass::$foo in %s on line %d

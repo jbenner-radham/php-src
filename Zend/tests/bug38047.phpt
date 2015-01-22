@@ -21,13 +21,13 @@ function get_error_context() {
   $n = 1;
   foreach ($backtrace as $call) {
   	echo $n++." ";
-  	if (isset($call["file"])) {
+  	if (is_set($call["file"])) {
   		echo $call["file"];
-  		if (isset($call["line"])) {
+  		if (is_set($call["line"])) {
   			echo ":".$call["line"];
   		}
   	}
-  	if (isset($call["function"])) {
+  	if (is_set($call["function"])) {
   		echo " ".$call["function"]."()";
   	}
   	echo "\n";

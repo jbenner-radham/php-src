@@ -9,7 +9,7 @@ class Foo {
 	protected $p2;
 	private   $p3;
 
-	function __isset($name) {
+	function __is_set($name) {
 		var_dump($name);
 		return false;
 	}
@@ -20,7 +20,7 @@ var_dump($obj->hasProperty("p2"));
 var_dump($obj->hasProperty("p3"));
 var_dump($obj->hasProperty("p4"));
 ?>
---EXPECT--	
+--EXPECT--
 bool(true)
 bool(true)
 bool(true)

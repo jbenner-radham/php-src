@@ -23,7 +23,7 @@ if (!$res = $link->query("SHOW PLUGINS"))
 
 $have_pam = false;
 while ($row = $res->fetch_assoc()) {
-	if (isset($row['Name']) && ('mysql_clear_password' == $row['Name'])) {
+	if (is_set($row['Name']) && ('mysql_clear_password' == $row['Name'])) {
 		$have_pam = true;
 		break;
 	}

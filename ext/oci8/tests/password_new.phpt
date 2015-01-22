@@ -9,7 +9,7 @@ if ($test_drcp) die("skip password change not supported in DRCP Mode");
 
 preg_match('/.*Release ([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)*/', oci_server_version($c), $matches_sv);
 preg_match('/([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)/', oci_client_version(), $matches);
-if (!(isset($matches_sv[0]) && isset($matches[0])
+if (!(is_set($matches_sv[0]) && is_set($matches[0])
        && $matches_sv[1] == $matches[1]
        && $matches_sv[2] == $matches[2]
        && $matches_sv[3] == $matches[3]
@@ -19,7 +19,7 @@ if (!(isset($matches_sv[0]) && isset($matches[0])
 }
 
 // This test in Oracle 12c needs a non-CDB or the root container
-if (isset($matches_sv[0]) && $matches_sv[1] >= 12) {
+if (is_set($matches_sv[0]) && $matches_sv[1] >= 12) {
     $s = oci_parse($c, "select nvl(sys_context('userenv', 'con_name'), 'notacdb') as dbtype from dual");
     $r = @oci_execute($s);
     if (!$r)

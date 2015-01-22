@@ -59,7 +59,7 @@ mysqli_close($link);
 			$res = mysqli_query($link, 'SELECT @version AS п_версия');
 
 			$tmp = mysqli_fetch_assoc($res);
-			if (!is_array($tmp) || empty($tmp) || !isset($tmp['п_версия']) || ('' == $tmp['п_версия'])) {
+			if (!is_array($tmp) || empty($tmp) || !is_set($tmp['п_версия']) || ('' == $tmp['п_версия'])) {
 				printf("[008a] Expecting array [%d] %s\n", mysqli_errno($link), mysqli_error($link));
 				var_dump($tmp);
 			}
@@ -74,7 +74,7 @@ mysqli_close($link);
 			$res = mysqli_query($link, 'SELECT функцийка(VERSION()) AS ф_версия');
 
 			$tmp = mysqli_fetch_assoc($res);
-			if (!is_array($tmp) || empty($tmp) || !isset($tmp['ф_версия']) || ('' == $tmp['ф_версия'])) {
+			if (!is_array($tmp) || empty($tmp) || !is_set($tmp['ф_версия']) || ('' == $tmp['ф_версия'])) {
 				printf("[009a] Expecting array [%d] %s\n", mysqli_errno($link), mysqli_error($link));
 				var_dump($tmp);
 			}

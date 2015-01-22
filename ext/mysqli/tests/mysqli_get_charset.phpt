@@ -50,8 +50,8 @@ if (!function_exists('mysqli_get_charset'))
 	if (empty($tmp))
 		printf("[010] Cannot fetch Maxlen and/or Comment, test will fail: $sql\n");
 
-	$maxlen = (isset($tmp['Maxlen'])) ? $tmp['Maxlen'] : '';
-	$comment = (isset($tmp['Description'])) ? $tmp['Description'] : '';
+	$maxlen = (is_set($tmp['Maxlen'])) ? $tmp['Maxlen'] : '';
+	$comment = (is_set($tmp['Description'])) ? $tmp['Description'] : '';
 
 	if (!$res = mysqli_query($link, sprintf("SHOW COLLATION LIKE '%s'", $collation_connection)))
 		printf("[011] [%d] %s\n", mysqli_errno($link), mysqli_error($link));
@@ -70,32 +70,32 @@ if (!function_exists('mysqli_get_charset'))
 	if (!is_object($charset = mysqli_get_charset($link)))
 		printf("[015] Expecting object/std_class, got %s/%s\n", gettype($charset), $charset);
 
-	if (!isset($charset->charset) ||
+	if (!is_set($charset->charset) ||
 		!in_array(gettype($charset->charset), array("string", "unicode")) ||
 		($character_set_connection !== $charset->charset))
 		printf("[016] Expecting string/%s, got %s/%s\n", $character_set_connection, gettype($charset->charset), $charset->charset);
-	if (!isset($charset->collation) ||
+	if (!is_set($charset->collation) ||
 		!in_array(gettype($charset->collation), array("string", "unicode")) ||
 		($collation_connection !== $charset->collation))
 		printf("[017] Expecting string/%s, got %s/%s\n", $collation_connection, gettype($charset->collation), $charset->collation);
 
-	if (!isset($charset->dir) ||
+	if (!is_set($charset->dir) ||
 		!is_string($charset->dir))
 		printf("[019] Expecting string - ideally %s*, got %s/%s\n", $character_sets_dir, gettype($charset->dir), $charset->dir);
 
-	if (!isset($charset->min_length) ||
+	if (!is_set($charset->min_length) ||
 		!(is_int($charset->min_length)) ||
 		($charset->min_length < 0) ||
 		($charset->min_length > $charset->max_length))
 		printf("[020] Expecting int between 0 ... %d, got %s/%s\n", $charset->max_length,
 			gettype($charset->min_length), $charset->min_length);
 
-	if (!isset($charset->number) ||
+	if (!is_set($charset->number) ||
 		!is_int($charset->number) ||
 		($charset->number !== (int)$id))
 		printf("[021] Expecting int/%d, got %s/%s\n", $id, gettype($charset->number), $charset->number);
 
-	if (!isset($charset->state) ||
+	if (!is_set($charset->state) ||
 		!is_int($charset->state))
 		printf("[022] Expecting int/any, got %s/%s\n", gettype($charset->state), $charset->state);
 

@@ -14,7 +14,7 @@ pg_query($db, 'NOTIFY test_msg');
 
 $msg = pg_get_notify($db);
 
-isset($msg['message'],$msg['pid']) ? print 'OK' : print 'NG';
+is_set($msg['message'],$msg['pid']) ? print 'OK' : print 'NG';
 ?>
 --EXPECT--
 OK

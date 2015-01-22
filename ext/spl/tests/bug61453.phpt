@@ -7,7 +7,7 @@ $objects = new SplObjectStorage;
 for($i = 0; $i < $limit; $i++){
 	$object = new StdClass;
 
-	if(isset($objects[$object])){
+	if(is_set($objects[$object])){
 		die("this should never happen, but did after $i iteration");
 	}
 

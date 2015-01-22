@@ -12,13 +12,13 @@ if (!extension_loaded('posix')) {
 --FILE--
 <?php
 $grp = posix_getgrgid(0);
-if (!isset($grp['name'])) {
+if (!is_set($grp['name'])) {
     die('Array index "name" does not exist.');
 }
-if (!isset($grp['passwd'])) {
+if (!is_set($grp['passwd'])) {
     die('Array index "passwd" does not exist.');
 }
-if (!isset($grp['members'])) {
+if (!is_set($grp['members'])) {
     die('Array index "members" does not exist.');
 } elseif (!is_array($grp['members'])) {
     die('Array index "members" must be an array.');
@@ -34,7 +34,7 @@ if (!isset($grp['members'])) {
         }
     }
 }
-if (!isset($grp['gid'])) {
+if (!is_set($grp['gid'])) {
     die('Array index "gid" does not exist.');
 }
 var_dump($grp['gid']);

@@ -49,7 +49,7 @@ if (!$IS_MYSQLND)
 
 	foreach ($fields as $k => $field) {
 		$field->max_length = 0;// change it or we will get diff error
-		if (isset($field_names[$field->name])) {
+		if (is_set($field_names[$field->name])) {
 			unset($field_names[$field->name]);
 		} else {
 			printf("[006] Unexpected field '%s', dumping info\n");

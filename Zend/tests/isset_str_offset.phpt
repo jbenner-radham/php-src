@@ -1,55 +1,55 @@
 --TEST--
-Testing isset with string offsets
+Testing is_set with string offsets
 --FILE--
 <?php
 
-print "- isset ---\n";
+print "- is_set ---\n";
 
 $str = "test0123";
 
-var_dump(isset($str[-1]));
-var_dump(isset($str[0]));
-var_dump(isset($str[1]));
-var_dump(isset($str[4])); // 0
-var_dump(isset($str[5])); // 1
-var_dump(isset($str[8]));
-var_dump(isset($str[10000]));
+var_dump(is_set($str[-1]));
+var_dump(is_set($str[0]));
+var_dump(is_set($str[1]));
+var_dump(is_set($str[4])); // 0
+var_dump(is_set($str[5])); // 1
+var_dump(is_set($str[8]));
+var_dump(is_set($str[10000]));
 // non-numeric offsets
 print "- string ---\n";
-var_dump(isset($str['-1']));
-var_dump(isset($str['0']));
-var_dump(isset($str['1']));
-var_dump(isset($str['4'])); // 0
-var_dump(isset($str['1.5']));
-var_dump(isset($str['good']));
-var_dump(isset($str['3 and a half']));
+var_dump(is_set($str['-1']));
+var_dump(is_set($str['0']));
+var_dump(is_set($str['1']));
+var_dump(is_set($str['4'])); // 0
+var_dump(is_set($str['1.5']));
+var_dump(is_set($str['good']));
+var_dump(is_set($str['3 and a half']));
 print "- bool ---\n";
-var_dump(isset($str[true]));
-var_dump(isset($str[false]));
-var_dump(isset($str[false][true]));
+var_dump(is_set($str[true]));
+var_dump(is_set($str[false]));
+var_dump(is_set($str[false][true]));
 print "- null ---\n";
-var_dump(isset($str[null]));
+var_dump(is_set($str[null]));
 print "- double ---\n";
-var_dump(isset($str[-1.1]));
-var_dump(isset($str[-0.8]));
-var_dump(isset($str[-0.1]));
-var_dump(isset($str[0.2]));
-var_dump(isset($str[0.9]));
-var_dump(isset($str[M_PI]));
-var_dump(isset($str[100.5001]));
+var_dump(is_set($str[-1.1]));
+var_dump(is_set($str[-0.8]));
+var_dump(is_set($str[-0.1]));
+var_dump(is_set($str[0.2]));
+var_dump(is_set($str[0.9]));
+var_dump(is_set($str[M_PI]));
+var_dump(is_set($str[100.5001]));
 print "- array ---\n";
-var_dump(isset($str[array()]));
-var_dump(isset($str[array(1,2,3)]));
+var_dump(is_set($str[array()]));
+var_dump(is_set($str[array(1,2,3)]));
 print "- object ---\n";
-var_dump(isset($str[new stdClass()]));
+var_dump(is_set($str[new stdClass()]));
 print "- resource ---\n";
 $f = fopen(__FILE__, 'r');
-var_dump(isset($str[$f]));
+var_dump(is_set($str[$f]));
 print "done\n";
 
 ?>
 --EXPECTF--
-- isset ---
+- is_set ---
 bool(false)
 bool(true)
 bool(true)

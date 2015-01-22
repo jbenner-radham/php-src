@@ -1,8 +1,8 @@
 --TEST--
 oci_connect() without ORACLE_HOME set (OCIServerAttach() segfaults)
 --SKIPIF--
-<?php 
-if (!extension_loaded('oci8')) die("skip no oci8 extension"); 
+<?php
+if (!extension_loaded('oci8')) die("skip no oci8 extension");
 ob_start();
 phpinfo(INFO_MODULES);
 $phpinfo = ob_get_clean();
@@ -11,7 +11,7 @@ if ($ov !== 1) {
 	die ("skip Test only valid when OCI8 is built with an ORACLE_HOME");
 }
 preg_match('/^([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)/', oci_client_version(), $matches);
-if (!isset($matches[0]) || !($matches[1] == 10 && $matches[2] == 2)) {
+if (!is_set($matches[0]) || !($matches[1] == 10 && $matches[2] == 2)) {
     die ("skip tests a feature that works only with Oracle 10gR2 client");
 }
 ?>
@@ -28,7 +28,7 @@ if (!empty($dbase)) {
 else {
 	var_dump(oci_connect($user, $password));
 }
-	
+
 ?>
 ===DONE===
 <?php exit(0); ?>

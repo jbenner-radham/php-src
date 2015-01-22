@@ -7,14 +7,14 @@ class Staticexample
 {
 	static function test()
 	{
-		var_dump(isset($this));
+		var_dump(is_set($this));
 	}
 }
 
 $b = new Staticexample();
 Staticexample::test();
 $b->test();
-        
+
 ?>
 ===DONE===
 --EXPECT--

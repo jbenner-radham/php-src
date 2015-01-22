@@ -27,7 +27,7 @@ $stmt->execute();
 $tmp = $stmt->getColumnMeta(0);
 
 // libmysql and mysqlnd will show the pdo_type entry at a different position in the hash
-if (!isset($tmp['pdo_type']) || (isset($tmp['pdo_type']) && $tmp['pdo_type'] != 2))
+if (!is_set($tmp['pdo_type']) || (is_set($tmp['pdo_type']) && $tmp['pdo_type'] != 2))
 	printf("Expecting pdo_type = 2 got %s\n", $tmp['pdo_type']);
 else
 	unset($tmp['pdo_type']);

@@ -3,7 +3,7 @@ Bug #54262 (Crash when assigning value to a dimension in a non-array)
 --FILE--
 <?php
 $a = '0';
-var_dump(isset($a['b']));
+var_dump(is_set($a['b']));
 $simpleString = preg_match('//', '', $a->a);
 $simpleString["wrong"] = "f";
 echo "ok\n";

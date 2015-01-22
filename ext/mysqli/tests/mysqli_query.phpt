@@ -60,7 +60,7 @@ require_once('skipifconnectfailure.inc');
 			$res = mysqli_query($link, 'SELECT @version AS p_version');
 
 			$tmp = mysqli_fetch_assoc($res);
-			if (!is_array($tmp) || empty($tmp) || !isset($tmp['p_version']) || ('' == $tmp['p_version'])) {
+			if (!is_array($tmp) || empty($tmp) || !is_set($tmp['p_version']) || ('' == $tmp['p_version'])) {
 				printf("[008a] Expecting array [%d] %s\n", mysqli_errno($link), mysqli_error($link));
 				var_dump($tmp);
 			}
@@ -75,7 +75,7 @@ require_once('skipifconnectfailure.inc');
 			$res = mysqli_query($link, 'SELECT f(VERSION()) AS f_version');
 
 			$tmp = mysqli_fetch_assoc($res);
-			if (!is_array($tmp) || empty($tmp) || !isset($tmp['f_version']) || ('' == $tmp['f_version'])) {
+			if (!is_array($tmp) || empty($tmp) || !is_set($tmp['f_version']) || ('' == $tmp['f_version'])) {
 				printf("[009a] Expecting array [%d] %s\n", mysqli_errno($link), mysqli_error($link));
 				var_dump($tmp);
 			}

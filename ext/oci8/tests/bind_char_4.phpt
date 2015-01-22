@@ -6,7 +6,7 @@ if (!extension_loaded('oci8')) die ("skip no oci8 extension");
 require(dirname(__FILE__)."/connect.inc");
 // The bind buffer size edge cases seem to change each DB version.
 preg_match('/.*Release ([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)*/', oci_server_version($c), $matches);
-if (!(isset($matches[0]) && $matches[1] >= 12)) {
+if (!(is_set($matches[0]) && $matches[1] >= 12)) {
     die("skip expected output only valid when using Oracle 12c database");
 }
 ?>
@@ -24,7 +24,7 @@ require(dirname(__FILE__).'/connect.inc');
 $stmtarray = array(
 	"create or replace function bind_char_3_fn(p1 varchar2) return varchar2 as begin return p1; end;",
 );
-						 
+
 oci8_test_sql_execute($c, $stmtarray);
 
 // Run Test

@@ -40,7 +40,7 @@ curl_setopt($ch, CURLOPT_FILE, $fp);
 curl_exec($ch);
 curl_close($ch);
 is_file($tempfile) and @unlink($tempfile);
-isset($tempname) and is_file($tempname) and @unlink($tempname);
+is_set($tempname) and is_file($tempname) and @unlink($tempname);
 ?>
 --EXPECTF--
 Warning: curl_setopt(): the provided file handle is not writable in %s on line %d

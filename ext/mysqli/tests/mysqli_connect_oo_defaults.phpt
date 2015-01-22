@@ -1,9 +1,9 @@
 --TEST--
 new mysqli()
 --SKIPIF--
-<?php 
+<?php
 require_once('skipif.inc');
-require_once('skipifemb.inc'); 
+require_once('skipifemb.inc');
 require_once('skipifconnectfailure.inc');
 ?>
 --FILE--
@@ -36,7 +36,7 @@ require_once('skipifconnectfailure.inc');
 			$tmp = $res->fetch_assoc();
 			$res->free_result();
 
-			if (!isset($tmp['testing']) || $tmp['testing'] != 'mysqli.default_socket') {
+			if (!is_set($tmp['testing']) || $tmp['testing'] != 'mysqli.default_socket') {
 				printf("[002] mysqli.default_socket not properly set?\n");
 				var_dump($tmp);
 			}

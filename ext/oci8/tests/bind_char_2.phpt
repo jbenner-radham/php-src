@@ -6,7 +6,7 @@ if (!extension_loaded('oci8')) die ("skip no oci8 extension");
 require(dirname(__FILE__)."/connect.inc");
 // The bind buffer size edge cases seem to change each DB version.
 preg_match('/.*Release ([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)*/', oci_server_version($c), $matches);
-if (!(isset($matches[0]) && $matches[1] >= 12)) {
+if (!(is_set($matches[0]) && $matches[1] >= 12)) {
     die("skip expected output only valid when using Oracle 12c database");
 }
 ?>
@@ -25,7 +25,7 @@ $stmtarray = array(
 	"create table bind_char_tab (id number, c1 date)",
 	"insert into bind_char_tab values (1, '2008-04-20')",
 );
-						 
+
 oci8_test_sql_execute($c, $stmtarray);
 
 // Run Test
@@ -85,7 +85,7 @@ function do_e_q($s)
 $stmtarray = array(
 	"drop table bind_char_tab"
 );
-						 
+
 oci8_test_sql_execute($c, $stmtarray);
 
 echo "Done\n";

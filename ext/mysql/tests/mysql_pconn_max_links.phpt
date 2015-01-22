@@ -124,7 +124,7 @@ mysql.allow_persistent=1
 		$running_threads[$row['Id']] = $row;
 	mysql_free_result($res);
 
-	if (isset($running_threads[$pthread_id]))
+	if (is_set($running_threads[$pthread_id]))
 		printf("[010] Persistent connection has not been killed\n");
 
 	// we might get the old handle

@@ -1,19 +1,19 @@
 --TEST--
-Testing isset and unset with variable variables
+Testing is_set and unset with variable variables
 --FILE--
 <?php
 
-print "- isset ---\n";
+print "- is_set ---\n";
 
 $var_name = 'unexisting';
 
-if (isset($$var_name)) {
+if (is_set($$var_name)) {
 	print "error\n";
 }
 
 $test = 'var_name';
 
-if (isset($$$test)) {
+if (is_set($$$test)) {
 	print "error\n";
 }
 
@@ -27,6 +27,6 @@ print "done\n";
 
 ?>
 --EXPECT--
-- isset ---
+- is_set ---
 - unset ---
 done

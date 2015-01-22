@@ -6,7 +6,7 @@ function utf32_utf8($k) {
 	if ($k < 0x80) {
 		$retval = pack('C', $k);
 	} else if ($k < 0x800) {
-		$retval = pack('C2', 
+		$retval = pack('C2',
             0xc0 | ($k >> 6),
             0x80 | ($k & 0x3f));
 	} else if ($k < 0x10000) {
@@ -45,7 +45,7 @@ for ($i = 0; $i < 0x2710; $i++) {
     if ($i >= 0xd800 && $i < 0xe000)
         continue;
     $str = utf32_utf8($i);
-	if (isset($table[$str])) {
+	if (is_set($table[$str])) {
 		printf("%s\tU+%05X\n", $table[$str], $i);
 		unset($table[$str]);
 	}

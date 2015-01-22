@@ -28,17 +28,17 @@ class cache implements ArrayAccess
 
     public function offsetExists($id)
     {
-        return isset($this->containers[(string) $id]);
+        return is_set($this->containers[(string) $id]);
     }
 }
 
 $env = new env();
 $cache = new cache();
-var_dump(isset($cache[$id]));
+var_dump(is_set($cache[$id]));
 
 echo "Done\n";
 ?>
---EXPECTF--	
+--EXPECTF--
 Fatal error: Uncaught exception 'ErrorException' with message 'Undefined variable: id' in %s:%d
 Stack trace:
 #0 %s(%d): env::errorHandler(8, '%s', '%s', 34, Array)

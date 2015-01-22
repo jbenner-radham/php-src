@@ -105,7 +105,7 @@ if (!$IS_MYSQLND)
 		if (!preg_match("@^(\d+):+@ismU", $line, $matches)) {
 			printf("[075] Nesting level seem to be missing, first characters from trace are '%s'\n", substr($line, 0, 80));
 		} else {
-			if (!isset($matches[1]) || ((int)$matches[1] > 1)) {
+			if (!is_set($matches[1]) || ((int)$matches[1] > 1)) {
 				printf("[076] Nesting level seem to be %d, should not be higher than 1, first characters from trace are '%s'\n",
 					$matches[1],
 					substr($line, 0, 80));
@@ -180,13 +180,13 @@ if (!$IS_MYSQLND)
 	}
 
 	foreach ($test_functions['simple'] as $func)
-		if (isset($functions_trace[$func])) {
+		if (is_set($functions_trace[$func])) {
 			unset($functions_trace[$func]);
 			unset($test_functions['simple'][$func]);
 		}
 
 	foreach ($test_functions['doubledot'] as $func)
-		if (isset($functions_trace[$func])) {
+		if (is_set($functions_trace[$func])) {
 			unset($functions_trace[$func]);
 			unset($test_functions['doubledot'][$func]);
 		}

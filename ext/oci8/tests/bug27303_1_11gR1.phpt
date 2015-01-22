@@ -6,7 +6,7 @@ if (!extension_loaded('oci8')) die ("skip no oci8 extension");
 require(dirname(__FILE__)."/connect.inc");
 // The bind buffer size edge cases seem to change each DB version.
 preg_match('/.*Release ([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)*/', oci_server_version($c), $matches);
-if (!(isset($matches[0]) && $matches[1] < 12)) {
+if (!(is_set($matches[0]) && $matches[1] < 12)) {
     die("skip expected output only valid when using pre-Oracle 12c database");
 }
 ?>
@@ -51,7 +51,7 @@ oci8_test_sql_execute($c, $stmtarray);
 
 echo "Done\n";
 ?>
---EXPECT--	
+--EXPECT--
 string(1) "1"
 string(1) "2"
 string(1) "3"

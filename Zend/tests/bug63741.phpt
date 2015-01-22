@@ -5,7 +5,7 @@ Bug #63741 (Crash when autoloading from spl)
 file_put_contents(dirname(__FILE__)."/bug63741.tmp.php",
 <<<'EOT'
 <?php
-if (isset($autoloading))
+if (is_set($autoloading))
 {
     class ClassToLoad
     {

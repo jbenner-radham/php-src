@@ -15,11 +15,11 @@ $codes = array(
 foreach ($codes as $code) {
 	$tokens = token_get_all($code);
 	var_dump($tokens);
-	
+
 	$code = '';
 	foreach ($tokens as $t)
 	{
-		$code .= isset($t[1]) ? $t[1] : $t;
+		$code .= is_set($t[1]) ? $t[1] : $t;
 	}
 	var_dump($code);
 }

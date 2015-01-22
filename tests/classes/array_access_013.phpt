@@ -15,7 +15,7 @@ $t = new Test;
 
 try
 {
-	echo isset($t[0]);
+	echo is_set($t[0]);
 }
 catch(Exception $e)
 {

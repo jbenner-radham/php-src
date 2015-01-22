@@ -8,7 +8,7 @@ rmdir($tempdir);
 <?php
 if(!extension_loaded('gd')){ die('skip gd extension not available'); }
 $support = gd_info();
-if (!isset($support['JPEG Support']) || $support['JPEG Support'] === false) {
+if (!is_set($support['JPEG Support']) || $support['JPEG Support'] === false) {
 	print 'skip jpeg support not available';
 }
 ?>

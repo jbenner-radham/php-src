@@ -1,14 +1,14 @@
 --TEST--
-Test isset() function : basic functionality 
+Test is_set() function : basic functionality
 --FILE--
 <?php
-/* Prototype  : bool isset  ( mixed $var  [, mixed $var  [,  $...  ]] )
+/* Prototype  : bool is_set  ( mixed $var  [, mixed $var  [,  $...  ]] )
  * Description:  Determine if a variable is set and is not NULL
- */		
+ */
 
 class foo {}
 
-echo "*** Testing isset() : basic functionality ***\n";
+echo "*** Testing is_set() : basic functionality ***\n";
 
 $i = 10;
 $f = 10.5;
@@ -19,30 +19,30 @@ $n = NULL;
 $obj = new foo;
 $res = fopen(__FILE__, "r");
 
-echo "Integer test: " . (isset($i) ? "YES": "NO")  . "\n";
-echo "Float test: " . (isset($f) ? "YES": "NO") . "\n";
-echo "String test: " . (isset($s) ? "YES": "NO") . "\n";
-echo "Array test: " . (isset($a) ? "YES": "NO") . "\n";
-echo "Boolean test: " . (isset($b) ? "YES": "NO") . "\n";
-echo "Null test: " . (isset($n) ? "YES": "NO") . "\n";
-echo "Object test: " . (isset($obj) ? "YES": "NO") . "\n";
-echo "Resource test: " . (isset($res) ? "YES": "NO") . "\n";
+echo "Integer test: " . (is_set($i) ? "YES": "NO")  . "\n";
+echo "Float test: " . (is_set($f) ? "YES": "NO") . "\n";
+echo "String test: " . (is_set($s) ? "YES": "NO") . "\n";
+echo "Array test: " . (is_set($a) ? "YES": "NO") . "\n";
+echo "Boolean test: " . (is_set($b) ? "YES": "NO") . "\n";
+echo "Null test: " . (is_set($n) ? "YES": "NO") . "\n";
+echo "Object test: " . (is_set($obj) ? "YES": "NO") . "\n";
+echo "Resource test: " . (is_set($res) ? "YES": "NO") . "\n";
 
 echo "\n\nUnset the variables\n\n";
 unset($i, $f, $s, $a, $b, $n, $obj, $res);
 
-echo "Integer test: " . (isset($i) ? "YES": "NO")  . "\n";
-echo "Float test: " . (isset($f) ? "YES": "NO") . "\n";
-echo "String test: " . (isset($s) ? "YES": "NO") . "\n";
-echo "Array test: " . (isset($a) ? "YES": "NO") . "\n";
-echo "Boolean test: " . (isset($b) ? "YES": "NO") . "\n";
-echo "Null test: " . (isset($n) ? "YES": "NO") . "\n";
-echo "Object test: " . (isset($obj) ? "YES": "NO") . "\n";
-echo "Resource test: " . (isset($res) ? "YES": "NO") . "\n";
+echo "Integer test: " . (is_set($i) ? "YES": "NO")  . "\n";
+echo "Float test: " . (is_set($f) ? "YES": "NO") . "\n";
+echo "String test: " . (is_set($s) ? "YES": "NO") . "\n";
+echo "Array test: " . (is_set($a) ? "YES": "NO") . "\n";
+echo "Boolean test: " . (is_set($b) ? "YES": "NO") . "\n";
+echo "Null test: " . (is_set($n) ? "YES": "NO") . "\n";
+echo "Object test: " . (is_set($obj) ? "YES": "NO") . "\n";
+echo "Resource test: " . (is_set($res) ? "YES": "NO") . "\n";
 ?>
 ===DONE===
 --EXPECT--
-*** Testing isset() : basic functionality ***
+*** Testing is_set() : basic functionality ***
 Integer test: YES
 Float test: YES
 String test: YES

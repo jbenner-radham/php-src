@@ -1,14 +1,14 @@
 --TEST--
-Test isset() function : basic functionality 
+Test is_set() function : basic functionality
 --FILE--
 <?php
-/* Prototype  : bool isset  ( mixed $var  [, mixed $var  [,  $...  ]] )
+/* Prototype  : bool is_set  ( mixed $var  [, mixed $var  [,  $...  ]] )
  * Description:  Determine if a variable is set and is not NULL
- */		
+ */
 
 class foo {}
 
-echo "*** Testing isset() : basic functionality ***\n";
+echo "*** Testing is_set() : basic functionality ***\n";
 
 $i = 10;
 $f = 10.5;
@@ -17,30 +17,30 @@ $b = true;
 $n = NULL;
 
 echo "Test multiple scalar variables in a group\n";
-var_dump(isset($i, $f, $s, $b));
-var_dump(isset($i, $f, $s, $b, $n));
+var_dump(is_set($i, $f, $s, $b));
+var_dump(is_set($i, $f, $s, $b, $n));
 
 echo "Unset a few\n";
 unset($i, $b);
 
 echo "Test again\n";
-var_dump(isset($i, $f, $s, $b));
+var_dump(is_set($i, $f, $s, $b));
 
 echo "\n\nArray test:\n";
 $arr = array();
-var_dump(isset($var)); 
-var_dump(isset($var[1]));
-var_dump(isset($var, $var[1])); 
+var_dump(is_set($var));
+var_dump(is_set($var[1]));
+var_dump(is_set($var, $var[1]));
 echo "..now set\n";
 $var[1] = 10;
-var_dump(isset($var)); 
-var_dump(isset($var[1])); 
-var_dump(isset($var, $var[1])); 
+var_dump(is_set($var));
+var_dump(is_set($var[1]));
+var_dump(is_set($var, $var[1]));
 
 ?>
 ===DONE===
 --EXPECT--
-*** Testing isset() : basic functionality ***
+*** Testing is_set() : basic functionality ***
 Test multiple scalar variables in a group
 bool(true)
 bool(false)

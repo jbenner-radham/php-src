@@ -5,12 +5,12 @@ Closure 044: Scope/bounding combination invariants; non static closures
 /* A non-static closure has a bound instance if it has a scope
  * and doesn't have an instance if it has no scope */
 
-$nonstaticUnscoped = function () { var_dump(isset(A::$priv)); var_dump(isset($this)); };
+$nonstaticUnscoped = function () { var_dump(is_set(A::$priv)); var_dump(is_set($this)); };
 
 class A {
 	private static $priv = 7;
 	function getClosure() {
-		return function() { var_dump(isset(A::$priv)); var_dump(isset($this)); };
+		return function() { var_dump(is_set(A::$priv)); var_dump(is_set($this)); };
 	}
 }
 

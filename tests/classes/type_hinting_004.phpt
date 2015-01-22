@@ -7,7 +7,7 @@ Ensure type hints are enforced for functions invoked as callbacks.
       echo "$errno: $errstr - $errfile($errline)\n";
       return true;
   }
-  
+
   echo "---> Type hints with callback function:\n";
   class A  {  }
   function f1(A $a)  {
@@ -22,19 +22,19 @@ Ensure type hints are enforced for functions invoked as callbacks.
   call_user_func('f2');
   call_user_func('f2', new A);
   call_user_func('f2', null);
-  
-  
+
+
   echo "\n\n---> Type hints with callback static method:\n";
   class C {
       static function f1(A $a) {
-          if (isset($this)) {
+          if (is_set($this)) {
               echo "in C::f1 (instance);\n";
           } else {
               echo "in C::f1 (static);\n";
           }
       }
       static function f2(A $a = null) {
-          if (isset($this)) {
+          if (is_set($this)) {
               echo "in C::f2 (instance);\n";
           } else {
               echo "in C::f2 (static);\n";
@@ -47,19 +47,19 @@ Ensure type hints are enforced for functions invoked as callbacks.
   call_user_func(array('C', 'f2'));
   call_user_func(array('C', 'f2'), new A);
   call_user_func(array('C', 'f2'), null);
-  
-  
+
+
   echo "\n\n---> Type hints with callback instance method:\n";
   class D {
       function f1(A $a) {
-          if (isset($this)) {
+          if (is_set($this)) {
               echo "in C::f1 (instance);\n";
           } else {
               echo "in C::f1 (static);\n";
           }
       }
       function f2(A $a = null) {
-          if (isset($this)) {
+          if (is_set($this)) {
               echo "in C::f2 (instance);\n";
           } else {
               echo "in C::f2 (static);\n";
@@ -73,7 +73,7 @@ Ensure type hints are enforced for functions invoked as callbacks.
   call_user_func(array($d, 'f2'));
   call_user_func(array($d, 'f2'), new A);
   call_user_func(array($d, 'f2'), null);
-  
+
 ?>
 --EXPECTF--
 ---> Type hints with callback function:

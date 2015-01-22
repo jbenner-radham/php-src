@@ -49,7 +49,7 @@ require_once('skipifconnectfailure.inc');
 
 	mysqli_free_result($res);
 
-	if (isset($row['VARIABLE_VALUE']) && !isset($row['Value']))
+	if (is_set($row['VARIABLE_VALUE']) && !is_set($row['Value']))
 		// MySQL 6.0
 		$row['Value'] = $row['VARIABLE_VALUE'];
 

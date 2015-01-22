@@ -40,7 +40,7 @@ foreach ($constants as $group => $consts) {
 	foreach ($consts as $name => $value) {
 		if (stristr($name, 'mysql') && !preg_match("/^mysql([^_]+)_/iu", $name)) {
 			$name = strtoupper($name);
-			if (isset($expected_constants[$name])) {
+			if (is_set($expected_constants[$name])) {
 				unset($expected_constants[$name]);
 			} else {
 				$unexpected_constants[$name] = $name;

@@ -14,7 +14,7 @@ require_once('skipif.inc');
 	asort($functions);
 	printf("Functions:\n");
 	foreach ($functions as $func) {
-		if (isset($ignore[$func->name]))
+		if (is_set($ignore[$func->name]))
 			continue;
 
 		printf("  %s\n", $func->name);

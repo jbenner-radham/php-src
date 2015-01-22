@@ -8,7 +8,7 @@ rmdir($tempdir);
 <?php
 if(!extension_loaded('gd')){ die('skip gd extension not available'); }
 $support = gd_info();
-if (!isset($support['GIF Create Support']) || $support['GIF Create Support'] === false) {
+if (!is_set($support['GIF Create Support']) || $support['GIF Create Support'] === false) {
 	print 'skip gif support not available';
 }
 ?>

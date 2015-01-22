@@ -7,7 +7,7 @@ class FooBar implements ArrayAccess {
 	private $array = array();
 
 	public function offsetExists($index) {
-		return isset($this->array[$index]);
+		return is_set($this->array[$index]);
 	}
 
 	public function offsetGet($index) {

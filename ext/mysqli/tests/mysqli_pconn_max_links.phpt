@@ -116,7 +116,7 @@ mysqli.rollback_on_cached_plink=1
 		$running_threads[$row['Id']] = $row;
 	mysqli_free_result($res);
 
-	if (isset($running_threads[$pthread_id]))
+	if (is_set($running_threads[$pthread_id]))
 		printf("[009] Persistent connection has not been killed\n");
 
 	echo "Before second pconnect:";
@@ -260,7 +260,7 @@ array(2) {
   ["label"]=>
   string(1) "a"
 }
-[015] Can open more persistent connections than allowed, [0] 
+[015] Can open more persistent connections than allowed, [0]
 array(3) {
   ["total"]=>
   int(3)

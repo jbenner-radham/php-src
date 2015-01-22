@@ -3,7 +3,7 @@ SimpleXML: accessing singular subnode as array
 --SKIPIF--
 <?php if (!extension_loaded("simplexml")) print "skip"; ?>
 --FILE--
-<?php 
+<?php
 $xml =<<<EOF
 <people>
    <person name="Joe"></person>
@@ -29,8 +29,8 @@ var_dump($people->person[0]['name']);
 //unset($people->person[0]['name']);
 //var_dump($people->person['name']);
 //var_dump($people->person[0]['name']);
-//var_dump(isset($people->person['name']));
-//var_dump(isset($people->person[0]['name']));
+//var_dump(is_set($people->person['name']));
+//var_dump(is_set($people->person[0]['name']));
 $people = simplexml_load_string($xml2);
 var_dump($people->person[0]['name']);
 var_dump($people->person[1]['name']);

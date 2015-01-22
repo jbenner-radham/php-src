@@ -16,22 +16,22 @@ $db = MySQLPDOTest::factory();
 
 		try {
 
-			if (is_array($error_info) && isset($error_info['prepare']))
+			if (is_array($error_info) && is_set($error_info['prepare']))
 				$stmt = @$db->prepare($query);
 			else
 				$stmt = $db->prepare($query);
 
-			if (is_array($error_info) && isset($error_info['prepare'])) {
+			if (is_array($error_info) && is_set($error_info['prepare'])) {
 				$tmp = $db->errorInfo();
 
-				if (isset($error_info['prepare']['sqlstate']) &&
+				if (is_set($error_info['prepare']['sqlstate']) &&
 					($error_info['prepare']['sqlstate'] !== $tmp[0])) {
 					printf("[%03d] prepare() - expecting SQLSTATE '%s' got '%s'\n",
 						$offset, $error_info['prepare']['sqlstate'], $tmp[0]);
 					return false;
 				}
 
-				if (isset($error_info['prepare']['mysql']) &&
+				if (is_set($error_info['prepare']['mysql']) &&
 					($error_info['prepare']['mysql'] !== $tmp[1])) {
 					printf("[%03d] prepare() - expecting MySQL Code '%s' got '%s'\n",
 						$offset, $error_info['prepare']['mysql'], $tmp[0]);
@@ -44,7 +44,7 @@ $db = MySQLPDOTest::factory();
 			if (is_null($input_params))
 				$input_params = array();
 
-			if (is_array($error_info) && isset($error_info['execute']))
+			if (is_array($error_info) && is_set($error_info['execute']))
 				$ret = @$stmt->execute($input_params);
 			else
 				$ret = $stmt->execute($input_params);
@@ -53,17 +53,17 @@ $db = MySQLPDOTest::factory();
 				printf("[%03d] PDO::execute() should return a boolean value, got %s/%s\n",
 					var_export($ret, true), $ret);
 
-			if (is_array($error_info) && isset($error_info['execute'])) {
+			if (is_array($error_info) && is_set($error_info['execute'])) {
 				$tmp = $stmt->errorInfo();
 
-				if (isset($error_info['execute']['sqlstate']) &&
+				if (is_set($error_info['execute']['sqlstate']) &&
 					($error_info['execute']['sqlstate'] !== $tmp[0])) {
 					printf("[%03d] execute() - expecting SQLSTATE '%s' got '%s'\n",
 						$offset, $error_info['execute']['sqlstate'], $tmp[0]);
 					return false;
 				}
 
-				if (isset($error_info['execute']['mysql']) &&
+				if (is_set($error_info['execute']['mysql']) &&
 					($error_info['execute']['mysql'] !== $tmp[1])) {
 					printf("[%03d] execute() - expecting MySQL Code '%s' got '%s'\n",
 						$offset, $error_info['execute']['mysql'], $tmp[0]);

@@ -16,7 +16,7 @@ if (preg_match('/Compile-time ORACLE_HOME/', $phpinfo) !== 1) {
 
 preg_match('/.*Release ([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)*/', oci_server_version($c), $matches_sv);
 // This test in Oracle 12c needs a non-CDB or the root container
-if (isset($matches_sv[0]) && $matches_sv[1] >= 12) {
+if (is_set($matches_sv[0]) && $matches_sv[1] >= 12) {
     $s = oci_parse($c, "select nvl(sys_context('userenv', 'con_name'), 'notacdb') as dbtype from dual");
     $r = @oci_execute($s);
     if (!$r)

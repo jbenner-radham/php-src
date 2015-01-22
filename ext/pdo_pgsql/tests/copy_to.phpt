@@ -73,7 +73,7 @@ try {
 	echo "Exception: {$e->getMessage()}\n";
 }
 
-if(isset($filename)) {
+if(is_set($filename)) {
 	@unlink($filename);
 }
 ?>

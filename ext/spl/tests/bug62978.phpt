@@ -18,7 +18,7 @@ var_dump($d['epic_magic']);
 
 $e = 'srsly?';
 var_dump($a['epic_magic']); // srsly.
-var_dump(isset($a['epic_magic']));
+var_dump(is_set($a['epic_magic']));
 
 $fp = fopen(__FILE__, 'r');
 var_dump($a[$fp]);

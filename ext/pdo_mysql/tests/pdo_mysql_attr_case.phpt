@@ -19,7 +19,7 @@ $db = MySQLPDOTest::factory();
 		PDO::CASE_UPPER => 'PDO::CASE_UPPER',
 		PDO::CASE_NATURAL => 'PDO::CASE_NATURAL'
 	);
-	if (!isset($known[$default]))
+	if (!is_set($known[$default]))
 		printf("[001] getAttribute(PDO::ATTR_CASE) returns unknown value '%s'\n",
 			var_export($default, true));
 	else

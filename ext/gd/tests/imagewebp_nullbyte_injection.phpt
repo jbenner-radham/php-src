@@ -8,7 +8,7 @@ rmdir($tempdir);
 <?php
 if(!extension_loaded('gd')){ die('skip gd extension not available'); }
 $support = gd_info();
-if (!isset($support['WEBP Support']) || $support['WEBP Support'] === false) {
+if (!is_set($support['WEBP Support']) || $support['WEBP Support'] === false) {
 	print 'skip webp support not available';
 }
 ?>

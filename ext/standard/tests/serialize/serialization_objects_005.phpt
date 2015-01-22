@@ -3,14 +3,14 @@ Check behaviour of incomplete class
 --FILE--
 <?php
 /* Prototype  : proto string serialize(mixed variable)
- * Description: Returns a string representation of variable (which can later be unserialized) 
+ * Description: Returns a string representation of variable (which can later be unserialized)
  * Source code: ext/standard/var.c
- * Alias to functions: 
+ * Alias to functions:
  */
 /* Prototype  : proto mixed unserialize(string variable_representation)
- * Description: Takes a string representation of variable and recreates it 
+ * Description: Takes a string representation of variable and recreates it
  * Source code: ext/standard/var.c
- * Alias to functions: 
+ * Alias to functions:
  */
 
 $serialized = 'O:1:"C":1:{s:1:"p";i:1;}';
@@ -33,9 +33,9 @@ var_dump($complete->p);
 $complete->p = "p.changed";
 var_dump($ref1);
 
-var_dump(isset($complete->x));
+var_dump(is_set($complete->x));
 $complete->x = "x.new";
-var_dump(isset($complete->x));
+var_dump(is_set($complete->x));
 unset($complete->x);
 var_dump($complete->x);
 
@@ -53,9 +53,9 @@ var_dump($incomplete->p);
 $incomplete->p = "p.changed";
 var_dump($ref1);
 
-var_dump(isset($incomplete->x));
+var_dump(is_set($incomplete->x));
 $incomplete->x = "x.new";
-var_dump(isset($incomplete->x));
+var_dump(is_set($incomplete->x));
 unset($incomplete->x);
 var_dump($incomplete->x);
 

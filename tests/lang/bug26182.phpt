@@ -8,7 +8,7 @@ error_reporting=4095
 class A {
     function NotAConstructor ()
     {
-        if (isset($this->x)) {
+        if (is_set($this->x)) {
             //just for demo
         }
     }

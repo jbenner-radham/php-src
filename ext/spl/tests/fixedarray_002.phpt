@@ -56,7 +56,7 @@ $a[4] = $ref;
 $ref = "value5";
 
 unset($a[1]);
-var_dump(isset($a[1]), isset($a[2]), empty($a[1]), empty($a[2]));
+var_dump(is_set($a[1]), is_set($a[2]), empty($a[1]), empty($a[2]));
 
 var_dump($a[0], $a[2], $a[3], $a[4]);
 

@@ -115,7 +115,7 @@ if (!$IS_MYSQLND)
 
 	// Checking if all lines are still usable
 	foreach ($links as $thread_id => $link) {
-		if (isset($saved_errors[$thread_id]) &&
+		if (is_set($saved_errors[$thread_id]) &&
 			$saved_errors[$thread_id] != mysqli_errno($link['link'])) {
 			printf("[004] Error state not saved for query '%s', %d != %d\n", $link['query'],
 					$saved_errors[$thread_id], mysqli_errno($link['link']));

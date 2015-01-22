@@ -50,7 +50,7 @@ try {
 ?>
 ===DONE===
 --CLEAN--
-<?php 
+<?php
 unlink(dirname(__FILE__) . '/' . basename(__FILE__, '.clean.php') . '.phar');
 ?>
 --EXPECT--
@@ -66,7 +66,7 @@ include 'phar://' . __FILE__ . '/' . Extract_Phar::START;
 return;
 }
 
-if (@(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'POST'))) {
+if (@(is_set($_SERVER['REQUEST_URI']) && is_set($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'POST'))) {
 Extract_Phar::go(true);
 $mimes = array(
 'phps' => 2,
@@ -134,13 +134,13 @@ echo "<html>\n <head>\n  <title>File Not Found<title>\n </head>\n <body>\n  <h1>
 exit;
 }
 $b = pathinfo($a);
-if (!isset($b['extension'])) {
+if (!is_set($b['extension'])) {
 header('Content-Type: text/plain');
 header('Content-Length: ' . filesize($a));
 readfile($a);
 exit;
 }
-if (isset($mimes[$b['extension']])) {
+if (is_set($mimes[$b['extension']])) {
 if ($mimes[$b['extension']] === 1) {
 include $a;
 exit;
@@ -361,7 +361,7 @@ include 'phar://' . __FILE__ . '/' . Extract_Phar::START;
 return;
 }
 
-if (@(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'POST'))) {
+if (@(is_set($_SERVER['REQUEST_URI']) && is_set($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'POST'))) {
 Extract_Phar::go(true);
 $mimes = array(
 'phps' => 2,
@@ -429,13 +429,13 @@ echo "<html>\n <head>\n  <title>File Not Found<title>\n </head>\n <body>\n  <h1>
 exit;
 }
 $b = pathinfo($a);
-if (!isset($b['extension'])) {
+if (!is_set($b['extension'])) {
 header('Content-Type: text/plain');
 header('Content-Length: ' . filesize($a));
 readfile($a);
 exit;
 }
-if (isset($mimes[$b['extension']])) {
+if (is_set($mimes[$b['extension']])) {
 if ($mimes[$b['extension']] === 1) {
 include $a;
 exit;
@@ -656,7 +656,7 @@ include 'phar://' . __FILE__ . '/' . Extract_Phar::START;
 return;
 }
 
-if (@(isset($_SERVER['REQUEST_URI']) && isset($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'POST'))) {
+if (@(is_set($_SERVER['REQUEST_URI']) && is_set($_SERVER['REQUEST_METHOD']) && ($_SERVER['REQUEST_METHOD'] == 'GET' || $_SERVER['REQUEST_METHOD'] == 'POST'))) {
 Extract_Phar::go(true);
 $mimes = array(
 'phps' => 2,
@@ -724,13 +724,13 @@ echo "<html>\n <head>\n  <title>File Not Found<title>\n </head>\n <body>\n  <h1>
 exit;
 }
 $b = pathinfo($a);
-if (!isset($b['extension'])) {
+if (!is_set($b['extension'])) {
 header('Content-Type: text/plain');
 header('Content-Length: ' . filesize($a));
 readfile($a);
 exit;
 }
-if (isset($mimes[$b['extension']])) {
+if (is_set($mimes[$b['extension']])) {
 if ($mimes[$b['extension']] === 1) {
 include $a;
 exit;

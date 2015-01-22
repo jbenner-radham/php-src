@@ -87,7 +87,7 @@ if (!$IS_MYSQLND)
 
 	$found = 0;
 	foreach ($memory_funcs as $k => $name)
-		if (isset($functions_trace[$name]))
+		if (is_set($functions_trace[$name]))
 			$found++;
 
 	if ($found < (count($memory_funcs) - 3))
@@ -109,7 +109,7 @@ if (!$IS_MYSQLND)
 
 	$found = 0;
 	foreach ($memory_funcs as $k => $name)
-		if (isset($functions_trace[$name]))
+		if (is_set($functions_trace[$name]))
 			$found++;
 
 	if ($found > 2)

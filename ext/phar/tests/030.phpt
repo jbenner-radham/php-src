@@ -25,7 +25,7 @@ Phar::loadPhar($fname);
 require $pname . '/a.php';
 
 $p = new Phar($fname);
-var_dump(isset($p['.phar/test']));
+var_dump(is_set($p['.phar/test']));
 try {
 $p['.phar/test'];
 } catch (Exception $e) {
@@ -34,7 +34,7 @@ echo $e->getMessage(),"\n";
 ?>
 ===DONE===
 --CLEAN--
-<?php 
+<?php
 unlink(dirname(__FILE__) . '/' . basename(__FILE__, '.clean.php') . '.phar.php');
 ?>
 --EXPECTF--

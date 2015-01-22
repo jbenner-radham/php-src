@@ -36,13 +36,13 @@ var_dump(empty($obj['4th']));
 var_dump(empty($obj['5th']));
 var_dump(empty($obj[6]));
 
-echo "===isset===\n";
-var_dump(isset($obj[0]));
-var_dump(isset($obj[1]));
-var_dump(isset($obj[2]));
-var_dump(isset($obj['4th']));
-var_dump(isset($obj['5th']));
-var_dump(isset($obj[6]));
+echo "===is_set===\n";
+var_dump(is_set($obj[0]));
+var_dump(is_set($obj[1]));
+var_dump(is_set($obj[2]));
+var_dump(is_set($obj['4th']));
+var_dump(is_set($obj['5th']));
+var_dump(is_set($obj[6]));
 
 echo "===offsetGet===\n";
 var_dump($obj[0]);
@@ -111,7 +111,7 @@ object::offsetExists(5th)
 bool(true)
 object::offsetExists(6)
 bool(true)
-===isset===
+===is_set===
 object::offsetExists(0)
 bool(true)
 object::offsetExists(1)

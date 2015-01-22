@@ -55,32 +55,32 @@ if ($version[0] <= 4 && $version[1] < 1)
 	$not_changed = $defaults;
 	foreach ($charsets as $charset => $collation) {
 
-		if (isset($not_changed['charset_client']) &&
+		if (is_set($not_changed['charset_client']) &&
 				$charset != $not_changed['charset_client'] &&
 				mysqli_query($link, sprintf("SET @@character_set_client = '%s'", $charset)))
 			unset($not_changed['charset_client']);
 
-		if (isset($not_changed['charset_connection']) &&
+		if (is_set($not_changed['charset_connection']) &&
 				$charset != $not_changed['charset_connection'] &&
 				mysqli_query($link, sprintf("SET @@character_connection = '%s'", $charset)))
 			unset($not_changed['charset_connection']);
 
-		if (isset($not_changed['charset_results']) &&
+		if (is_set($not_changed['charset_results']) &&
 				$charset != $not_changed['charset_results'] &&
 				mysqli_query($link, sprintf("SET @@character_set_results = '%s'", $charset)))
 			unset($not_changed['charset_results']);
 
-		if (isset($not_changed['collation_connection']) &&
+		if (is_set($not_changed['collation_connection']) &&
 				$collation != $not_changed['collation_connection'] &&
 				mysqli_query($link, sprintf("SET @@collation_connection = '%s'", $collation)))
 			unset($not_changed['collation_connection']);
 
-		if (isset($not_changed['collation_database']) &&
+		if (is_set($not_changed['collation_database']) &&
 				$collation != $not_changed['collation_database'] &&
 				mysqli_query($link, sprintf("SET @@collation_database = '%s'", $collation)))
 			unset($not_changed['collation_database']);
 
-		if (isset($not_changed['collation_server']) &&
+		if (is_set($not_changed['collation_server']) &&
 				$collation != $not_changed['collation_server'] &&
 				mysqli_query($link, sprintf("SET @@collation_server = '%s'", $collation)))
 			unset($not_changed['collation_server']);

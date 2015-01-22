@@ -3,7 +3,7 @@ SimpleXML: var_dump()
 --SKIPIF--
 <?php if (!extension_loaded("simplexml")) print "skip"; ?>
 --FILE--
-<?php 
+<?php
 
 $sxe = simplexml_load_file(dirname(__FILE__).'/000.xml');
 
@@ -11,7 +11,7 @@ function test($what)
 {
 	global $sxe;
 	echo "===$what\n";
-	eval("var_dump(isset(\$$what));");
+	eval("var_dump(is_set(\$$what));");
 	eval("var_dump((bool)\$$what);");
 	eval("var_dump(count(\$$what));");
 	eval("var_dump(\$$what);");

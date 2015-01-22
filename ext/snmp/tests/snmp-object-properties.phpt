@@ -1,4 +1,4 @@
---TEST--                                 
+--TEST--
 OO API: SNMP object properties
 --CREDITS--
 Boris Lytochkin
@@ -40,7 +40,7 @@ $session->oid_increasing_check = "45";
 var_dump($session);
 
 var_dump(property_exists($session, "enum_print"));
-var_dump(isset($session->enum_print));
+var_dump(is_set($session->enum_print));
 var_dump(empty($session->enum_print));
 
 $param=123;

@@ -13,9 +13,9 @@ $doc->loadHTML($html);
 $nodes = $doc->getElementsByTagName('div');
 
 echo "testing has_dimension\n";
-var_dump(isset($nodes[0]));
-var_dump(isset($nodes[1]));
-var_dump(isset($nodes[-1]));
+var_dump(is_set($nodes[0]));
+var_dump(is_set($nodes[1]));
+var_dump(is_set($nodes[-1]));
 
 echo "testing property access\n";
 var_dump($nodes[0]->textContent);
@@ -24,19 +24,19 @@ var_dump($nodes[1]->textContent);
 echo "testing offset not a long\n";
 $offset = ['test'];
 var_dump($offset);
-var_dump(isset($nodes[$offset]), $nodes[$offset]->textContent);
+var_dump(is_set($nodes[$offset]), $nodes[$offset]->textContent);
 var_dump($offset);
 
 $something = 'test';
 $offset = &$something;
 
 var_dump($offset);
-var_dump(isset($nodes[$offset]), $nodes[$offset]->textContent);
+var_dump(is_set($nodes[$offset]), $nodes[$offset]->textContent);
 var_dump($offset);
 
 $offset = 'test';
 var_dump($offset);
-var_dump(isset($nodes[$offset]), $nodes[$offset]->textContent);
+var_dump(is_set($nodes[$offset]), $nodes[$offset]->textContent);
 var_dump($offset);
 
 echo "testing read_dimension with null offset\n";

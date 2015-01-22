@@ -36,9 +36,9 @@ mysql.max_persistent=2
 		$processlist[$row['Id']] = $row;
 	mysql_free_result($res);
 
-	if (!isset($processlist[$thread_id]))
+	if (!is_set($processlist[$thread_id]))
 		printf("[003] Cannot find regular connection thread in process list, [%d] %s\n", mysql_errno($link), mysql_error($link));
-	if (!isset($processlist[$pthread_id]))
+	if (!is_set($processlist[$pthread_id]))
 		printf("[004] Cannot find persistent connection thread in process list, [%d] %s\n", mysql_errno($link), mysql_error($link));
 
 	if (!mysql_query(sprintf("KILL %d", $pthread_id), $link))
@@ -52,14 +52,14 @@ mysql.max_persistent=2
 		while ($row = mysql_fetch_assoc($res))
 			$processlist2[$row['Id']] = $row;
 		mysql_free_result($res);
-		if (isset($processlist2[$pthread_id])) {
+		if (is_set($processlist2[$pthread_id])) {
 			sleep(1);
 		} else {
 			break;
 		}
 	}
 
-	if (!isset($processlist2[$thread_id]))
+	if (!is_set($processlist2[$thread_id]))
 		printf("[007] Cannot find regular connection thread in process list, [%d] %s\n", mysql_errno($link), mysql_error($link));
 
 	mysql_close($plink);

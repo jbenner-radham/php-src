@@ -11,26 +11,26 @@ class C {
 }
 
 class UsesMagic extends ArrayObject {
-	
+
 	public $b = "This should never appear in storage";
 
-	function __get($name) { 
+	function __get($name) {
 		$args = func_get_args();
 		echo "In " . __METHOD__ . "(" . implode($args, ',') . ")\n";
 	}
-	function __set($name, $value) { 
+	function __set($name, $value) {
 		$args = func_get_args();
 		echo "In " . __METHOD__ . "(" . implode($args, ',') . ")\n";
 	}
-	function __isset($name) { 
+	function __is_set($name) {
 		$args = func_get_args();
 		echo "In " . __METHOD__ . "(" . implode($args, ',') . ")\n";
 	}
-	function __unset($name) { 
+	function __unset($name) {
 		$args = func_get_args();
 		echo "In " . __METHOD__ . "(" . implode($args, ',') . ")\n";
 	}
-	
+
 }
 $obj = new C;
 $ao = new UsesMagic($obj, ArrayObject::ARRAY_AS_PROPS);
@@ -52,10 +52,10 @@ var_dump($obj);
 echo "  Wrapping ArrayObject:\n";
 var_dump($ao);
 
-echo "\n--> isset existent, non-existent and dynamic:\n";
-var_dump(isset($ao->a));
-var_dump(isset($ao->nonexistent));
-var_dump(isset($ao->dynamic));
+echo "\n--> is_set existent, non-existent and dynamic:\n";
+var_dump(is_set($ao->a));
+var_dump(is_set($ao->nonexistent));
+var_dump(is_set($ao->dynamic));
 echo "  Original wrapped object:\n";
 var_dump($obj);
 echo "  Wrapping ArrayObject:\n";
@@ -142,7 +142,7 @@ object(UsesMagic)#2 (2) {
   }
 }
 
---> isset existent, non-existent and dynamic:
+--> is_set existent, non-existent and dynamic:
 bool(true)
 bool(false)
 bool(true)

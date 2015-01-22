@@ -35,10 +35,10 @@ mysqli.max_persistent=2
 	if (count($running_threads) < 2)
 		printf("[003] Processlist is too short, [%d] %s\n", mysqli_errno($link), mysqli_error($link));
 
-	if (!isset($running_threads[$thread_id]))
+	if (!is_set($running_threads[$thread_id]))
 		printf("[004] Cannot find thread id of the regular link, [%d] %s\n", mysqli_errno($link), mysqli_error($link));
 
-	if (!isset($running_threads[$pthread_id]))
+	if (!is_set($running_threads[$pthread_id]))
 		printf("[005] Cannot find thread id of the persistent link, [%d] %s\n", mysqli_errno($link), mysqli_error($link));
 
 	// Kill the persistent connection - don't use mysqli_kill, mysqlnd will catch that...
@@ -56,9 +56,9 @@ mysqli.max_persistent=2
 		$running_threads2[$row['Id']] = $row;
 	mysqli_free_result($res);
 
-	if (isset($running_threads2[$pthread_id]))
+	if (is_set($running_threads2[$pthread_id]))
 		printf("[008] Thread of the persistent connection should have been gone, [%d] %s\n", mysqli_errno($link), mysqli_error($link));
-	if (!isset($running_threads2[$thread_id]))
+	if (!is_set($running_threads2[$thread_id]))
 		printf("[009] Thread of the regular connection should be still there, [%d] %s\n", mysqli_errno($link), mysqli_error($link));
 
 	// On PHP side this should do nothing. PHP should not try to close the connection or something.

@@ -30,7 +30,7 @@ if ($socket == "" && $host != NULL && $host != 'localhost' && $host != '.') {
 @include_once("connect.inc");
 ini_set("open_basedir", __DIR__);
 chdir(__DIR__);
-if (!isset($db)) {
+if (!is_set($db)) {
 	// run-tests, I love you for not allowing me to set ini settings dynamically
 	print "[006] [1148] The used command is not allowed with this MySQL version
 [007] [0]

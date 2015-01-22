@@ -9,7 +9,7 @@ Test array_map() function : usage variations - failing built-in functions & lang
 
 /*
  * Test array_map() by passing non-permmited built-in functions and language constructs i.e.
- *   echo(), array(), empty(), eval(), exit(), isset(), list(), print()
+ *   echo(), array(), empty(), eval(), exit(), is_set(), list(), print()
  */
 
 echo "*** Testing array_map() : non-permmited built-in functions ***\n";
@@ -24,7 +24,7 @@ $callback_names = array(
        'empty',
 /*4*/  'eval',
        'exit',
-       'isset',
+       'is_set',
        'list',
 /*8*/  'print'
 );
@@ -60,7 +60,7 @@ Warning: array_map() expects parameter 1 to be a valid callback, function 'exit'
 NULL
 -- Iteration 6 --
 
-Warning: array_map() expects parameter 1 to be a valid callback, function 'isset' not found or invalid function name in %s on line %d
+Warning: array_map() expects parameter 1 to be a valid callback, function 'is_set' not found or invalid function name in %s on line %d
 NULL
 -- Iteration 7 --
 

@@ -7,16 +7,16 @@ error_reporting=E_ALL | E_DEPRECATED
 $string = "foobar";
 var_dump($string[0]);
 var_dump($string[1]);
-var_dump(isset($string[0]));
-var_dump(isset($string[0][0]));
+var_dump(is_set($string[0]));
+var_dump(is_set($string[0][0]));
 var_dump($string["foo"]);
-var_dump(isset($string["foo"]["bar"]));
+var_dump(is_set($string["foo"]["bar"]));
 var_dump($string{0});
 var_dump($string{1});
-var_dump(isset($string{0}));
-var_dump(isset($string{0}{0}));
+var_dump(is_set($string{0}));
+var_dump(is_set($string{0}{0}));
 var_dump($string{"foo"});
-var_dump(isset($string{"foo"}{"bar"}));
+var_dump(is_set($string{"foo"}{"bar"}));
 ?>
 --EXPECTF--
 string(1) "f"

@@ -9,7 +9,7 @@ if (strcasecmp($user, "system") && strcasecmp($user, "sys")) die("skip needs to 
 if ($test_drcp) die("skip output might vary with DRCP");
 
 preg_match('/.*Release ([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)\.([[:digit:]]+)*/', oci_server_version($c), $matches);
-if (!(isset($matches[0]) && $matches[1] >= 10)) {
+if (!(is_set($matches[0]) && $matches[1] >= 10)) {
 	die("skip expected output only valid when using Oracle 10g or greater database server");
 }
 ?>
@@ -17,7 +17,7 @@ if (!(isset($matches[0]) && $matches[1] >= 10)) {
 <?php
 
 $testuser     = 'testuser_attr_5';  // Used in conn_attr.inc
-$testpassword = 'testuser'; 
+$testpassword = 'testuser';
 
 require(dirname(__FILE__)."/conn_attr.inc");
 
@@ -37,7 +37,7 @@ function set_scope() {
     set_attr($conn2,'ACTION',50);
     $conn3 = get_conn(2);
     set_attr($conn3,'MODULE',50);
-    
+
 }
 
 function get_scope() {
@@ -61,12 +61,12 @@ Testing with oci_new_connect()
 Value of ACTION has been set successfully
 Testing with oci_pconnect()
 Value of MODULE has been set successfully
-Get the Values from a different scope 
+Get the Values from a different scope
 Testing with oci_connect()
-The value of CLIENT_INFO is 
-The value of CLIENT_IDENTIFIER is 
+The value of CLIENT_INFO is
+The value of CLIENT_IDENTIFIER is
 Testing with oci_new_connect()
-The value of ACTION is 
+The value of ACTION is
 Testing with oci_pconnect()
 The value of MODULE is PHP TEST50
 Done

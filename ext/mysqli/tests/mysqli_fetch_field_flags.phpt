@@ -218,7 +218,7 @@ mysqli_close($link);
 		// id column - skip it
 		$field = mysqli_fetch_field($res);
 		while ($field = mysqli_fetch_field($res)) {
-			if (!isset($expected_flags[$field->name])) {
+			if (!is_set($expected_flags[$field->name])) {
 				printf("[010] Found unexpected field '%s'\n", $field->name);
 				continue;
 			}

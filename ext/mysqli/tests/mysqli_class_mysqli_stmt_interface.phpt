@@ -47,7 +47,7 @@ Interface of the class mysqli_stmt
 	}
 
 	foreach ($methods as $k => $method) {
-	if (isset($expected_methods[$method])) {
+	if (is_set($expected_methods[$method])) {
 		unset($methods[$k]);
 		unset($expected_methods[$method]);
 	}

@@ -56,7 +56,7 @@ $a["2"] = "foo";
 $a["1"] = "foo";
 $a["3"] = "0";
 
-var_dump(isset($a["0"], $a[-1]), $a["1"]);
+var_dump(is_set($a["0"], $a[-1]), $a["1"]);
 var_dump(empty($a["3"]));
 
 ?>

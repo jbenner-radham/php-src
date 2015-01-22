@@ -8,7 +8,7 @@ short_open_tag=1
 <?php
 
 $strings = array(
-	'<? echo 1; if (isset($a)) print $a+1; $a++; $a--; $a == 2; $a === 2; endif; ?>',
+	'<? echo 1; if (is_set($a)) print $a+1; $a++; $a--; $a == 2; $a === 2; endif; ?>',
 	'<?php switch($a) { case 1: break; default: break; } while($a) { exit; } ?>',
 	'<? /* comment */ if (1 || 2) { } $a = 2 | 1; $b = 3^2; $c = 4&2; ?>',
 	/* feel free to add more yourself */
@@ -104,7 +104,7 @@ array(49) {
     [0]=>
     int(%d)
     [1]=>
-    string(5) "isset"
+    string(5) "is_set"
     [2]=>
     int(1)
   }

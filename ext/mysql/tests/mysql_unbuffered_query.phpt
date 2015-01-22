@@ -44,7 +44,7 @@ if (mysql_unbuffered_query('DROP PROCEDURE IF EXISTS p', $link)) {
 		$res = mysql_unbuffered_query('CALL p(@version)', $link);
 		$res = mysql_unbuffered_query('SELECT @version AS p_version', $link);
 		$tmp = mysql_fetch_assoc($res);
-		if (!isset($tmp['p_version']) || ('' == $tmp['p_version'])) {
+		if (!is_set($tmp['p_version']) || ('' == $tmp['p_version'])) {
 			printf("[008] Result seems wrong, dumping\n");
 			var_dump($tmp);
 		}
@@ -61,7 +61,7 @@ if (mysql_unbuffered_query('DROP PROCEDURE IF EXISTS p', $link)) {
 	if (mysql_unbuffered_query('CREATE FUNCTION f( ver_param VARCHAR(25)) RETURNS VARCHAR(25) DETERMINISTIC RETURN ver_param;', $link)) {
 		$res = mysql_unbuffered_query('SELECT f(VERSION()) AS f_version', $link);
 		$tmp = mysql_fetch_assoc($res);
-		if (!isset($tmp['f_version']) || ('' == $tmp['f_version'])) {
+		if (!is_set($tmp['f_version']) || ('' == $tmp['f_version'])) {
 			printf("[011] Result seems wrong, dumping\n");
 			var_dump($tmp);
 		}

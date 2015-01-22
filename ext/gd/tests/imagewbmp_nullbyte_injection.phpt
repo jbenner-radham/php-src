@@ -8,7 +8,7 @@ rmdir($tempdir);
 <?php
 if(!extension_loaded('gd')){ die('skip gd extension not available'); }
 $support = gd_info();
-if (!isset($support['WBMP Support']) || $support['WBMP Support'] === false) {
+if (!is_set($support['WBMP Support']) || $support['WBMP Support'] === false) {
 	print 'skip wbmp support not available';
 }
 ?>

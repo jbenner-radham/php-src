@@ -205,7 +205,7 @@ require_once('skipifconnectfailure.inc');
 		foreach ($consts as $name => $value) {
 			if (stristr($name, 'mysqli')) {
 				$name = strtoupper($name);
-				if (isset($expected_constants[$name])) {
+				if (is_set($expected_constants[$name])) {
 					unset($expected_constants[$name]);
 				} else {
 					$unexpected_constants[$name] = $name;

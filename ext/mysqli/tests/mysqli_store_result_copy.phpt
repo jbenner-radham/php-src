@@ -65,7 +65,7 @@ mysqlnd.fetch_data_copy=0
 		$idx = mt_rand(-100, 100);
 		if (true === @mysqli_data_seek($res, $idx)) {
 			$row = $res->fetch_assoc();
-			if (!isset($row['id']) || !isset($row['label'])) {
+			if (!is_set($row['id']) || !is_set($row['label'])) {
 				printf("[010] Brute force seek %d returned %d\n", $idx, var_export($row, true));
 			}
 		} else {
@@ -181,7 +181,7 @@ END;')) {
 			$res = mysqli_store_result($link, MYSQLI_STORE_RESULT_COPY_DATA);
 
 			$tmp = mysqli_fetch_assoc($res);
-			if (!is_array($tmp) || empty($tmp) || !isset($tmp['p_version']) || ('' == $tmp['p_version'])) {
+			if (!is_array($tmp) || empty($tmp) || !is_set($tmp['p_version']) || ('' == $tmp['p_version'])) {
 				printf("[024] Expecting array [%d] %s\n", mysqli_errno($link), mysqli_error($link));
 				var_dump($tmp);
 			}

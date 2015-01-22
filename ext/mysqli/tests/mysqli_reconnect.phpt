@@ -31,8 +31,8 @@ mysqli.reconnect=1
 		$running_threads[$row['Id']] = $row;
 	mysqli_free_result($res);
 
-	if (!isset($running_threads[$thread_id_timeout]) ||
-			!isset($running_threads[$thread_id_control]))
+	if (!is_set($running_threads[$thread_id_timeout]) ||
+			!is_set($running_threads[$thread_id_control]))
 		printf("[003] Processlist is borked, [%d] %s\n",
 			mysqli_errno($link2), mysqli_error($link));
 
@@ -64,7 +64,7 @@ mysqli.reconnect=1
 		$running_threads[$row['Id']] = $row;
 	mysqli_free_result($res);
 
-	if (isset($running_threads[$thread_id_timeout]))
+	if (is_set($running_threads[$thread_id_timeout]))
 		printf("[009] Server should have killed the timeout connection, [%d] %s\n",
 			mysqli_errno($link2), mysqli_error($link));
 
@@ -101,8 +101,8 @@ mysqli.reconnect=1
 		$running_threads[$row['Id']] = $row;
 	mysqli_free_result($res);
 
-	if (isset($running_threads[$thread_id_timeout]) ||
-			!isset($running_threads[$thread_id_control]))
+	if (is_set($running_threads[$thread_id_timeout]) ||
+			!is_set($running_threads[$thread_id_control]))
 		printf("[016] Processlist is borked, [%d] %s\n",
 			mysqli_errno($link2), mysqli_error($link));
 

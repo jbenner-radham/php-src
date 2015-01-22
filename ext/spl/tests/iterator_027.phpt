@@ -18,7 +18,7 @@ echo "===CHECK===\n";
 
 for ($i = 0; $i < 4; $i++)
 {
-	if (isset($it[$i]))
+	if (is_set($it[$i]))
 	{
 		var_dump($i, $it[$i]);
 	}
@@ -36,19 +36,19 @@ unset($it[0]);
 unset($it[2]);
 unset($it['baz']);
 
-var_dump(isset($it[0])); // unset
-var_dump(isset($it[1])); // still present
-var_dump(isset($it[2])); // unset
-var_dump(isset($it[3])); // still present
-var_dump(isset($it['baz']));
+var_dump(is_set($it[0])); // unset
+var_dump(is_set($it[1])); // still present
+var_dump(is_set($it[2])); // unset
+var_dump(is_set($it[3])); // still present
+var_dump(is_set($it['baz']));
 
 echo "===REWIND===\n";
 
 $it->rewind(); // cleans and reads first element
-var_dump(isset($it[0])); // pre-fetched
-var_dump(isset($it[1])); // deleted
-var_dump(isset($it[2])); // unset
-var_dump(isset($it[3])); // deleted
+var_dump(is_set($it[0])); // pre-fetched
+var_dump(is_set($it[1])); // deleted
+var_dump(is_set($it[2])); // unset
+var_dump(is_set($it[3])); // deleted
 
 ?>
 ===DONE===

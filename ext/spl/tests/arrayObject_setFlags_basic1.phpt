@@ -1,17 +1,17 @@
 --TEST--
-SPL: ArrayObject::setFlags basic usage with ArrayObject::ARRAY_AS_PROPS. Currently fails on php.net due to bug 45622. 
+SPL: ArrayObject::setFlags basic usage with ArrayObject::ARRAY_AS_PROPS. Currently fails on php.net due to bug 45622.
 --FILE--
 <?php
 class C extends ArrayObject {
 	public $p = 'object property';
-}	
+}
 
 function access_p($ao) {
-  // isset
-  var_dump(isset($ao->p));
+  // is_set
+  var_dump(is_set($ao->p));
   // read
   var_dump($ao->p);
-  // write  
+  // write
   $ao->p = $ao->p . '.changed';
   var_dump($ao->p);
 }

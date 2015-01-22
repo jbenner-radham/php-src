@@ -10,7 +10,7 @@ var_dump(property_exists($obj,'foo'));
 $ref = new ReflectionObject($obj);
 var_dump($ref->hasProperty('b'));
 
-var_dump(isset($obj->a));
+var_dump(is_set($obj->a));
 
 ?>
 --EXPECTF--

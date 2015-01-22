@@ -1,5 +1,5 @@
 --TEST--
-imap_fetchstructure() function : basic functionality 
+imap_fetchstructure() function : basic functionality
 --CREDITS--
 Olivier Doucet
 --SKIPIF--
@@ -28,7 +28,7 @@ $fields = array('type','encoding','ifsubtype','subtype',
 'ifdescription','lines','bytes','parameters');
 
 foreach ($fields as $key) {
-	var_dump(isset($z->$key));
+	var_dump(is_set($z->$key));
 }
 var_dump($z->type);
 var_dump($z->encoding);
@@ -39,7 +39,7 @@ var_dump(is_object($z->parameters));
 imap_close($stream_id);
 ?>
 --CLEAN--
-<?php 
+<?php
 require_once('clean.inc');
 ?>
 --EXPECTF--

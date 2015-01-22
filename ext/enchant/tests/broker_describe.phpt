@@ -1,7 +1,7 @@
 --TEST--
 enchant_broker_describe() function
 --SKIPIF--
-<?php 
+<?php
 if(!extension_loaded('enchant')) die('skip, enchant not loader');
 
  ?>
@@ -15,7 +15,7 @@ $provides = enchant_broker_describe($broker);
 
 if (is_array($provides)) {
 	foreach ($provides as $backend) {
-		if (!(isset($backend['name']) && isset($backend['desc']) && isset($backend['file']))) {
+		if (!(is_set($backend['name']) && is_set($backend['desc']) && is_set($backend['file']))) {
 			exit("failed\n");
 		}
 	}
