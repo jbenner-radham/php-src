@@ -4556,6 +4556,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_CONST_CONST_HANDLER(ZEND_OPCODE_HANDLER_A
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
 
@@ -5303,6 +5326,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_CONST_TMP_HANDLER(ZEND_OPCODE_HANDLER_ARG
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_dtor(free_op2.var);
@@ -6376,6 +6422,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_CONST_VAR_HANDLER(ZEND_OPCODE_HANDLER_ARG
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_ptr_dtor_nogc(&free_op2.var);
@@ -7911,6 +7980,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_CONST_CV_HANDLER(ZEND_OPCODE_HANDLER_ARGS
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
 
@@ -10019,6 +10111,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_TMP_CONST_HANDLER(ZEND_OPCODE_HANDLER_ARG
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_dtor(free_op1.var);
@@ -10769,6 +10884,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_TMP_TMP_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_dtor(free_op1.var);
@@ -11845,6 +11983,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_TMP_VAR_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_dtor(free_op1.var);
@@ -13171,6 +13332,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_TMP_CV_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_dtor(free_op1.var);
@@ -17127,6 +17311,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_VAR_CONST_HANDLER(ZEND_OPCODE_HANDLER_ARG
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_ptr_dtor_nogc(&free_op1.var);
@@ -19264,6 +19471,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_VAR_TMP_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_ptr_dtor_nogc(&free_op1.var);
@@ -21782,6 +22012,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_VAR_VAR_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_ptr_dtor_nogc(&free_op1.var);
@@ -25121,6 +25374,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_VAR_CV_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_ptr_dtor_nogc(&free_op1.var);
@@ -34547,6 +34823,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_CV_CONST_HANDLER(ZEND_OPCODE_HANDLER_ARGS
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
 
@@ -36544,6 +36843,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_CV_TMP_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_dtor(free_op2.var);
@@ -38921,6 +39243,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_CV_VAR_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
     zval_ptr_dtor_nogc(&free_op2.var);
@@ -41970,6 +42315,29 @@ static int ZEND_FASTCALL  ZEND_IN_SPEC_CV_CV_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
         if (use_copy) {
             zval_dtor(&op1_copy);
         }
+    } else if (Z_TYPE_P(op2) == IS_ARRAY) {
+        HashPosition pos;
+        zval **value;
+
+        /* Start under the assumption that the value isn't contained */
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
+
+        /* Iterate through the array */
+        zend_hash_internal_pointer_reset_ex(Z_ARRVAL_P(op2), &pos);
+        while (zend_hash_get_current_data_ex(Z_ARRVAL_P(op2), (void **) &value, &pos) == SUCCESS) {
+            zval result;
+
+            /* Compare values using == */
+            if (is_equal_function(&result, op1, *value TSRMLS_CC) == SUCCESS && Z_LVAL(result)) {
+                ZVAL_TRUE(&EX_T(opline->result.var).tmp_var);
+                break;
+            }
+
+            zend_hash_move_forward_ex(Z_ARRVAL_P(op2), &pos);
+        }
+    } else {
+        zend_error(E_WARNING, "Right operand of in has to be either string or array");
+        ZVAL_FALSE(&EX_T(opline->result.var).tmp_var);
     }
 
 
