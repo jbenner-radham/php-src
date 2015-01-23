@@ -68,6 +68,8 @@ static YYSIZE_T zend_yytnamerr(char*, const char*);
 %token T_LOGICAL_XOR  "xor (T_LOGICAL_XOR)"
 %left T_LOGICAL_AND
 %token T_LOGICAL_AND  "and (T_LOGICAL_AND)"
+/* %left T_LOGICAL_NOT
+%token T_LOGICAL_NOT  "is not (T_LOGICAL_NOT)" */
 %right T_PRINT
 %token T_PRINT        "print (T_PRINT)"
 %right T_YIELD
@@ -92,23 +94,24 @@ static YYSIZE_T zend_yytnamerr(char*, const char*);
 %left '|'
 %left '^'
 %left '&'
+/* %token T_NULL_COALESCE "?? (T_NULL_COALESCE)" */
 %nonassoc T_IS_EQUAL T_IS_NOT_EQUAL T_IS_IDENTICAL T_IS_NOT_IDENTICAL
-%token T_IS_EQUAL     "== (T_IS_EQUAL)"
-%token T_IS_NOT_EQUAL "!= (T_IS_NOT_EQUAL)"
-%token T_IS_IDENTICAL "=== (T_IS_IDENTICAL)"
+%token T_IS_EQUAL         "== (T_IS_EQUAL)"
+%token T_IS_NOT_EQUAL     "!= (T_IS_NOT_EQUAL)"
+%token T_IS_IDENTICAL     "=== (T_IS_IDENTICAL)"
 %token T_IS_NOT_IDENTICAL "!== (T_IS_NOT_IDENTICAL)"
 %nonassoc '<' T_IS_SMALLER_OR_EQUAL '>' T_IS_GREATER_OR_EQUAL T_IN
-%token T_IN "in (T_IN)"
+%token T_IN                  "in (T_IN)"
 %token T_IS_SMALLER_OR_EQUAL "<= (T_IS_SMALLER_OR_EQUAL)"
 %token T_IS_GREATER_OR_EQUAL ">= (T_IS_GREATER_OR_EQUAL)"
 %left T_SL T_SR
-%token T_SL "<< (T_SL)"
-%token T_SR ">> (T_SR)"
+%token T_SL                  "<< (T_SL)"
+%token T_SR                  ">> (T_SR)"
 %left '+' '-' '.'
 %left '*' '/' '%'
 %right '!'
-%nonassoc T_INSTANCEOF
-%token T_INSTANCEOF  "instanceof (T_INSTANCEOF)"
+%nonassoc T_INSTANCE_OF
+%token T_INSTANCE_OF  "instance_of (T_INSTANCE_OF)"
 %right '~' T_INC T_DEC T_INT_CAST T_DOUBLE_CAST T_STRING_CAST T_ARRAY_CAST T_OBJECT_CAST T_BOOL_CAST T_UNSET_CAST '@'
 %right T_POW
 %token T_INC "++ (T_INC)"
@@ -161,7 +164,7 @@ static YYSIZE_T zend_yytnamerr(char*, const char*);
 %token T_BREAK      "break (T_BREAK)"
 %token T_CONTINUE   "continue (T_CONTINUE)"
 %token T_GOTO       "goto (T_GOTO)"
-%token T_FUNCTION   "function (T_FUNCTION)"
+%token T_FUNCTION   "fn (T_FUNCTION)"
 %token T_CONST      "const (T_CONST)"
 %token T_RETURN     "return (T_RETURN)"
 %token T_TRY        "try (T_TRY)"
@@ -825,7 +828,7 @@ expr_without_variable:
 	|	expr T_IS_SMALLER_OR_EQUAL expr { zend_do_binary_op(ZEND_IS_SMALLER_OR_EQUAL, &$$, &$1, &$3 TSRMLS_CC); }
 	|	expr '>' expr 					{ zend_do_binary_op(ZEND_IS_SMALLER, &$$, &$3, &$1 TSRMLS_CC); }
 	|	expr T_IS_GREATER_OR_EQUAL expr { zend_do_binary_op(ZEND_IS_SMALLER_OR_EQUAL, &$$, &$3, &$1 TSRMLS_CC); }
-	|	expr T_INSTANCEOF class_name_reference { zend_do_instanceof(&$$, &$1, &$3, 0 TSRMLS_CC); }
+	|	expr T_INSTANCE_OF class_name_reference { zend_do_instance_of(&$$, &$1, &$3, 0 TSRMLS_CC); }
 	|	parenthesis_expr 	{ $$ = $1; }
 	|	new_expr		{ $$ = $1; }
 	|	'(' new_expr ')' { $$ = $2; } instance_call { $$ = $5; }

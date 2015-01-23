@@ -1,4 +1,4 @@
-/* 
+/*
    +----------------------------------------------------------------------+
    | PHP Version 5                                                        |
    +----------------------------------------------------------------------+
@@ -332,7 +332,7 @@ PHP_FUNCTION(count)
 			}
 #ifdef HAVE_SPL
 			/* if not and the object implements Countable we call its count() method */
-			if (Z_OBJ_HT_P(array)->get_class_entry && instanceof_function(Z_OBJCE_P(array), spl_ce_Countable TSRMLS_CC)) {
+			if (Z_OBJ_HT_P(array)->get_class_entry && instance_of_function(Z_OBJCE_P(array), spl_ce_Countable TSRMLS_CC)) {
 				zend_call_method_with_0_params(&array, NULL, NULL, "count", &retval);
 				if (retval) {
 					convert_to_long_ex(&retval);
@@ -664,7 +664,7 @@ PHP_FUNCTION(usort)
 			RETVAL_TRUE;
 		}
 	}
-	
+
 	if (Z_REFCOUNT_P(array) > 1) {
 		Z_SET_ISREF_P(array);
 	}
@@ -947,13 +947,13 @@ PHP_FUNCTION(min)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "+", &args, &argc) == FAILURE) {
 		return;
 	}
-	
+
 	php_set_compare_func(PHP_SORT_REGULAR TSRMLS_CC);
-	
+
 	/* mixed min ( array $values ) */
 	if (argc == 1) {
 		zval **result;
-		
+
 		if (Z_TYPE_PP(args[0]) != IS_ARRAY) {
 			php_error_docref(NULL TSRMLS_CC, E_WARNING, "When only one parameter is given, it must be an array");
 			RETVAL_NULL();
@@ -994,13 +994,13 @@ PHP_FUNCTION(max)
 {
 	zval ***args = NULL;
 	int argc;
-	
+
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "+", &args, &argc) == FAILURE) {
 		return;
 	}
 
 	php_set_compare_func(PHP_SORT_REGULAR TSRMLS_CC);
-	
+
 	/* mixed max ( array $values ) */
 	if (argc == 1) {
 		zval **result;
@@ -1032,7 +1032,7 @@ PHP_FUNCTION(max)
 
 		RETVAL_ZVAL_FAST(*max);
 	}
-	
+
 	if (args) {
 		efree(args);
 	}
@@ -1056,7 +1056,7 @@ static int php_array_walk(HashTable *target_hash, zval *userdata, int recursive 
 	BG(array_walk_fci).param_count = userdata ? 3 : 2;
 	BG(array_walk_fci).params = args;
 	BG(array_walk_fci).no_separation = 0;
-	
+
 	/* Iterate through hash */
 	zend_hash_internal_pointer_reset(target_hash);
 	while (!EG(exception) && zend_hash_get_current_data(target_hash, (void **)&args[0]) == SUCCESS) {
@@ -1232,7 +1232,7 @@ static int php_valid_var_name(char *var_name, int var_name_len) /* {{{ */
 	if (!var_name || !var_name_len) {
 		return 0;
 	}
-	
+
 	/* These are allowed as first char: [a-zA-Z_\x7f-\xff] */
 	ch = (int)((unsigned char *)var_name)[0];
 	if (var_name[0] != '_' &&
@@ -1920,7 +1920,7 @@ PHP_FUNCTION(array_unshift)
 	zval ***args,			/* Function arguments array */
 		   *stack;			/* Input stack */
 	int argc;				/* Number of function arguments */
-	
+
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "a+", &stack, &args, &argc) == FAILURE) {
 		return;
 	}
@@ -2007,10 +2007,10 @@ PHP_FUNCTION(array_splice)
 PHP_FUNCTION(array_slice)
 {
 	zval	 *input,		/* Input array */
-			**z_length = NULL, /* How many elements to get */ 
+			**z_length = NULL, /* How many elements to get */
 			**entry;		/* An array entry */
 	long	 offset,		/* Offset to get elements from */
-			 length = 0;	
+			 length = 0;
 	zend_bool preserve_keys = 0; /* Whether to preserve keys while copying to the new array or not */
 	int		 num_in,		/* Number of elements in the input array */
 			 pos;			/* Current position in the array */
@@ -2207,7 +2207,7 @@ PHPAPI int php_array_replace_recursive(HashTable *dest, HashTable *src TSRMLS_DC
 		SEPARATE_ZVAL(dest_entry);
 		Z_ARRVAL_PP(dest_entry)->nApplyCount++;
 		Z_ARRVAL_PP(src_entry)->nApplyCount++;
-		
+
 
 		if (!php_array_replace_recursive(Z_ARRVAL_PP(dest_entry), Z_ARRVAL_PP(src_entry) TSRMLS_CC)) {
 			Z_ARRVAL_PP(dest_entry)->nApplyCount--;
@@ -2837,12 +2837,12 @@ static void php_array_intersect_key(INTERNAL_FUNCTION_PARAMETERS, int data_compa
 			INTERSECT_COMP_DATA_INTERNAL - array_intersect_assoc() */
 		req_args = 2;
 		param_spec = "+";
-				
+
 		if (data_compare_type == INTERSECT_COMP_DATA_INTERNAL) {
 			intersect_data_compare_func = zval_compare;
 		}
 	}
-	
+
 	if (argc < req_args) {
 		php_error_docref(NULL TSRMLS_CC, E_WARNING, "at least %d parameters are required, %d given", req_args, argc);
 		return;

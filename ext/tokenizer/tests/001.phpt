@@ -114,7 +114,7 @@ echo token_name(T_PAAMAYIM_NEKUDOTAYIM), "\n";
 echo token_name(T_ABSTRACT), "\n";
 echo token_name(T_CATCH), "\n";
 echo token_name(T_FINAL), "\n";
-echo token_name(T_INSTANCEOF), "\n";
+echo token_name(T_INSTANCE_OF), "\n";
 echo token_name(T_PRIVATE), "\n";
 echo token_name(T_PROTECTED), "\n";
 echo token_name(T_PUBLIC), "\n";
@@ -240,7 +240,7 @@ T_DOUBLE_COLON
 T_ABSTRACT
 T_CATCH
 T_FINAL
-T_INSTANCEOF
+T_INSTANCE_OF
 T_PRIVATE
 T_PROTECTED
 T_PUBLIC

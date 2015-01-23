@@ -1872,12 +1872,12 @@ ZEND_API int is_smaller_or_equal_function(zval *result, zval *op1, zval *op2 TSR
 }
 /* }}} */
 
-ZEND_API zend_bool instanceof_function_ex(const zend_class_entry *instance_ce, const zend_class_entry *ce, zend_bool interfaces_only TSRMLS_DC) /* {{{ */
+ZEND_API zend_bool instance_of_function_ex(const zend_class_entry *instance_ce, const zend_class_entry *ce, zend_bool interfaces_only TSRMLS_DC) /* {{{ */
 {
 	zend_uint i;
 
 	for (i=0; i<instance_ce->num_interfaces; i++) {
-		if (instanceof_function(instance_ce->interfaces[i], ce TSRMLS_CC)) {
+		if (instance_of_function(instance_ce->interfaces[i], ce TSRMLS_CC)) {
 			return 1;
 		}
 	}
@@ -1894,9 +1894,9 @@ ZEND_API zend_bool instanceof_function_ex(const zend_class_entry *instance_ce, c
 }
 /* }}} */
 
-ZEND_API zend_bool instanceof_function(const zend_class_entry *instance_ce, const zend_class_entry *ce TSRMLS_DC) /* {{{ */
+ZEND_API zend_bool instance_of_function(const zend_class_entry *instance_ce, const zend_class_entry *ce TSRMLS_DC) /* {{{ */
 {
-	return instanceof_function_ex(instance_ce, ce, 0 TSRMLS_CC);
+	return instance_of_function_ex(instance_ce, ce, 0 TSRMLS_CC);
 }
 /* }}} */
 

@@ -1023,7 +1023,7 @@ NEWLINE ("\r"|"\n"|"\r\n")
     return T_IN;
 }
 
-<ST_IN_SCRIPTING>"function" {
+<ST_IN_SCRIPTING>"fn" {
 	return T_FUNCTION;
 }
 
@@ -1107,8 +1107,8 @@ NEWLINE ("\r"|"\n"|"\r\n")
 	return T_ENDDECLARE;
 }
 
-<ST_IN_SCRIPTING>"instanceof" {
-	return T_INSTANCEOF;
+<ST_IN_SCRIPTING>"instance_of" {
+	return T_INSTANCE_OF;
 }
 
 <ST_IN_SCRIPTING>"as" {

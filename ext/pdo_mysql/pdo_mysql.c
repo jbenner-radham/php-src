@@ -42,7 +42,7 @@ ZEND_DECLARE_MODULE_GLOBALS(pdo_mysql)
  With libmysql `mysql_config --socket` will fill PDO_MYSQL_UNIX_ADDR
  and the user can use --with-mysql-sock=SOCKET which will fill
  PDO_MYSQL_UNIX_ADDR. If both aren't set we're using mysqlnd and use
- /tmp/mysql.sock as default on *nix and NULL for Windows (default 
+ /tmp/mysql.sock as default on *nix and NULL for Windows (default
  named pipe name is set in mysqlnd).
 */
 #ifndef PDO_MYSQL_UNIX_ADDR
@@ -61,7 +61,7 @@ ZEND_DECLARE_MODULE_GLOBALS(pdo_mysql)
 #include "ext/mysqlnd/mysqlnd_reverse_api.h"
 static MYSQLND * pdo_mysql_convert_zv_to_mysqlnd(zval * zv TSRMLS_DC)
 {
-	if (Z_TYPE_P(zv) == IS_OBJECT && instanceof_function(Z_OBJCE_P(zv), php_pdo_get_dbh_ce() TSRMLS_CC)) {
+	if (Z_TYPE_P(zv) == IS_OBJECT && instance_of_function(Z_OBJCE_P(zv), php_pdo_get_dbh_ce() TSRMLS_CC)) {
 		pdo_dbh_t * dbh = zend_object_store_get_object(zv TSRMLS_CC);
 
 		if (!dbh) {
@@ -98,8 +98,8 @@ PHP_INI_BEGIN()
 PHP_INI_END()
 /* }}} */
 
-/* true global environment */		
-		
+/* true global environment */
+
 /* {{{ PHP_MINIT_FUNCTION
  */
 static PHP_MINIT_FUNCTION(pdo_mysql)
@@ -107,7 +107,7 @@ static PHP_MINIT_FUNCTION(pdo_mysql)
 	REGISTER_INI_ENTRIES();
 
 	REGISTER_PDO_CLASS_CONST_LONG("MYSQL_ATTR_USE_BUFFERED_QUERY", (long)PDO_MYSQL_ATTR_USE_BUFFERED_QUERY);
-	REGISTER_PDO_CLASS_CONST_LONG("MYSQL_ATTR_LOCAL_INFILE", (long)PDO_MYSQL_ATTR_LOCAL_INFILE);	
+	REGISTER_PDO_CLASS_CONST_LONG("MYSQL_ATTR_LOCAL_INFILE", (long)PDO_MYSQL_ATTR_LOCAL_INFILE);
 	REGISTER_PDO_CLASS_CONST_LONG("MYSQL_ATTR_INIT_COMMAND", (long)PDO_MYSQL_ATTR_INIT_COMMAND);
 #ifndef PDO_USE_MYSQLND
 	REGISTER_PDO_CLASS_CONST_LONG("MYSQL_ATTR_MAX_BUFFER_SIZE", (long)PDO_MYSQL_ATTR_MAX_BUFFER_SIZE);
@@ -171,7 +171,7 @@ static PHP_MINFO_FUNCTION(pdo_mysql)
 /* {{{ PHP_RINIT_FUNCTION
  */
 static PHP_RINIT_FUNCTION(pdo_mysql)
-{	
+{
 	if (PDO_MYSQL_G(debug)) {
 		MYSQLND_DEBUG *dbg = mysqlnd_debug_init(mysqlnd_debug_std_no_trace_funcs TSRMLS_CC);
 		if (!dbg) {
@@ -180,7 +180,7 @@ static PHP_RINIT_FUNCTION(pdo_mysql)
 		dbg->m->set_mode(dbg, PDO_MYSQL_G(debug));
 		PDO_MYSQL_G(dbg) = dbg;
 	}
-	
+
 	return SUCCESS;
 }
 /* }}} */

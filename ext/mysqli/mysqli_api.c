@@ -712,7 +712,7 @@ void php_mysqli_close(MY_MYSQL * mysql, int close_type, int resource_status TSRM
 					FAIL == mysqlnd_rollback(mysql->mysql, TRANS_COR_NO_OPT, NULL))
 #endif
 				{
-					mysqli_close(mysql->mysql, close_type);			
+					mysqli_close(mysql->mysql, close_type);
 				} else {
 					zend_ptr_stack_push(&plist->free_links, mysql->mysql);
 					MyG(num_inactive_persistent)++;
@@ -1536,7 +1536,7 @@ void php_mysqli_init(INTERNAL_FUNCTION_PARAMETERS)
 	mysqli_resource->ptr = (void *)mysql;
 	mysqli_resource->status = MYSQLI_STATUS_INITIALIZED;
 
-	if (!getThis() || !instanceof_function(Z_OBJCE_P(getThis()), mysqli_link_class_entry TSRMLS_CC)) {
+	if (!getThis() || !instance_of_function(Z_OBJCE_P(getThis()), mysqli_link_class_entry TSRMLS_CC)) {
 		MYSQLI_RETURN_RESOURCE(mysqli_resource, mysqli_link_class_entry);
 	} else {
 		((mysqli_object *) zend_object_store_get_object(getThis() TSRMLS_CC))->ptr = mysqli_resource;

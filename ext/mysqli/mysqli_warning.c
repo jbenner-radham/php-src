@@ -318,7 +318,7 @@ PHP_METHOD(mysqli_warning, __construct)
 	mysqli_resource->ptr = mysqli_resource->info = (void *)w;
 	mysqli_resource->status = MYSQLI_STATUS_VALID;
 
-	if (!getThis() || !instanceof_function(Z_OBJCE_P(getThis()), mysqli_warning_class_entry TSRMLS_CC)) {
+	if (!getThis() || !instance_of_function(Z_OBJCE_P(getThis()), mysqli_warning_class_entry TSRMLS_CC)) {
 		MYSQLI_RETURN_RESOURCE(mysqli_resource, mysqli_warning_class_entry);
 	} else {
 		((mysqli_object *) zend_object_store_get_object(getThis() TSRMLS_CC))->ptr = mysqli_resource;

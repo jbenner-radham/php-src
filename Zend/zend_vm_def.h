@@ -2592,7 +2592,7 @@ ZEND_VM_HANDLER(113, ZEND_INIT_STATIC_METHOD_CALL, CONST|VAR, CONST|TMP|VAR|UNUS
     } else {
         if (EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            !instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            !instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             /* We are calling method of the other (incompatible) class,
                but passing $this. This is done for compatibility with php-4. */
             if (call->fbc->common.fn_flags & ZEND_ACC_ALLOW_STATIC) {
@@ -3026,7 +3026,7 @@ ZEND_VM_HANDLER(107, ZEND_CATCH, CONST, CV)
 #endif /* HAVE_DTRACE */
 
     if (ce != catch_ce) {
-        if (!instanceof_function(ce, catch_ce TSRMLS_CC)) {
+        if (!instance_of_function(ce, catch_ce TSRMLS_CC)) {
             if (opline->result.num) {
                 zend_throw_exception_internal(NULL TSRMLS_CC);
                 HANDLE_EXCEPTION();
@@ -5099,7 +5099,7 @@ ZEND_VM_HANDLER(105, ZEND_TICKS, ANY, ANY)
     ZEND_VM_NEXT_OPCODE();
 }
 
-ZEND_VM_HANDLER(138, ZEND_INSTANCEOF, TMP|VAR|CV, ANY)
+ZEND_VM_HANDLER(138, ZEND_INSTANCE_OF, TMP|VAR|CV, ANY)
 {
     USE_OPLINE
     zend_free_op free_op1;
@@ -5110,7 +5110,7 @@ ZEND_VM_HANDLER(138, ZEND_INSTANCEOF, TMP|VAR|CV, ANY)
     expr = GET_OP1_ZVAL_PTR(BP_VAR_R);
 
     if (Z_TYPE_P(expr) == IS_OBJECT && Z_OBJ_HT_P(expr)->get_class_entry) {
-        result = instanceof_function(Z_OBJCE_P(expr), EX_T(opline->op2.var).class_entry TSRMLS_CC);
+        result = instance_of_function(Z_OBJCE_P(expr), EX_T(opline->op2.var).class_entry TSRMLS_CC);
     } else {
         result = 0;
     }

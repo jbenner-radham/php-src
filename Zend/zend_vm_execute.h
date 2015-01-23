@@ -3910,7 +3910,7 @@ static int ZEND_FASTCALL  ZEND_INIT_STATIC_METHOD_CALL_SPEC_CONST_CONST_HANDLER(
     } else {
         if (EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            !instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            !instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             /* We are calling method of the other (incompatible) class,
                but passing $this. This is done for compatibility with php-4. */
             if (call->fbc->common.fn_flags & ZEND_ACC_ALLOW_STATIC) {
@@ -4980,7 +4980,7 @@ static int ZEND_FASTCALL  ZEND_INIT_STATIC_METHOD_CALL_SPEC_CONST_TMP_HANDLER(ZE
     } else {
         if (EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            !instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            !instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             /* We are calling method of the other (incompatible) class,
                but passing $this. This is done for compatibility with php-4. */
             if (call->fbc->common.fn_flags & ZEND_ACC_ALLOW_STATIC) {
@@ -5912,7 +5912,7 @@ static int ZEND_FASTCALL  ZEND_INIT_STATIC_METHOD_CALL_SPEC_CONST_VAR_HANDLER(ZE
     } else {
         if (EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            !instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            !instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             /* We are calling method of the other (incompatible) class,
                but passing $this. This is done for compatibility with php-4. */
             if (call->fbc->common.fn_flags & ZEND_ACC_ALLOW_STATIC) {
@@ -6715,7 +6715,7 @@ static int ZEND_FASTCALL  ZEND_INIT_STATIC_METHOD_CALL_SPEC_CONST_UNUSED_HANDLER
     } else {
         if (EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            !instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            !instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             /* We are calling method of the other (incompatible) class,
                but passing $this. This is done for compatibility with php-4. */
             if (call->fbc->common.fn_flags & ZEND_ACC_ALLOW_STATIC) {
@@ -7575,7 +7575,7 @@ static int ZEND_FASTCALL  ZEND_INIT_STATIC_METHOD_CALL_SPEC_CONST_CV_HANDLER(ZEN
     } else {
         if (EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            !instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            !instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             /* We are calling method of the other (incompatible) class,
                but passing $this. This is done for compatibility with php-4. */
             if (call->fbc->common.fn_flags & ZEND_ACC_ALLOW_STATIC) {
@@ -7628,7 +7628,7 @@ static int ZEND_FASTCALL  ZEND_CATCH_SPEC_CONST_CV_HANDLER(ZEND_OPCODE_HANDLER_A
 #endif /* HAVE_DTRACE */
 
     if (ce != catch_ce) {
-        if (!instanceof_function(ce, catch_ce TSRMLS_CC)) {
+        if (!instance_of_function(ce, catch_ce TSRMLS_CC)) {
             if (opline->result.num) {
                 zend_throw_exception_internal(NULL TSRMLS_CC);
                 HANDLE_EXCEPTION();
@@ -9000,7 +9000,7 @@ static int ZEND_FASTCALL  ZEND_QM_ASSIGN_VAR_SPEC_TMP_HANDLER(ZEND_OPCODE_HANDLE
     ZEND_VM_NEXT_OPCODE();
 }
 
-static int ZEND_FASTCALL  ZEND_INSTANCEOF_SPEC_TMP_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
+static int ZEND_FASTCALL  ZEND_INSTANCE_OF_SPEC_TMP_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
 {
     USE_OPLINE
     zend_free_op free_op1;
@@ -9011,7 +9011,7 @@ static int ZEND_FASTCALL  ZEND_INSTANCEOF_SPEC_TMP_HANDLER(ZEND_OPCODE_HANDLER_A
     expr = _get_zval_ptr_tmp(opline->op1.var, execute_data, &free_op1 TSRMLS_CC);
 
     if (Z_TYPE_P(expr) == IS_OBJECT && Z_OBJ_HT_P(expr)->get_class_entry) {
-        result = instanceof_function(Z_OBJCE_P(expr), EX_T(opline->op2.var).class_entry TSRMLS_CC);
+        result = instance_of_function(Z_OBJCE_P(expr), EX_T(opline->op2.var).class_entry TSRMLS_CC);
     } else {
         result = 0;
     }
@@ -14748,7 +14748,7 @@ static int ZEND_FASTCALL  ZEND_QM_ASSIGN_VAR_SPEC_VAR_HANDLER(ZEND_OPCODE_HANDLE
     ZEND_VM_NEXT_OPCODE();
 }
 
-static int ZEND_FASTCALL  ZEND_INSTANCEOF_SPEC_VAR_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
+static int ZEND_FASTCALL  ZEND_INSTANCE_OF_SPEC_VAR_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
 {
     USE_OPLINE
     zend_free_op free_op1;
@@ -14759,7 +14759,7 @@ static int ZEND_FASTCALL  ZEND_INSTANCEOF_SPEC_VAR_HANDLER(ZEND_OPCODE_HANDLER_A
     expr = _get_zval_ptr_var(opline->op1.var, execute_data, &free_op1 TSRMLS_CC);
 
     if (Z_TYPE_P(expr) == IS_OBJECT && Z_OBJ_HT_P(expr)->get_class_entry) {
-        result = instanceof_function(Z_OBJCE_P(expr), EX_T(opline->op2.var).class_entry TSRMLS_CC);
+        result = instance_of_function(Z_OBJCE_P(expr), EX_T(opline->op2.var).class_entry TSRMLS_CC);
     } else {
         result = 0;
     }
@@ -16420,7 +16420,7 @@ static int ZEND_FASTCALL  ZEND_INIT_STATIC_METHOD_CALL_SPEC_VAR_CONST_HANDLER(ZE
     } else {
         if (EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            !instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            !instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             /* We are calling method of the other (incompatible) class,
                but passing $this. This is done for compatibility with php-4. */
             if (call->fbc->common.fn_flags & ZEND_ACC_ALLOW_STATIC) {
@@ -18834,7 +18834,7 @@ static int ZEND_FASTCALL  ZEND_INIT_STATIC_METHOD_CALL_SPEC_VAR_TMP_HANDLER(ZEND
     } else {
         if (EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            !instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            !instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             /* We are calling method of the other (incompatible) class,
                but passing $this. This is done for compatibility with php-4. */
             if (call->fbc->common.fn_flags & ZEND_ACC_ALLOW_STATIC) {
@@ -21211,7 +21211,7 @@ static int ZEND_FASTCALL  ZEND_INIT_STATIC_METHOD_CALL_SPEC_VAR_VAR_HANDLER(ZEND
     } else {
         if (EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            !instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            !instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             /* We are calling method of the other (incompatible) class,
                but passing $this. This is done for compatibility with php-4. */
             if (call->fbc->common.fn_flags & ZEND_ACC_ALLOW_STATIC) {
@@ -22727,7 +22727,7 @@ static int ZEND_FASTCALL  ZEND_INIT_STATIC_METHOD_CALL_SPEC_VAR_UNUSED_HANDLER(Z
     } else {
         if (EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            !instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            !instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             /* We are calling method of the other (incompatible) class,
                but passing $this. This is done for compatibility with php-4. */
             if (call->fbc->common.fn_flags & ZEND_ACC_ALLOW_STATIC) {
@@ -24738,7 +24738,7 @@ static int ZEND_FASTCALL  ZEND_INIT_STATIC_METHOD_CALL_SPEC_VAR_CV_HANDLER(ZEND_
     } else {
         if (EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            !instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            !instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             /* We are calling method of the other (incompatible) class,
                but passing $this. This is done for compatibility with php-4. */
             if (call->fbc->common.fn_flags & ZEND_ACC_ALLOW_STATIC) {
@@ -32491,7 +32491,7 @@ static int ZEND_FASTCALL  ZEND_QM_ASSIGN_VAR_SPEC_CV_HANDLER(ZEND_OPCODE_HANDLER
     ZEND_VM_NEXT_OPCODE();
 }
 
-static int ZEND_FASTCALL  ZEND_INSTANCEOF_SPEC_CV_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
+static int ZEND_FASTCALL  ZEND_INSTANCE_OF_SPEC_CV_HANDLER(ZEND_OPCODE_HANDLER_ARGS)
 {
     USE_OPLINE
 
@@ -32502,7 +32502,7 @@ static int ZEND_FASTCALL  ZEND_INSTANCEOF_SPEC_CV_HANDLER(ZEND_OPCODE_HANDLER_AR
     expr = _get_zval_ptr_cv_BP_VAR_R(execute_data, opline->op1.var TSRMLS_CC);
 
     if (Z_TYPE_P(expr) == IS_OBJECT && Z_OBJ_HT_P(expr)->get_class_entry) {
-        result = instanceof_function(Z_OBJCE_P(expr), EX_T(opline->op2.var).class_entry TSRMLS_CC);
+        result = instance_of_function(Z_OBJCE_P(expr), EX_T(opline->op2.var).class_entry TSRMLS_CC);
     } else {
         result = 0;
     }
@@ -45810,26 +45810,26 @@ void zend_init_opcodes_handlers(void)
   	ZEND_NULL_HANDLER,
   	ZEND_NULL_HANDLER,
   	ZEND_NULL_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_TMP_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_TMP_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_TMP_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_TMP_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_TMP_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_VAR_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_VAR_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_VAR_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_VAR_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_VAR_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_TMP_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_TMP_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_TMP_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_TMP_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_TMP_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_VAR_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_VAR_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_VAR_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_VAR_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_VAR_HANDLER,
   	ZEND_NULL_HANDLER,
   	ZEND_NULL_HANDLER,
   	ZEND_NULL_HANDLER,
   	ZEND_NULL_HANDLER,
   	ZEND_NULL_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_CV_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_CV_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_CV_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_CV_HANDLER,
-  	ZEND_INSTANCEOF_SPEC_CV_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_CV_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_CV_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_CV_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_CV_HANDLER,
+  	ZEND_INSTANCE_OF_SPEC_CV_HANDLER,
   	ZEND_DECLARE_CLASS_SPEC_HANDLER,
   	ZEND_DECLARE_CLASS_SPEC_HANDLER,
   	ZEND_DECLARE_CLASS_SPEC_HANDLER,

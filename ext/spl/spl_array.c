@@ -620,7 +620,7 @@ static int spl_array_has_dimension_ex(int check_inherited, zval *object, zval *o
 		HashTable *ht = spl_array_get_hash_table(intern, 0 TSRMLS_CC);
 
 		switch(Z_TYPE_P(offset)) {
-			case IS_STRING: 
+			case IS_STRING:
 				if (zend_symtable_find(ht, Z_STRVAL_P(offset), Z_STRLEN_P(offset)+1, (void **) &tmp) != FAILURE) {
 					if (check_empty == 2) {
 						return 1;
@@ -632,7 +632,7 @@ static int spl_array_has_dimension_ex(int check_inherited, zval *object, zval *o
 
 			case IS_DOUBLE:
 			case IS_RESOURCE:
-			case IS_BOOL: 
+			case IS_BOOL:
 			case IS_LONG:
 				if (offset->type == IS_DOUBLE) {
 					index = (long)Z_DVAL_P(offset);
@@ -1661,7 +1661,7 @@ SPL_METHOD(Array, getChildren)
 		if ((intern->ar_flags & SPL_ARRAY_CHILD_ARRAYS_ONLY) != 0) {
 			return;
 		}
-		if (instanceof_function(Z_OBJCE_PP(entry), Z_OBJCE_P(getThis()) TSRMLS_CC)) {
+		if (instance_of_function(Z_OBJCE_PP(entry), Z_OBJCE_P(getThis()) TSRMLS_CC)) {
 			RETURN_ZVAL(*entry, 1, 0);
 		}
 	}

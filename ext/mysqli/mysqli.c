@@ -509,15 +509,15 @@ PHP_MYSQLI_EXPORT(zend_object_value) mysqli_objects_new(zend_class_entry *class_
 	object_properties_init(&intern->zo, class_type);
 
 	/* link object */
-	if (instanceof_function(class_type, mysqli_link_class_entry TSRMLS_CC)) {
+	if (instance_of_function(class_type, mysqli_link_class_entry TSRMLS_CC)) {
 		free_storage = mysqli_link_free_storage;
-	} else if (instanceof_function(class_type, mysqli_driver_class_entry TSRMLS_CC)) { /* driver object */
+	} else if (instance_of_function(class_type, mysqli_driver_class_entry TSRMLS_CC)) { /* driver object */
 		free_storage = mysqli_driver_free_storage;
-	} else if (instanceof_function(class_type, mysqli_stmt_class_entry TSRMLS_CC)) { /* stmt object */
+	} else if (instance_of_function(class_type, mysqli_stmt_class_entry TSRMLS_CC)) { /* stmt object */
 		free_storage = mysqli_stmt_free_storage;
-	} else if (instanceof_function(class_type, mysqli_result_class_entry TSRMLS_CC)) { /* result object */
+	} else if (instance_of_function(class_type, mysqli_result_class_entry TSRMLS_CC)) { /* result object */
 		free_storage = mysqli_result_free_storage;
-	} else if (instanceof_function(class_type, mysqli_warning_class_entry TSRMLS_CC)) { /* warning object */
+	} else if (instance_of_function(class_type, mysqli_warning_class_entry TSRMLS_CC)) { /* warning object */
 		free_storage = mysqli_warning_free_storage;
 	} else {
 		free_storage = mysqli_objects_free_storage;
@@ -534,7 +534,7 @@ PHP_MYSQLI_EXPORT(zend_object_value) mysqli_objects_new(zend_class_entry *class_
 #include "ext/mysqlnd/mysqlnd_reverse_api.h"
 static MYSQLND *mysqli_convert_zv_to_mysqlnd(zval * zv TSRMLS_DC)
 {
-	if (Z_TYPE_P(zv) == IS_OBJECT && instanceof_function(Z_OBJCE_P(zv), mysqli_link_class_entry TSRMLS_CC)) {
+	if (Z_TYPE_P(zv) == IS_OBJECT && instance_of_function(Z_OBJCE_P(zv), mysqli_link_class_entry TSRMLS_CC)) {
 		MY_MYSQL * mysql;
 		MYSQLI_RESOURCE  * my_res;
 		mysqli_object * intern = (mysqli_object *)zend_object_store_get_object(zv TSRMLS_CC);
@@ -1153,7 +1153,7 @@ void php_mysqli_fetch_into_hash_aux(zval *return_value, MYSQL_RES * result, long
 	unsigned int	i;
 	MYSQL_FIELD		*fields;
 	unsigned long	*field_len;
-	
+
 	if (!(row = mysql_fetch_row(result))) {
 		RETURN_NULL();
 	}

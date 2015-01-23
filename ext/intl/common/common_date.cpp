@@ -207,9 +207,9 @@ U_CFUNC double intl_zval_to_millis(zval *z, intl_error *err, const char *func TS
 		rv = U_MILLIS_PER_SECOND * Z_DVAL_P(z);
 		break;
 	case IS_OBJECT:
-		if (instanceof_function(Z_OBJCE_P(z), php_date_get_date_ce() TSRMLS_CC)) {
+		if (instance_of_function(Z_OBJCE_P(z), php_date_get_date_ce() TSRMLS_CC)) {
 			intl_datetime_decompose(z, &rv, NULL, err, func TSRMLS_CC);
-		} else if (instanceof_function(Z_OBJCE_P(z), Calendar_ce_ptr TSRMLS_CC)) {
+		} else if (instance_of_function(Z_OBJCE_P(z), Calendar_ce_ptr TSRMLS_CC)) {
 			Calendar_object *co = (Calendar_object *)
 				zend_object_store_get_object(z TSRMLS_CC );
 			if (co->ucal == NULL) {

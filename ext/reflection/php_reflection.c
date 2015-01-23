@@ -84,7 +84,7 @@ ZEND_DECLARE_MODULE_GLOBALS(reflection)
 /* Method macros */
 
 #define METHOD_NOTSTATIC(ce)                                                                                \
-	if (!this_ptr || !instanceof_function(Z_OBJCE_P(this_ptr), ce TSRMLS_CC)) {                             \
+	if (!this_ptr || !instance_of_function(Z_OBJCE_P(this_ptr), ce TSRMLS_CC)) {                             \
 		php_error_docref(NULL TSRMLS_CC, E_ERROR, "%s() cannot be called statically", get_active_function_name(TSRMLS_C));        \
 		return;                                                                                             \
 	}                                                                                                       \
@@ -681,7 +681,7 @@ static zend_op* _get_recv_op(zend_op_array *op_array, zend_uint offset)
 
 	++offset;
 	while (op < end) {
-		if ((op->opcode == ZEND_RECV || op->opcode == ZEND_RECV_INIT 
+		if ((op->opcode == ZEND_RECV || op->opcode == ZEND_RECV_INIT
 		    || op->opcode == ZEND_RECV_VARIADIC) && op->op1.num == (long)offset)
 		{
 			return op;
@@ -2235,7 +2235,7 @@ ZEND_METHOD(reflection_parameter, __construct)
 		case IS_OBJECT: {
 				ce = Z_OBJCE_P(reference);
 
-				if (instanceof_function(ce, zend_ce_closure TSRMLS_CC)) {
+				if (instance_of_function(ce, zend_ce_closure TSRMLS_CC)) {
 					fptr = (zend_function *)zend_get_closure_method_def(reference TSRMLS_CC);
 					Z_ADDREF_P(reference);
 					is_closure = 1;
@@ -2823,7 +2823,7 @@ ZEND_METHOD(reflection_method, getClosure)
 			return;
 		}
 
-		if (!instanceof_function(Z_OBJCE_P(obj), mptr->common.scope TSRMLS_CC)) {
+		if (!instance_of_function(Z_OBJCE_P(obj), mptr->common.scope TSRMLS_CC)) {
 			_DO_THROW("Given object is not an instance of the class this method was declared in");
 			/* Returns from this function */
 		}
@@ -2898,7 +2898,7 @@ ZEND_METHOD(reflection_method, invoke)
 
 		obj_ce = Z_OBJCE_PP(params[0]);
 
-		if (!instanceof_function(obj_ce, mptr->common.scope TSRMLS_CC)) {
+		if (!instance_of_function(obj_ce, mptr->common.scope TSRMLS_CC)) {
 			if (params) {
 				efree(params);
 			}
@@ -3011,7 +3011,7 @@ ZEND_METHOD(reflection_method, invokeArgs)
 
 		obj_ce = Z_OBJCE_P(object);
 
-		if (!instanceof_function(obj_ce, mptr->common.scope TSRMLS_CC)) {
+		if (!instance_of_function(obj_ce, mptr->common.scope TSRMLS_CC)) {
 			efree(params);
 			_DO_THROW("Given object is not an instance of the class this method was declared in");
 			/* Returns from this function */
@@ -3033,8 +3033,8 @@ ZEND_METHOD(reflection_method, invokeArgs)
 	fcc.calling_scope = obj_ce;
 	fcc.called_scope = intern->ce;
 	fcc.object_ptr = object;
-	
-	/* 
+
+	/*
 	 * Copy the zend_function when calling via handler (e.g. Closure::__invoke())
 	 */
 	if (mptr->type == ZEND_INTERNAL_FUNCTION &&
@@ -3822,7 +3822,7 @@ ZEND_METHOD(reflection_class, getMethods)
 
 	array_init(return_value);
 	zend_hash_apply_with_arguments(&ce->function_table TSRMLS_CC, (apply_func_args_t) _addmethod_va, 4, &ce, return_value, filter, intern->obj);
-	if (intern->obj && instanceof_function(ce, zend_ce_closure TSRMLS_CC)) {
+	if (intern->obj && instance_of_function(ce, zend_ce_closure TSRMLS_CC)) {
 		zend_function *closure = zend_get_closure_invoke_method(intern->obj TSRMLS_CC);
 		if (closure) {
 			_addmethod(closure, ce, return_value, filter, intern->obj TSRMLS_CC);
@@ -3923,7 +3923,7 @@ ZEND_METHOD(reflection_class, getProperty)
 		}
 		efree(classname);
 
-		if (!instanceof_function(ce, *pce TSRMLS_CC)) {
+		if (!instance_of_function(ce, *pce TSRMLS_CC)) {
 			zend_throw_exception_ex(reflection_exception_ptr, -1 TSRMLS_CC, "Fully qualified property name %s::%s does not specify a base class of %s", (*pce)->name, name, ce->name);
 			return;
 		}
@@ -4218,7 +4218,7 @@ ZEND_METHOD(reflection_class, isInstance)
 		return;
 	}
 	GET_REFLECTION_OBJECT_PTR(ce);
-	RETURN_BOOL(HAS_CLASS_ENTRY(*object) && instanceof_function(Z_OBJCE_P(object), ce TSRMLS_CC));
+	RETURN_BOOL(HAS_CLASS_ENTRY(*object) && instance_of_function(Z_OBJCE_P(object), ce TSRMLS_CC));
 }
 /* }}} */
 
@@ -4577,7 +4577,7 @@ ZEND_METHOD(reflection_class, isSubclassOf)
 			class_ce = *pce;
 			break;
 		case IS_OBJECT:
-			if (instanceof_function(Z_OBJCE_P(class_name), reflection_class_ptr TSRMLS_CC)) {
+			if (instance_of_function(Z_OBJCE_P(class_name), reflection_class_ptr TSRMLS_CC)) {
 				argument = (reflection_object *) zend_object_store_get_object(class_name TSRMLS_CC);
 				if (argument == NULL || argument->ptr == NULL) {
 					php_error_docref(NULL TSRMLS_CC, E_ERROR, "Internal error: Failed to retrieve the argument's reflection object");
@@ -4593,7 +4593,7 @@ ZEND_METHOD(reflection_class, isSubclassOf)
 			return;
 	}
 
-	RETURN_BOOL((ce != class_ce && instanceof_function(ce, class_ce TSRMLS_CC)));
+	RETURN_BOOL((ce != class_ce && instance_of_function(ce, class_ce TSRMLS_CC)));
 }
 /* }}} */
 
@@ -4622,7 +4622,7 @@ ZEND_METHOD(reflection_class, implementsInterface)
 			interface_ce = *pce;
 			break;
 		case IS_OBJECT:
-			if (instanceof_function(Z_OBJCE_P(interface), reflection_class_ptr TSRMLS_CC)) {
+			if (instance_of_function(Z_OBJCE_P(interface), reflection_class_ptr TSRMLS_CC)) {
 				argument = (reflection_object *) zend_object_store_get_object(interface TSRMLS_CC);
 				if (argument == NULL || argument->ptr == NULL) {
 					php_error_docref(NULL TSRMLS_CC, E_ERROR, "Internal error: Failed to retrieve the argument's reflection object");
@@ -4643,7 +4643,7 @@ ZEND_METHOD(reflection_class, implementsInterface)
 				"Interface %s is a Class", interface_ce->name);
 		return;
 	}
-	RETURN_BOOL(instanceof_function(ce, interface_ce TSRMLS_CC));
+	RETURN_BOOL(instance_of_function(ce, interface_ce TSRMLS_CC));
 }
 /* }}} */
 

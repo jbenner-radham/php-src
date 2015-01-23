@@ -31,7 +31,7 @@
 #define PHP_DOM_XPATH_EVALUATE 1
 
 /*
-* class DOMXPath 
+* class DOMXPath
 */
 
 #if defined(LIBXML_XPATH_ENABLED)
@@ -84,7 +84,7 @@ static void dom_xpath_ext_function_php(xmlXPathParserContextPtr ctxt, int nargs,
 	char *str;
 	char *callable = NULL;
 	dom_xpath_object *intern;
-	
+
 	TSRMLS_FETCH();
 
 	if (! zend_is_executing(TSRMLS_C)) {
@@ -104,7 +104,7 @@ static void dom_xpath_ext_function_php(xmlXPathParserContextPtr ctxt, int nargs,
 			error = 1;
 		}
 	}
-	
+
 	if (error == 1) {
 		for (i = nargs - 1; i >= 0; i--) {
 			obj = valuePop(ctxt);
@@ -112,7 +112,7 @@ static void dom_xpath_ext_function_php(xmlXPathParserContextPtr ctxt, int nargs,
 		}
 		return;
 	}
-		
+
 	fci.param_count = nargs - 1;
 	if (fci.param_count > 0) {
 		fci.params = safe_emalloc(fci.param_count, sizeof(zval**), 0);
@@ -149,7 +149,7 @@ static void dom_xpath_ext_function_php(xmlXPathParserContextPtr ctxt, int nargs,
 							if (node->type == XML_NAMESPACE_DECL) {
 								xmlNsPtr curns;
 								xmlNodePtr nsparent;
-								
+
 								nsparent = node->_private;
 								curns = xmlNewNs(NULL, node->name, NULL);
 								if (node->children) {
@@ -176,10 +176,10 @@ static void dom_xpath_ext_function_php(xmlXPathParserContextPtr ctxt, int nargs,
 		xmlXPathFreeObject(obj);
 		fci.params[i] = &args[i];
 	}
-	
+
 	fci.size = sizeof(fci);
 	fci.function_table = EG(function_table);
-	
+
 	obj = valuePop(ctxt);
 	if (obj->stringval == NULL) {
 		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Handler name must be a string");
@@ -191,7 +191,7 @@ static void dom_xpath_ext_function_php(xmlXPathParserContextPtr ctxt, int nargs,
 			efree(args);
 			efree(fci.params);
 		}
-		return; 
+		return;
 	}
 	INIT_PZVAL(&handler);
 	ZVAL_STRING(&handler, obj->stringval, 1);
@@ -205,8 +205,8 @@ static void dom_xpath_ext_function_php(xmlXPathParserContextPtr ctxt, int nargs,
 
 	if (!zend_make_callable(&handler, &callable TSRMLS_CC)) {
 		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Unable to call handler %s()", callable);
-		
-	} else if ( intern->registerPhpFunctions == 2 && zend_hash_exists(intern->registered_phpfunctions, callable, strlen(callable) + 1) == 0) { 
+
+	} else if ( intern->registerPhpFunctions == 2 && zend_hash_exists(intern->registered_phpfunctions, callable, strlen(callable) + 1) == 0) {
 		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Not allowed to call handler '%s()'.", callable);
 		/* Push an empty string, so that we at least have an xslt result... */
 		valuePush(ctxt, xmlXPathNewString((xmlChar *)""));
@@ -219,7 +219,7 @@ static void dom_xpath_ext_function_php(xmlXPathParserContextPtr ctxt, int nargs,
 		/* retval is == NULL, when an exception occurred, don't report anything, because PHP itself will handle that */
 		} else if (retval == NULL) {
 		} else {
-			if (retval->type == IS_OBJECT && instanceof_function( Z_OBJCE_P(retval), dom_node_class_entry TSRMLS_CC)) {
+			if (retval->type == IS_OBJECT && instance_of_function( Z_OBJCE_P(retval), dom_node_class_entry TSRMLS_CC)) {
 				xmlNode *nodep;
 				dom_object *obj;
 				if (intern->node_list == NULL) {
@@ -480,7 +480,7 @@ static void php_xpath_eval(INTERNAL_FUNCTION_PARAMETERS, int type) /* {{{ */
 					zval *child;
 
 					MAKE_STD_ZVAL(child);
-					
+
 					if (node->type == XML_NAMESPACE_DECL) {
 						xmlNsPtr curns;
 						xmlNodePtr nsparent;
@@ -554,7 +554,7 @@ PHP_FUNCTION(dom_xpath_register_php_functions)
 	char *name;
 
 	DOM_GET_THIS(id);
-	
+
 	if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET, ZEND_NUM_ARGS() TSRMLS_CC, "a",  &array_value) == SUCCESS) {
 		intern = (dom_xpath_object *)zend_object_store_get_object(id TSRMLS_CC);
 		zend_hash_internal_pointer_reset(Z_ARRVAL_P(array_value));
@@ -565,7 +565,7 @@ PHP_FUNCTION(dom_xpath_register_php_functions)
 
 			MAKE_STD_ZVAL(new_string);
 			ZVAL_LONG(new_string,1);
-		
+
 			zend_hash_update(intern->registered_phpfunctions, Z_STRVAL_PP(entry), Z_STRLEN_PP(entry) + 1, &new_string, sizeof(zval*), NULL);
 			zend_hash_move_forward(Z_ARRVAL_P(array_value));
 		}
@@ -574,17 +574,17 @@ PHP_FUNCTION(dom_xpath_register_php_functions)
 
 	} else if (zend_parse_parameters_ex(ZEND_PARSE_PARAMS_QUIET, ZEND_NUM_ARGS() TSRMLS_CC, "s",  &name, &name_len) == SUCCESS) {
 		intern = (dom_xpath_object *)zend_object_store_get_object(id TSRMLS_CC);
-		
+
 		MAKE_STD_ZVAL(new_string);
 		ZVAL_LONG(new_string,1);
 		zend_hash_update(intern->registered_phpfunctions, name, name_len + 1, &new_string, sizeof(zval*), NULL);
 		intern->registerPhpFunctions = 2;
-		
+
 	} else {
 		intern = (dom_xpath_object *)zend_object_store_get_object(id TSRMLS_CC);
 		intern->registerPhpFunctions = 1;
 	}
-	
+
 }
 /* }}} end dom_xpath_register_php_functions */
 

@@ -2097,7 +2097,7 @@ ZEND_BEGIN_ARG_INFO(arginfo_stream_set_write_buffer, 0)
 	ZEND_ARG_INFO(0, fp)
 	ZEND_ARG_INFO(0, buffer)
 ZEND_END_ARG_INFO()
-		
+
 ZEND_BEGIN_ARG_INFO(arginfo_stream_set_chunk_size, 0)
 	ZEND_ARG_INFO(0, fp)
 	ZEND_ARG_INFO(0, chunk_size)
@@ -2292,7 +2292,7 @@ ZEND_END_ARG_INFO()
 ZEND_BEGIN_ARG_INFO(arginfo_lcfirst, 0)
 	ZEND_ARG_INFO(0, str)
 ZEND_END_ARG_INFO()
-	
+
 ZEND_BEGIN_ARG_INFO_EX(arginfo_ucwords, 0, 0, 1)
 	ZEND_ARG_INFO(0, str)
 	ZEND_ARG_INFO(0, delimiters)
@@ -3439,7 +3439,7 @@ static void basic_globals_ctor(php_basic_globals *basic_globals_p TSRMLS_DC) /* 
 	BG(user_tick_functions) = NULL;
 	BG(user_filter_map) = NULL;
 	BG(serialize_lock) = 0;
-	
+
 	memset(&BG(serialize), 0, sizeof(BG(serialize)));
 	memset(&BG(unserialize), 0, sizeof(BG(unserialize)));
 
@@ -3508,7 +3508,7 @@ PHPAPI double php_get_inf(void) /* {{{ */
 
 #define BASIC_ADD_SUBMODULE(module) \
 	zend_hash_add_empty_element(&basic_submodules, #module, strlen(#module));
-	
+
 #define BASIC_RINIT_SUBMODULE(module) \
 	if (zend_hash_exists(&basic_submodules, #module, strlen(#module))) { \
 		PHP_RINIT(module)(INIT_FUNC_ARGS_PASSTHRU); \
@@ -3999,8 +3999,8 @@ PHP_FUNCTION(getenv)
 		int size;
 
 		SetLastError(0);
-		/*If the given bugger is not large enough to hold the data, the return value is 
-		the buffer size,  in characters, required to hold the string and its terminating 
+		/*If the given bugger is not large enough to hold the data, the return value is
+		the buffer size,  in characters, required to hold the string and its terminating
 		null character. We use this return value to alloc the final buffer. */
 		size = GetEnvironmentVariableA(str, &dummybuf, 0);
 		if (GetLastError() == ERROR_ENVVAR_NOT_FOUND) {
@@ -4052,7 +4052,7 @@ PHP_FUNCTION(putenv)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &setting, &setting_len) == FAILURE) {
 		return;
 	}
-    
+
     if(setting_len == 0 || setting[0] == '=') {
     	php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid parameter syntax");
     	RETURN_FALSE;
@@ -4599,7 +4599,7 @@ PHP_FUNCTION(set_magic_quotes_runtime)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "b", &new_setting) == FAILURE) {
 		return;
 	}
-	
+
 	if (new_setting) {
 		php_error_docref(NULL TSRMLS_CC, E_CORE_ERROR, "magic_quotes_runtime is not supported anymore");
 	}
@@ -4884,10 +4884,10 @@ PHP_FUNCTION(forward_static_call)
 	fci.retval_ptr_ptr = &retval_ptr;
 
 	if (EG(called_scope) &&
-		instanceof_function(EG(called_scope), fci_cache.calling_scope TSRMLS_CC)) {
+		instance_of_function(EG(called_scope), fci_cache.calling_scope TSRMLS_CC)) {
 			fci_cache.called_scope = EG(called_scope);
 	}
-	
+
 	if (zend_call_function(&fci, &fci_cache TSRMLS_CC) == SUCCESS && fci.retval_ptr_ptr && *fci.retval_ptr_ptr) {
 		COPY_PZVAL_TO_ZVAL(*return_value, *fci.retval_ptr_ptr);
 	}
@@ -4914,7 +4914,7 @@ PHP_FUNCTION(forward_static_call_array)
 	fci.retval_ptr_ptr = &retval_ptr;
 
 	if (EG(called_scope) &&
-		instanceof_function(EG(called_scope), fci_cache.calling_scope TSRMLS_CC)) {
+		instance_of_function(EG(called_scope), fci_cache.calling_scope TSRMLS_CC)) {
 			fci_cache.called_scope = EG(called_scope);
 	}
 
@@ -5588,7 +5588,7 @@ PHP_FUNCTION(getservbyname)
 	}
 
 
-/* empty string behaves like NULL on windows implementation of 
+/* empty string behaves like NULL on windows implementation of
    getservbyname. Let be portable instead. */
 #ifdef PHP_WIN32
 	if (proto_len == 0) {
@@ -6016,7 +6016,7 @@ PHP_FUNCTION(parse_ini_string)
 /* }}} */
 
 #if ZEND_DEBUG
-/* This function returns an array of ALL valid ini options with values and 
+/* This function returns an array of ALL valid ini options with values and
  *  is not the same as ini_get_all() which returns only registered ini options. Only useful for devs to debug php.ini scanner/parser! */
 PHP_FUNCTION(config_get_hash) /* {{{ */
 {

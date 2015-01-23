@@ -145,7 +145,7 @@ U_CFUNC TimeZone *timezone_process_timezone_argument(zval **zv_timezone,
 	}
 
 	if (Z_TYPE_PP(zv_timezone) == IS_OBJECT &&
-			instanceof_function(Z_OBJCE_PP(zv_timezone), TimeZone_ce_ptr TSRMLS_CC)) {
+			instance_of_function(Z_OBJCE_PP(zv_timezone), TimeZone_ce_ptr TSRMLS_CC)) {
 		TimeZone_object *to = (TimeZone_object*)zend_objects_get_address(
 			*zv_timezone TSRMLS_CC);
 		if (to->utimezone == NULL) {
@@ -167,7 +167,7 @@ U_CFUNC TimeZone *timezone_process_timezone_argument(zval **zv_timezone,
 			return NULL;
 		}
 	} else if (Z_TYPE_PP(zv_timezone) == IS_OBJECT &&
-			instanceof_function(Z_OBJCE_PP(zv_timezone), php_date_get_timezone_ce() TSRMLS_CC)) {
+			instance_of_function(Z_OBJCE_PP(zv_timezone), php_date_get_timezone_ce() TSRMLS_CC)) {
 
 		php_timezone_obj *tzobj = (php_timezone_obj *)zend_objects_get_address(
 				*zv_timezone TSRMLS_CC);
@@ -275,7 +275,7 @@ static int TimeZone_compare_objects(zval *object1, zval *object2 TSRMLS_DC)
 			return 0;
 		}
 	}
-	
+
 	return 1;
 }
 /* }}} */
@@ -292,7 +292,7 @@ static HashTable *TimeZone_get_debug_info(zval *object, int *is_temp TSRMLS_DC)
 	UErrorCode		uec = U_ZERO_ERROR;
 
 	*is_temp = 1;
-	
+
 	array_init_size(&zv, 4);
 
 	to = (TimeZone_object*)zend_object_store_get_object(object TSRMLS_CC);
@@ -319,7 +319,7 @@ static HashTable *TimeZone_get_debug_info(zval *object, int *is_temp TSRMLS_DC)
 	if (U_FAILURE(uec)) {
 		return Z_ARRVAL(zv);
 	}
-	
+
 	add_assoc_long_ex(&zv, "rawOffset", sizeof("rawOffset"), (long)rawOffset);
 	add_assoc_long_ex(&zv, "currentOffset", sizeof("currentOffset"),
 		(long)(rawOffset + dstOffset));
@@ -371,7 +371,7 @@ static zend_object_value TimeZone_object_create(zend_class_entry *ce TSRMLS_DC)
 	TimeZone_object*	intern;
 
 	intern = (TimeZone_object*)ecalloc(1, sizeof(TimeZone_object));
-	
+
 	zend_object_std_init(&intern->zo, ce TSRMLS_CC);
 #if PHP_VERSION_ID < 50399
     zend_hash_copy(intern->zo.properties, &(ce->default_properties),

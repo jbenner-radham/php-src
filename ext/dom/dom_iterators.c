@@ -162,7 +162,7 @@ static void php_dom_iterator_current_key(zend_object_iterator *iter, zval *key T
 	php_dom_iterator *iterator = (php_dom_iterator *)iter;
 	zval *object = (zval *)iterator->intern.data;
 
-	if (instanceof_function(Z_OBJCE_P(object), dom_nodelist_class_entry TSRMLS_CC)) {
+	if (instance_of_function(Z_OBJCE_P(object), dom_nodelist_class_entry TSRMLS_CC)) {
 		ZVAL_LONG(key, iter->index);
 	} else {
 		dom_object *intern = (dom_object *)zend_object_store_get_object(iterator->curobj TSRMLS_CC);
@@ -198,7 +198,7 @@ static void php_dom_iterator_move_forward(zend_object_iterator *iter TSRMLS_DC) 
 	curobj = iterator->curobj;
 	intern = (dom_object *)zend_object_store_get_object(curobj TSRMLS_CC);
 	if (intern != NULL && intern->ptr != NULL) {
-		if (objmap->nodetype != XML_ENTITY_NODE && 
+		if (objmap->nodetype != XML_ENTITY_NODE &&
 			objmap->nodetype != XML_NOTATION_NODE) {
 			if (objmap->nodetype == DOM_NODESET) {
 				nodeht = HASH_OF(objmap->baseobjptr);
@@ -209,13 +209,13 @@ static void php_dom_iterator_move_forward(zend_object_iterator *iter TSRMLS_DC) 
 				}
 			} else {
 				curnode = (xmlNodePtr)((php_libxml_node_ptr *)intern->ptr)->node;
-				if (objmap->nodetype == XML_ATTRIBUTE_NODE || 
+				if (objmap->nodetype == XML_ATTRIBUTE_NODE ||
 					objmap->nodetype == XML_ELEMENT_NODE) {
 					curnode = curnode->next;
 				} else {
 					/* Nav the tree evey time as this is LIVE */
 					basenode = dom_object_get_node(objmap->baseobj);
-					if (basenode && (basenode->type == XML_DOCUMENT_NODE || 
+					if (basenode && (basenode->type == XML_DOCUMENT_NODE ||
 						basenode->type == XML_HTML_DOCUMENT_NODE)) {
 						basenode = xmlDocGetRootElement((xmlDoc *) basenode);
 					} else if (basenode) {
@@ -277,7 +277,7 @@ zend_object_iterator *php_dom_get_iterator(zend_class_entry *ce, zval *object, i
 	intern = (dom_object *)zend_object_store_get_object(object TSRMLS_CC);
 	objmap = (dom_nnodemap_object *)intern->ptr;
 	if (objmap != NULL) {
-		if (objmap->nodetype != XML_ENTITY_NODE && 
+		if (objmap->nodetype != XML_ENTITY_NODE &&
 			objmap->nodetype != XML_NOTATION_NODE) {
 			if (objmap->nodetype == DOM_NODESET) {
 				nodeht = HASH_OF(objmap->baseobjptr);

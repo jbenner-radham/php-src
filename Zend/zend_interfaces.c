@@ -5,7 +5,7 @@
    | Copyright (c) 1998-2014 Zend Technologies Ltd. (http://www.zend.com) |
    +----------------------------------------------------------------------+
    | This source file is subject to version 2.00 of the Zend license,     |
-   | that is bundled with this package in the file LICENSE, and is        | 
+   | that is bundled with this package in the file LICENSE, and is        |
    | available through the world-wide-web at the following url:           |
    | http://www.zend.com/license/2_00.txt.                                |
    | If you did not receive a copy of the Zend license and are unable to  |
@@ -88,7 +88,7 @@ ZEND_API zval* zend_call_method(zval **object_pp, zend_class_entry *obj_ce, zend
 			fcic.called_scope = Z_OBJCE_PP(object_pp);
 		} else if (obj_ce &&
 		           !(EG(called_scope) &&
-		             instanceof_function(EG(called_scope), obj_ce TSRMLS_CC))) {
+		             instance_of_function(EG(called_scope), obj_ce TSRMLS_CC))) {
 			fcic.called_scope = obj_ce;
 		} else {
 			fcic.called_scope = EG(called_scope);
@@ -475,7 +475,7 @@ static int zend_implement_serializable(zend_class_entry *interface, zend_class_e
 {
 	if (class_type->parent
 		&& (class_type->parent->serialize || class_type->parent->unserialize)
-		&& !instanceof_function_ex(class_type->parent, zend_ce_serializable, 1 TSRMLS_CC)) {
+		&& !instance_of_function_ex(class_type->parent, zend_ce_serializable, 1 TSRMLS_CC)) {
 		return FAILURE;
 	}
 	if (!class_type->serialize) {

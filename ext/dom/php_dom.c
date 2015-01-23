@@ -359,7 +359,7 @@ zval *dom_read_property(zval *object, zval *member, int type, const zend_literal
 
 	if (obj->prop_handler != NULL) {
 		ret = zend_hash_find(obj->prop_handler, Z_STRVAL_P(member), Z_STRLEN_P(member)+1, (void **) &hnd);
-	} else if (instanceof_function(obj->std.ce, dom_node_class_entry TSRMLS_CC)) {
+	} else if (instance_of_function(obj->std.ce, dom_node_class_entry TSRMLS_CC)) {
 		php_error(E_WARNING, "Couldn't fetch %s. Node no longer exists", obj->std.ce->name);
 	}
 	if (ret == SUCCESS) {
@@ -1145,7 +1145,7 @@ static dom_object* dom_objects_set_class(zend_class_entry *class_type, zend_bool
 	zend_class_entry *base_class;
 	dom_object *intern;
 
-	if (instanceof_function(class_type, dom_xpath_class_entry TSRMLS_CC)) {
+	if (instance_of_function(class_type, dom_xpath_class_entry TSRMLS_CC)) {
 		intern = emalloc(sizeof(dom_xpath_object));
 		memset(intern, 0, sizeof(dom_xpath_object));
 	} else {
@@ -1181,7 +1181,7 @@ void dom_objects_clone(void *object, void **object_clone TSRMLS_DC)
 
 	clone = dom_objects_set_class(intern->std.ce, 0 TSRMLS_CC);
 
-	if (instanceof_function(intern->std.ce, dom_node_class_entry TSRMLS_CC)) {
+	if (instance_of_function(intern->std.ce, dom_node_class_entry TSRMLS_CC)) {
 		node = (xmlNodePtr)dom_object_get_node((dom_object *) object);
 		if (node != NULL) {
 			cloned_node = xmlDocCopyNode(node, node->doc, 1);

@@ -1151,7 +1151,7 @@ PHP_METHOD(Phar, __construct)
 
 	phar_obj = (phar_archive_object*)zend_object_store_get_object(getThis() TSRMLS_CC);
 
-	is_data = instanceof_function(Z_OBJCE_P(zobj), phar_ce_data TSRMLS_CC);
+	is_data = instance_of_function(Z_OBJCE_P(zobj), phar_ce_data TSRMLS_CC);
 
 	if (is_data) {
 		if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s|ls!l", &fname, &fname_len, &flags, &alias, &alias_len, &format) == FAILURE) {
@@ -1252,7 +1252,7 @@ PHP_METHOD(Phar, __construct)
 	INIT_PZVAL(&arg2);
 	ZVAL_LONG(&arg2, flags);
 
-	zend_call_method_with_2_params(&zobj, Z_OBJCE_P(zobj), 
+	zend_call_method_with_2_params(&zobj, Z_OBJCE_P(zobj),
 		&spl_ce_RecursiveDirectoryIterator->constructor, "__construct", NULL, &arg1, &arg2);
 
 	if (!phar_data->is_persistent) {
@@ -1276,7 +1276,7 @@ PHP_METHOD(Phar, getSupportedSignatures)
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
-	
+
 	array_init(return_value);
 
 	add_next_index_stringl(return_value, "MD5", 3, 1);
@@ -1303,7 +1303,7 @@ PHP_METHOD(Phar, getSupportedCompression)
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
-	
+
 	array_init(return_value);
 	phar_request_initialize(TSRMLS_C);
 
@@ -1481,7 +1481,7 @@ static int phar_build(zend_object_iterator *iter, void *puser TSRMLS_DC) /* {{{ 
 			opened = (char *) estrndup(str, sizeof("[stream]") - 1);
 			goto after_open_fp;
 		case IS_OBJECT:
-			if (instanceof_function(Z_OBJCE_PP(value), spl_ce_SplFileInfo TSRMLS_CC)) {
+			if (instance_of_function(Z_OBJCE_PP(value), spl_ce_SplFileInfo TSRMLS_CC)) {
 				char *test = NULL;
 				zval dummy;
 				spl_filesystem_object *intern = (spl_filesystem_object*)zend_object_store_get_object(*value TSRMLS_CC);
@@ -1548,7 +1548,7 @@ phar_spl_fileinfo:
 			}
 			return ZEND_HASH_APPLY_STOP;
 		}
-		
+
 		base = temp;
 		base_len = strlen(base);
 
@@ -1737,7 +1737,7 @@ after_open_fp:
 /* {{{ proto array Phar::buildFromDirectory(string base_dir[, string regex])
  * Construct a phar archive from an existing directory, recursively.
  * Optional second parameter is a regular expression for filtering directory contents.
- * 
+ *
  * Return value is an array mapping phar index to actual files added.
  */
 PHP_METHOD(Phar, buildFromDirectory)
@@ -1773,7 +1773,7 @@ PHP_METHOD(Phar, buildFromDirectory)
 	INIT_PZVAL(&arg2);
 	ZVAL_LONG(&arg2, SPL_FILE_DIR_SKIPDOTS|SPL_FILE_DIR_UNIXPATHS);
 
-	zend_call_method_with_2_params(&iter, spl_ce_RecursiveDirectoryIterator, 
+	zend_call_method_with_2_params(&iter, spl_ce_RecursiveDirectoryIterator,
 			&spl_ce_RecursiveDirectoryIterator->constructor, "__construct", NULL, &arg, &arg2);
 
 	if (EG(exception)) {
@@ -1790,7 +1790,7 @@ PHP_METHOD(Phar, buildFromDirectory)
 		RETURN_FALSE;
 	}
 
-	zend_call_method_with_1_params(&iteriter, spl_ce_RecursiveIteratorIterator, 
+	zend_call_method_with_1_params(&iteriter, spl_ce_RecursiveIteratorIterator,
 			&spl_ce_RecursiveIteratorIterator->constructor, "__construct", NULL, iter);
 
 	if (EG(exception)) {
@@ -1815,7 +1815,7 @@ PHP_METHOD(Phar, buildFromDirectory)
 		INIT_PZVAL(&arg2);
 		ZVAL_STRINGL(&arg2, regex, regex_len, 0);
 
-		zend_call_method_with_2_params(&regexiter, spl_ce_RegexIterator, 
+		zend_call_method_with_2_params(&regexiter, spl_ce_RegexIterator,
 			&spl_ce_RegexIterator->constructor, "__construct", NULL, iteriter, &arg2);
 	}
 
@@ -1938,7 +1938,7 @@ PHP_METHOD(Phar, count)
 	/* mode can be ignored, maximum depth is 1 */
 	long mode;
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "|l", &mode) == FAILURE) {
 		RETURN_FALSE;
 	}
@@ -2103,7 +2103,7 @@ static zval *phar_rename_archive(phar_archive_data *phar, char *ext, zend_bool c
 	spprintf(&newname, 0, "%s.%s", strtok(basename, "."), ext);
 	efree(basename);
 
-	
+
 
 	basepath = estrndup(oldpath, (strlen(oldpath) - oldname_len));
 	phar->fname_len = spprintf(&newpath, 0, "%s%s", basepath, newname);
@@ -2561,7 +2561,7 @@ PHP_METHOD(Phar, convertToData)
 PHP_METHOD(Phar, isCompressed)
 {
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -2585,7 +2585,7 @@ PHP_METHOD(Phar, isWritable)
 {
 	php_stream_statbuf ssb;
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -2663,7 +2663,7 @@ PHP_METHOD(Phar, delete)
 PHP_METHOD(Phar, getAlias)
 {
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -2680,7 +2680,7 @@ PHP_METHOD(Phar, getAlias)
 PHP_METHOD(Phar, getPath)
 {
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -2796,7 +2796,7 @@ valid_alias:
 PHP_METHOD(Phar, getVersion)
 {
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -2811,7 +2811,7 @@ PHP_METHOD(Phar, getVersion)
 PHP_METHOD(Phar, startBuffering)
 {
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -2826,7 +2826,7 @@ PHP_METHOD(Phar, startBuffering)
 PHP_METHOD(Phar, isBuffering)
 {
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -2843,7 +2843,7 @@ PHP_METHOD(Phar, stopBuffering)
 	char *error;
 
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -3078,7 +3078,7 @@ PHP_METHOD(Phar, setSignatureAlgorithm)
 PHP_METHOD(Phar, getSignature)
 {
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -3122,7 +3122,7 @@ PHP_METHOD(Phar, getSignature)
 PHP_METHOD(Phar, getModified)
 {
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -3384,7 +3384,7 @@ PHP_METHOD(Phar, decompressFiles)
 {
 	char *error;
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -3901,7 +3901,7 @@ PHP_METHOD(Phar, getStub)
 	phar_entry_info *stub;
 
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -4004,7 +4004,7 @@ PHP_METHOD(Phar, hasMetadata)
 PHP_METHOD(Phar, getMetadata)
 {
 	PHAR_ARCHIVE_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -4452,7 +4452,7 @@ PHP_METHOD(PharFileInfo, __construct)
 	INIT_PZVAL(&arg1);
 	ZVAL_STRINGL(&arg1, fname, fname_len, 0);
 
-	zend_call_method_with_1_params(&zobj, Z_OBJCE_P(zobj), 
+	zend_call_method_with_1_params(&zobj, Z_OBJCE_P(zobj),
 		&spl_ce_SplFileInfo->constructor, "__construct", NULL, &arg1);
 }
 /* }}} */
@@ -4490,7 +4490,7 @@ PHP_METHOD(PharFileInfo, __destruct)
 PHP_METHOD(PharFileInfo, getCompressedSize)
 {
 	PHAR_ENTRY_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -4532,7 +4532,7 @@ PHP_METHOD(PharFileInfo, isCompressed)
 PHP_METHOD(PharFileInfo, getCRC32)
 {
 	PHAR_ENTRY_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -4558,7 +4558,7 @@ PHP_METHOD(PharFileInfo, getCRC32)
 PHP_METHOD(PharFileInfo, isCRCChecked)
 {
 	PHAR_ENTRY_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -4573,7 +4573,7 @@ PHP_METHOD(PharFileInfo, isCRCChecked)
 PHP_METHOD(PharFileInfo, getPharFlags)
 {
 	PHAR_ENTRY_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -4651,7 +4651,7 @@ PHP_METHOD(PharFileInfo, chmod)
 PHP_METHOD(PharFileInfo, hasMetadata)
 {
 	PHAR_ENTRY_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -4666,7 +4666,7 @@ PHP_METHOD(PharFileInfo, hasMetadata)
 PHP_METHOD(PharFileInfo, getMetadata)
 {
 	PHAR_ENTRY_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -4747,7 +4747,7 @@ PHP_METHOD(PharFileInfo, delMetadata)
 	char *error;
 
 	PHAR_ENTRY_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -4805,7 +4805,7 @@ PHP_METHOD(PharFileInfo, getContent)
 	phar_entry_info *link;
 
 	PHAR_ENTRY_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}
@@ -4979,7 +4979,7 @@ PHP_METHOD(PharFileInfo, decompress)
 {
 	char *error;
 	PHAR_ENTRY_OBJECT();
-	
+
 	if (zend_parse_parameters_none() == FAILURE) {
 		return;
 	}

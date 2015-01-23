@@ -243,7 +243,7 @@ extern PHPAPI zend_class_entry *spl_ce_RuntimeException;
 #define MYSQLI_REGISTER_RESOURCE(__ptr, __ce) \
 {\
 	zval *object = getThis();\
-	if (!object || !instanceof_function(Z_OBJCE_P(object), mysqli_link_class_entry TSRMLS_CC)) {\
+	if (!object || !instance_of_function(Z_OBJCE_P(object), mysqli_link_class_entry TSRMLS_CC)) {\
 		object = return_value;\
 		Z_TYPE_P(object) = IS_OBJECT;\
 		(object)->value.obj = mysqli_objects_new(__ce TSRMLS_CC);\

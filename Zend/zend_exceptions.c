@@ -41,7 +41,7 @@ void zend_exception_set_previous(zval *exception, zval *add_previous TSRMLS_DC)
 	if (exception == add_previous || !add_previous || !exception) {
 		return;
 	}
-	if (Z_TYPE_P(add_previous) != IS_OBJECT && !instanceof_function(Z_OBJCE_P(add_previous), default_exception_ce TSRMLS_CC)) {
+	if (Z_TYPE_P(add_previous) != IS_OBJECT && !instance_of_function(Z_OBJCE_P(add_previous), default_exception_ce TSRMLS_CC)) {
 		zend_error(E_ERROR, "Cannot set non exception as previous exception");
 		return;
 	}
@@ -586,7 +586,7 @@ ZEND_METHOD(exception, getTraceAsString)
 	int res_len = 0, *len = &res_len, num = 0;
 
 	DEFAULT_0_PARAMS;
-	
+
 	res = estrdup("");
 	str = &res;
 
@@ -598,8 +598,8 @@ ZEND_METHOD(exception, getTraceAsString)
 	TRACE_APPEND_STRL(s_tmp, strlen(s_tmp));
 	efree(s_tmp);
 
-	res[res_len] = '\0';	
-	RETURN_STRINGL(res, res_len, 0); 
+	res[res_len] = '\0';
+	RETURN_STRINGL(res, res_len, 0);
 }
 /* }}} */
 
@@ -636,9 +636,9 @@ ZEND_METHOD(exception, __toString)
 	int len = 0;
 	zend_fcall_info fci;
 	zval fname;
-	
+
 	DEFAULT_0_PARAMS;
-	
+
 	str = estrndup("", 0);
 
 	exception = getThis();
@@ -793,7 +793,7 @@ ZEND_API zval * zend_throw_exception(zend_class_entry *exception_ce, const char 
 
 	MAKE_STD_ZVAL(ex);
 	if (exception_ce) {
-		if (!instanceof_function(exception_ce, default_exception_ce TSRMLS_CC)) {
+		if (!instance_of_function(exception_ce, default_exception_ce TSRMLS_CC)) {
 			zend_error(E_NOTICE, "Exceptions must be derived from the Exception base class");
 			exception_ce = default_exception_ce;
 		}
@@ -852,7 +852,7 @@ static void zend_error_va(int type, const char *file, uint lineno, const char *f
 ZEND_API void zend_exception_error(zval *exception, int severity TSRMLS_DC) /* {{{ */
 {
 	zend_class_entry *ce_exception = Z_OBJCE_P(exception);
-	if (instanceof_function(ce_exception, default_exception_ce TSRMLS_CC)) {
+	if (instance_of_function(ce_exception, default_exception_ce TSRMLS_CC)) {
 		zval *str, *file, *line;
 
 		EG(exception) = NULL;
@@ -869,7 +869,7 @@ ZEND_API void zend_exception_error(zval *exception, int severity TSRMLS_DC) /* {
 
 		if (EG(exception)) {
 			/* do the best we can to inform about the inner exception */
-			if (instanceof_function(ce_exception, default_exception_ce TSRMLS_CC)) {
+			if (instance_of_function(ce_exception, default_exception_ce TSRMLS_CC)) {
 				file = zend_read_property(default_exception_ce, EG(exception), "file", sizeof("file")-1, 1 TSRMLS_CC);
 				line = zend_read_property(default_exception_ce, EG(exception), "line", sizeof("line")-1, 1 TSRMLS_CC);
 
@@ -908,7 +908,7 @@ ZEND_API void zend_throw_exception_object(zval *exception TSRMLS_DC) /* {{{ */
 
 	exception_ce = Z_OBJCE_P(exception);
 
-	if (!exception_ce || !instanceof_function(exception_ce, default_exception_ce TSRMLS_CC)) {
+	if (!exception_ce || !instance_of_function(exception_ce, default_exception_ce TSRMLS_CC)) {
 		zend_error(E_ERROR, "Exceptions must be valid objects derived from the Exception base class");
 	}
 	zend_throw_exception_internal(exception TSRMLS_CC);

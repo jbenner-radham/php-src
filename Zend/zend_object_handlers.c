@@ -668,7 +668,7 @@ zval *zend_std_read_dimension(zval *object, zval *offset, int type TSRMLS_DC) /*
     zend_class_entry *ce = Z_OBJCE_P(object);
     zval *retval;
 
-    if (EXPECTED(instanceof_function_ex(ce, zend_ce_arrayaccess, 1 TSRMLS_CC) != 0)) {
+    if (EXPECTED(instance_of_function_ex(ce, zend_ce_arrayaccess, 1 TSRMLS_CC) != 0)) {
         if(offset == NULL) {
             /* [] construct */
             ALLOC_INIT_ZVAL(offset);
@@ -701,7 +701,7 @@ static void zend_std_write_dimension(zval *object, zval *offset, zval *value TSR
 {
     zend_class_entry *ce = Z_OBJCE_P(object);
 
-    if (EXPECTED(instanceof_function_ex(ce, zend_ce_arrayaccess, 1 TSRMLS_CC) != 0)) {
+    if (EXPECTED(instance_of_function_ex(ce, zend_ce_arrayaccess, 1 TSRMLS_CC) != 0)) {
         if (!offset) {
             ALLOC_INIT_ZVAL(offset);
         } else {
@@ -721,7 +721,7 @@ static int zend_std_has_dimension(zval *object, zval *offset, int check_empty TS
     zval *retval;
     int result;
 
-    if (EXPECTED(instanceof_function_ex(ce, zend_ce_arrayaccess, 1 TSRMLS_CC) != 0)) {
+    if (EXPECTED(instance_of_function_ex(ce, zend_ce_arrayaccess, 1 TSRMLS_CC) != 0)) {
         SEPARATE_ARG_IF_REF(offset);
         zend_call_method_with_1_params(&object, ce, NULL, "offsetexists", &retval, offset);
         if (EXPECTED(retval != NULL)) {
@@ -892,7 +892,7 @@ static void zend_std_unset_dimension(zval *object, zval *offset TSRMLS_DC) /* {{
 {
     zend_class_entry *ce = Z_OBJCE_P(object);
 
-    if (instanceof_function_ex(ce, zend_ce_arrayaccess, 1 TSRMLS_CC)) {
+    if (instance_of_function_ex(ce, zend_ce_arrayaccess, 1 TSRMLS_CC)) {
         SEPARATE_ARG_IF_REF(offset);
         zend_call_method_with_1_params(&object, ce, NULL, "offsetunset", NULL, offset);
         zval_ptr_dtor(&offset);
@@ -1212,7 +1212,7 @@ ZEND_API zend_function *zend_std_get_static_method(zend_class_entry *ce, const c
         if (ce->__call &&
             EG(This) &&
             Z_OBJ_HT_P(EG(This))->get_class_entry &&
-            instanceof_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
+            instance_of_function(Z_OBJCE_P(EG(This)), ce TSRMLS_CC)) {
             return zend_get_user_call_function(ce, function_name_strval, function_name_strlen);
         } else if (ce->__callstatic) {
             return zend_get_user_callstatic_function(ce, function_name_strval, function_name_strlen);

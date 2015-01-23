@@ -572,7 +572,7 @@ static const char *zend_parse_arg_impl(int arg_num, zval **arg, va_list *va, con
 					break;
 				}
 				if (Z_TYPE_PP(arg) == IS_OBJECT &&
-						(!ce || instanceof_function(Z_OBJCE_PP(arg), ce TSRMLS_CC))) {
+						(!ce || instance_of_function(Z_OBJCE_PP(arg), ce TSRMLS_CC))) {
 					*p = *arg;
 				} else {
 					if (ce) {
@@ -600,7 +600,7 @@ static const char *zend_parse_arg_impl(int arg_num, zval **arg, va_list *va, con
 					*pce = *lookup;
 				}
 				if (ce_base) {
-					if ((!*pce || !instanceof_function(*pce, ce_base TSRMLS_CC))) {
+					if ((!*pce || !instance_of_function(*pce, ce_base TSRMLS_CC))) {
 						zend_spprintf(error, 0, "to be a class name derived from %s, '%s' given",
 							ce_base->name, Z_STRVAL_PP(arg));
 						*pce = NULL;
@@ -952,7 +952,7 @@ ZEND_API int zend_parse_method_parameters(int num_args TSRMLS_DC, zval *this_ptr
 		ce = va_arg(va, zend_class_entry *);
 		*object = this_ptr;
 
-		if (ce && !instanceof_function(Z_OBJCE_P(this_ptr), ce TSRMLS_CC)) {
+		if (ce && !instance_of_function(Z_OBJCE_P(this_ptr), ce TSRMLS_CC)) {
 			zend_error(E_CORE_ERROR, "%s::%s() must be derived from %s::%s",
 				ce->name, get_active_function_name(TSRMLS_C), Z_OBJCE_P(this_ptr)->name, get_active_function_name(TSRMLS_C));
 		}
@@ -989,7 +989,7 @@ ZEND_API int zend_parse_method_parameters_ex(int flags, int num_args TSRMLS_DC, 
 		ce = va_arg(va, zend_class_entry *);
 		*object = this_ptr;
 
-		if (ce && !instanceof_function(Z_OBJCE_P(this_ptr), ce TSRMLS_CC)) {
+		if (ce && !instance_of_function(Z_OBJCE_P(this_ptr), ce TSRMLS_CC)) {
 			if (!quiet) {
 				zend_error(E_CORE_ERROR, "%s::%s() must be derived from %s::%s",
 					ce->name, get_active_function_name(TSRMLS_C), Z_OBJCE_P(this_ptr)->name, get_active_function_name(TSRMLS_C));
@@ -2734,8 +2734,8 @@ static int zend_is_callable_check_class(const char *name, int name_len, zend_fca
 
 		fcc->calling_scope = *pce;
 		if (scope && !fcc->object_ptr && EG(This) &&
-		    instanceof_function(Z_OBJCE_P(EG(This)), scope TSRMLS_CC) &&
-		    instanceof_function(scope, fcc->calling_scope TSRMLS_CC)) {
+		    instance_of_function(Z_OBJCE_P(EG(This)), scope TSRMLS_CC) &&
+		    instance_of_function(scope, fcc->calling_scope TSRMLS_CC)) {
 			fcc->object_ptr = EG(This);
 			fcc->called_scope = Z_OBJCE_P(fcc->object_ptr);
 		} else {
@@ -2815,7 +2815,7 @@ static int zend_is_callable_check_func(int check_flags, zval *callable, zend_fca
 		EG(scope) = last_scope;
 
 		ftable = &fcc->calling_scope->function_table;
-		if (ce_org && !instanceof_function(ce_org, fcc->calling_scope TSRMLS_CC)) {
+		if (ce_org && !instance_of_function(ce_org, fcc->calling_scope TSRMLS_CC)) {
 			if (error) zend_spprintf(error, 0, "class '%s' is not a subclass of '%s'", ce_org->name, fcc->calling_scope->name);
 			return 0;
 		}
@@ -2847,7 +2847,7 @@ static int zend_is_callable_check_func(int check_flags, zval *callable, zend_fca
 		retval = 1;
 		if ((fcc->function_handler->op_array.fn_flags & ZEND_ACC_CHANGED) &&
 		    !strict_class && EG(scope) &&
-		    instanceof_function(fcc->function_handler->common.scope, EG(scope) TSRMLS_CC)) {
+		    instance_of_function(fcc->function_handler->common.scope, EG(scope) TSRMLS_CC)) {
 			zend_function *priv_fbc;
 
 			if (zend_hash_find(&EG(scope)->function_table, lmname, mlen+1, (void **) &priv_fbc)==SUCCESS
@@ -2894,7 +2894,7 @@ get_function_via_handler:
 				if (fcc->function_handler) {
 					if (strict_class &&
 					    (!fcc->function_handler->common.scope ||
-					     !instanceof_function(ce_org, fcc->function_handler->common.scope TSRMLS_CC))) {
+					     !instance_of_function(ce_org, fcc->function_handler->common.scope TSRMLS_CC))) {
 						if ((fcc->function_handler->common.fn_flags & ZEND_ACC_CALL_VIA_HANDLER) != 0) {
 							if (fcc->function_handler->type != ZEND_OVERLOADED_FUNCTION) {
 								efree((char*)fcc->function_handler->common.function_name);
@@ -2918,7 +2918,7 @@ get_function_via_handler:
 				call_via_handler = (fcc->function_handler->common.fn_flags & ZEND_ACC_CALL_VIA_HANDLER) != 0;
 				if (call_via_handler && !fcc->object_ptr && EG(This) &&
 				    Z_OBJ_HT_P(EG(This))->get_class_entry &&
-				    instanceof_function(Z_OBJCE_P(EG(This)), fcc->calling_scope TSRMLS_CC)) {
+				    instance_of_function(Z_OBJCE_P(EG(This)), fcc->calling_scope TSRMLS_CC)) {
 					fcc->object_ptr = EG(This);
 				}
 			}
@@ -2948,7 +2948,7 @@ get_function_via_handler:
 				if ((check_flags & IS_CALLABLE_CHECK_IS_STATIC) != 0) {
 					retval = 0;
 				}
-				if (EG(This) && instanceof_function(Z_OBJCE_P(EG(This)), fcc->calling_scope TSRMLS_CC)) {
+				if (EG(This) && instance_of_function(Z_OBJCE_P(EG(This)), fcc->calling_scope TSRMLS_CC)) {
 					fcc->object_ptr = EG(This);
 					if (error) {
 						zend_spprintf(error, 0, "non-static method %s::%s() %s be called statically, assuming $this from compatible context %s", fcc->calling_scope->name, fcc->function_handler->common.function_name, verb, Z_OBJCE_P(EG(This))->name);

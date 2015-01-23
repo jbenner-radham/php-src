@@ -650,7 +650,7 @@ static inline int zend_verify_arg_type(zend_function *zf, zend_uint arg_num, zva
 		}
 		if (Z_TYPE_P(arg) == IS_OBJECT) {
 			need_msg = zend_verify_arg_class_kind(cur_arg_info, fetch_type, &class_name, &ce TSRMLS_CC);
-			if (!ce || !instanceof_function(Z_OBJCE_P(arg), ce TSRMLS_CC)) {
+			if (!ce || !instance_of_function(Z_OBJCE_P(arg), ce TSRMLS_CC)) {
 				return zend_verify_arg_error(E_RECOVERABLE_ERROR, zf, arg_num, need_msg, class_name, "instance of ", Z_OBJCE_P(arg)->name TSRMLS_CC);
 			}
 		} else if (Z_TYPE_P(arg) != IS_NULL || !(cur_arg_info->allow_null || (default_value && is_null_constant(default_value TSRMLS_CC)))) {

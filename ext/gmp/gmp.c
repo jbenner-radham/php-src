@@ -247,7 +247,7 @@ typedef struct _gmp_temp {
 #endif
 
 #define IS_GMP(zval) \
-	(Z_TYPE_P(zval) == IS_OBJECT && instanceof_function(Z_OBJCE_P(zval), gmp_ce TSRMLS_CC))
+	(Z_TYPE_P(zval) == IS_OBJECT && instance_of_function(Z_OBJCE_P(zval), gmp_ce TSRMLS_CC))
 
 #define GET_GMP_FROM_ZVAL(zval) \
 	(((gmp_object *) zend_object_store_get_object((zval) TSRMLS_CC))->num)

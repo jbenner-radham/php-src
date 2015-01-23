@@ -463,12 +463,12 @@ ZEND_API void zend_create_closure(zval *res, zend_function *func, zend_class_ent
 	} else {
 		/* verify that we aren't binding internal function to a wrong scope */
 		if(func->common.scope != NULL) {
-			if(scope && !instanceof_function(scope, func->common.scope TSRMLS_CC)) {
+			if(scope && !instance_of_function(scope, func->common.scope TSRMLS_CC)) {
 				zend_error(E_WARNING, "Cannot bind function %s::%s to scope class %s", func->common.scope->name, func->common.function_name, scope->name);
 				scope = NULL;
 			}
 			if(scope && this_ptr && (func->common.fn_flags & ZEND_ACC_STATIC) == 0 &&
-					!instanceof_function(Z_OBJCE_P(this_ptr), closure->func.common.scope TSRMLS_CC)) {
+					!instance_of_function(Z_OBJCE_P(this_ptr), closure->func.common.scope TSRMLS_CC)) {
 				zend_error(E_WARNING, "Cannot bind function %s::%s to object of class %s", func->common.scope->name, func->common.function_name, Z_OBJCE_P(this_ptr)->name);
 				scope = NULL;
 				this_ptr = NULL;

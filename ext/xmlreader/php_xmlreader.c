@@ -870,7 +870,7 @@ PHP_METHOD(xmlreader, open)
 
 	id = getThis();
 	if (id != NULL) {
-		if (! instanceof_function(Z_OBJCE_P(id), xmlreader_class_entry TSRMLS_CC)) {
+		if (! instance_of_function(Z_OBJCE_P(id), xmlreader_class_entry TSRMLS_CC)) {
 			id = NULL;
 		} else {
 			intern = (xmlreader_object *)zend_object_store_get_object(id TSRMLS_CC);
@@ -1053,7 +1053,7 @@ PHP_METHOD(xmlreader, XML)
 	}
 
 	id = getThis();
-	if (id != NULL && ! instanceof_function(Z_OBJCE_P(id), xmlreader_class_entry TSRMLS_CC)) {
+	if (id != NULL && ! instance_of_function(Z_OBJCE_P(id), xmlreader_class_entry TSRMLS_CC)) {
 		id = NULL;
 	}
 	if (id != NULL) {

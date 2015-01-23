@@ -644,7 +644,7 @@ PHP_JSON_API void php_json_encode(smart_str *buf, zval *val, int options TSRMLS_
 			break;
 
 		case IS_OBJECT:
-			if (instanceof_function(Z_OBJCE_P(val), php_json_serializable_ce TSRMLS_CC)) {
+			if (instance_of_function(Z_OBJCE_P(val), php_json_serializable_ce TSRMLS_CC)) {
 				json_encode_serializable_object(buf, val, options TSRMLS_CC);
 				break;
 			}

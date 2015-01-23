@@ -67,8 +67,8 @@ ZEND_API int is_not_equal_function(zval *result, zval *op1, zval *op2 TSRMLS_DC)
 ZEND_API int is_smaller_function(zval *result, zval *op1, zval *op2 TSRMLS_DC);
 ZEND_API int is_smaller_or_equal_function(zval *result, zval *op1, zval *op2 TSRMLS_DC);
 
-ZEND_API zend_bool instanceof_function_ex(const zend_class_entry *instance_ce, const zend_class_entry *ce, zend_bool interfaces_only TSRMLS_DC);
-ZEND_API zend_bool instanceof_function(const zend_class_entry *instance_ce, const zend_class_entry *ce TSRMLS_DC);
+ZEND_API zend_bool instance_of_function_ex(const zend_class_entry *instance_ce, const zend_class_entry *ce, zend_bool interfaces_only TSRMLS_DC);
+ZEND_API zend_bool instance_of_function(const zend_class_entry *instance_ce, const zend_class_entry *ce TSRMLS_DC);
 END_EXTERN_C()
 
 #if ZEND_DVAL_TO_LVAL_CAST_OK
@@ -601,7 +601,7 @@ static zend_always_inline int fast_add_function(zval *result, zval *op1, zval *o
 		__asm__(
 			"movl	(%1), %%eax\n\t"
 			"addl   (%2), %%eax\n\t"
-			"jo     0f\n\t"     
+			"jo     0f\n\t"
 			"movl   %%eax, (%0)\n\t"
 			"movb   %3, %c5(%0)\n\t"
 			"jmp    1f\n"
@@ -612,7 +612,7 @@ static zend_always_inline int fast_add_function(zval *result, zval *op1, zval *o
 			"movb   %4, %c5(%0)\n\t"
 			"fstpl	(%0)\n"
 			"1:"
-			: 
+			:
 			: "r"(&result->value),
 			  "r"(&op1->value),
 			  "r"(&op2->value),
@@ -624,7 +624,7 @@ static zend_always_inline int fast_add_function(zval *result, zval *op1, zval *o
 		__asm__(
 			"movq	(%1), %%rax\n\t"
 			"addq   (%2), %%rax\n\t"
-			"jo     0f\n\t"     
+			"jo     0f\n\t"
 			"movq   %%rax, (%0)\n\t"
 			"movb   %3, %c5(%0)\n\t"
 			"jmp    1f\n"
@@ -635,7 +635,7 @@ static zend_always_inline int fast_add_function(zval *result, zval *op1, zval *o
 			"movb   %4, %c5(%0)\n\t"
 			"fstpl	(%0)\n"
 			"1:"
-			: 
+			:
 			: "r"(&result->value),
 			  "r"(&op1->value),
 			  "r"(&op2->value),
@@ -687,7 +687,7 @@ static zend_always_inline int fast_sub_function(zval *result, zval *op1, zval *o
 		__asm__(
 			"movl	(%1), %%eax\n\t"
 			"subl   (%2), %%eax\n\t"
-			"jo     0f\n\t"     
+			"jo     0f\n\t"
 			"movl   %%eax, (%0)\n\t"
 			"movb   %3, %c5(%0)\n\t"
 			"jmp    1f\n"
@@ -702,7 +702,7 @@ static zend_always_inline int fast_sub_function(zval *result, zval *op1, zval *o
 			"movb   %4, %c5(%0)\n\t"
 			"fstpl	(%0)\n"
 			"1:"
-			: 
+			:
 			: "r"(&result->value),
 			  "r"(&op1->value),
 			  "r"(&op2->value),
@@ -714,7 +714,7 @@ static zend_always_inline int fast_sub_function(zval *result, zval *op1, zval *o
 		__asm__(
 			"movq	(%1), %%rax\n\t"
 			"subq   (%2), %%rax\n\t"
-			"jo     0f\n\t"     
+			"jo     0f\n\t"
 			"movq   %%rax, (%0)\n\t"
 			"movb   %3, %c5(%0)\n\t"
 			"jmp    1f\n"
@@ -729,7 +729,7 @@ static zend_always_inline int fast_sub_function(zval *result, zval *op1, zval *o
 			"movb   %4, %c5(%0)\n\t"
 			"fstpl	(%0)\n"
 			"1:"
-			: 
+			:
 			: "r"(&result->value),
 			  "r"(&op1->value),
 			  "r"(&op2->value),

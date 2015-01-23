@@ -2595,7 +2595,7 @@ static int _php_curl_setopt(php_curl *ch, long option, zval **zvalue TSRMLS_DC) 
 						numeric_key = 0;
 					}
 
-					if(Z_TYPE_PP(current) == IS_OBJECT && instanceof_function(Z_OBJCE_PP(current), curl_CURLFile_class TSRMLS_CC)) {
+					if(Z_TYPE_PP(current) == IS_OBJECT && instance_of_function(Z_OBJCE_PP(current), curl_CURLFile_class TSRMLS_CC)) {
 						/* new-style file upload */
 						zval *prop;
 						char *type = NULL, *filename = NULL;

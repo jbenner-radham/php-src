@@ -136,7 +136,7 @@ U_CFUNC PHP_FUNCTION(datefmt_format_object)
 	timeStyle = (DateFormat::EStyle)(timeStyle & ~DateFormat::kRelative);
 
 	zend_class_entry *instance_ce = Z_OBJCE_P(object);
-	if (instanceof_function(instance_ce, Calendar_ce_ptr TSRMLS_CC)) {
+	if (instance_of_function(instance_ce, Calendar_ce_ptr TSRMLS_CC)) {
 		Calendar *obj_cal = calendar_fetch_native_calendar(object TSRMLS_CC);
 		if (obj_cal == NULL) {
 			intl_error_set(NULL, U_ILLEGAL_ARGUMENT_ERROR,
@@ -154,7 +154,7 @@ U_CFUNC PHP_FUNCTION(datefmt_format_object)
 			goto cleanup;
 		}
 		cal = obj_cal->clone();
-	} else if (instanceof_function(instance_ce, php_date_get_date_ce() TSRMLS_CC)) {
+	} else if (instance_of_function(instance_ce, php_date_get_date_ce() TSRMLS_CC)) {
 		if (intl_datetime_decompose(object, &date, &timeZone, NULL,
 				"datefmt_format_object" TSRMLS_CC) == FAILURE) {
 			RETURN_FALSE;
